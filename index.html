@@ -216,6 +216,8 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
 .actBtn.call{background:rgba(111,169,107,.16);border:1px solid rgba(111,169,107,.42);color:#8fc98a}
 .actBtn.line{background:rgba(6,199,85,.13);border:1px solid rgba(6,199,85,.38);color:#4fd88a}
 .actBtn.off{background:rgba(120,130,120,.07);border:1px solid rgba(120,130,120,.2);color:#5d6a5f;pointer-events:none}
+.actBtn.copy{background:rgba(139,124,246,.14);border:1px solid rgba(139,124,246,.38);color:#a99cf5;cursor:pointer}
+.actBtn.done{background:rgba(111,169,107,.2);border:1px solid rgba(111,169,107,.5);color:#8fc98a}
 
 /* 待命人員 */
 .sbBox{background:linear-gradient(180deg,#151a12,#0c110c);border:1px solid #4a3d1c;border-radius:6px;padding:12px 13px}
@@ -354,7 +356,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   <div class="shbody" id="shBody"></div>
 </div>
 
-<script src="data.enc.js?v=e4971cf6"></script>
+<script src="data.enc.js?v=d89bd071"></script>
 <script>
 (function(){
 "use strict";
@@ -708,6 +710,25 @@ function lineUrl(v){
   return 'https://line.me/ti/p/~'+encodeURIComponent(s);
 }
 
+function copyName(btn, n){
+  function ok(){
+    btn.classList.add('done');
+    var old = btn.innerHTML;
+    btn.innerHTML = '✓ 已複製';
+    setTimeout(function(){ btn.classList.remove('done'); btn.innerHTML = old; }, 1800);
+  }
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(n).then(ok).catch(function(){ prompt('複製名字：', n); });
+    }else{
+      var ta = document.createElement('textarea');
+      ta.value = n; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta); ok();
+    }
+  }catch(e){ prompt('複製名字：', n); }
+}
+
 function personSheet(name){
   var dropped=(DATA.employee_meta&&DATA.employee_meta.dropped)||[];
   if(dropped.indexOf(name)>=0){
@@ -751,12 +772,17 @@ function personSheet(name){
     var p10 = String(bb.phone).replace(/[^0-9]/g,'').replace(/^886/,'0');
     if(/^09\d{8}$/.test(p10)){ lineHref = 'https://line.me/ti/p/' + p10; lineViaPhone = true; }
   }
+  var lineBtn;
+  if(lineHref){
+    lineBtn = '<a class="actBtn line" href="'+lineHref+'" target="_blank" rel="noopener">'
+      +(lineViaPhone?'💬 LINE（用電話找）':'💬 開 LINE')+'</a>';
+  }else{
+    lineBtn = '<button class="actBtn copy" onclick="copyName(this,\''+esc(name)+'\')">📋 複製名字</button>';
+  }
   h+='<div class="actRow">'
     +(telHref ? '<a class="actBtn call" href="'+telHref+'">📞 撥電話</a>'
               : '<span class="actBtn off">📞 無電話</span>')
-    +(lineHref ? '<a class="actBtn line" href="'+lineHref+'" target="_blank" rel="noopener">'
-                 +(lineViaPhone?'💬 LINE（用電話找）':'💬 開 LINE')+'</a>'
-               : '<span class="actBtn off">💬 無 LINE</span>')
+    +lineBtn
     +'</div>';
 
   /* 出勤概況 */
