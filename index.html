@@ -304,6 +304,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
       <button class="printbtn" id="printDay" title="直接列印到 L6190 印表機" aria-label="直接列印到印表機">🖨</button>
       <button class="printbtn" id="previewDay" title="下載當日領款單 Excel 原檔" aria-label="下載領款單原檔">⬇</button>
       <a class="staticlink" id="staticLink" href="/static" target="_blank" rel="noopener" hidden>📋 靜態版</a>
+      <a class="staticlink" id="backLink" href="javascript:void(0)" hidden>← 返回</a>
     </div>
   </header>
 
@@ -366,7 +367,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   <div class="shbody" id="shBody"></div>
 </div>
 
-<script src="data.enc.js?v=cb33669e"></script>
+<script src="data.enc.js?v=6b81c565"></script>
 <script>
 (function(){
 "use strict";
@@ -570,6 +571,16 @@ function renderStandby(){
 var IS_LOCAL_HTTP = (location.protocol === 'http:');
 var PRINT_SERVER = IS_LOCAL_HTTP ? location.origin : 'http://100.117.16.1:5001';
 var PRINT_TOKEN  = 'cola_print_secure_888';
+
+function goBackToStatic(){
+  if(window.history.length > 1){
+    window.history.back();
+  }else{
+    alert('這一頁是直接開啟的，沒有上一頁可回。\n\n'
+        + '請從靜態版的「🎖 互動版」按鈕點進來，或自己在檔案總管開啟：\n'
+        + 'D:\\googledrive\\可樂工程行共用資料夾\\粗工出勤表格\\出工派工儀表板.html');
+  }
+}
 
 function copyUrl(url){
   function fallback(){ window.prompt('已為你準備好網址，按 Ctrl+C 複製：', url); }
@@ -977,6 +988,9 @@ function bind(){
   if(IS_LOCAL_HTTP){
     var _sl=document.getElementById('staticLink');
     if(_sl) _sl.hidden=false;
+  }else{
+    var _bl=document.getElementById('backLink');
+    if(_bl){ _bl.hidden=false; _bl.onclick=goBackToStatic; }
   }
   document.getElementById('calPrev').onclick=function(){
     var y=+curMonth.slice(0,4),m=+curMonth.slice(5,7)-1;
