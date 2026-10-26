@@ -361,7 +361,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   <div class="shbody" id="shBody"></div>
 </div>
 
-<script src="data.enc.js?v=1e864d0c"></script>
+<script src="data.enc.js?v=643a48b4"></script>
 <script>
 (function(){
 "use strict";
@@ -563,15 +563,19 @@ function renderStandby(){
 var PRINT_SERVER = 'http://100.117.16.1:5001';
 var PRINT_TOKEN  = 'cola_print_secure_888';
 
-/* https 頁面開 http 連結：window.open 會被擋，改用 <a> 點擊 */
+/* https 頁面無法導航到 http（Chrome 硬性封鎖，任何前端寫法都繞不過）。
+   改成複製網址：使用者貼到瀏覽器網址列按 Enter 即可執行。 */
 function openExternal(url){
-  var a = document.createElement('a');
-  a.href = url;
-  a.target = '_blank';
-  a.rel = 'noopener';
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(function(){ document.body.removeChild(a); }, 1000);
+  function fallback(){ window.prompt('已為你準備好網址，按 Ctrl+C 複製：', url); }
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(function(){
+        alert('已複製網址。\n\n切到瀏覽器分頁，貼到網址列按 Enter 就會執行。');
+      }).catch(fallback);
+    }else{
+      fallback();
+    }
+  }catch(e){ fallback(); }
 }
 
 function printToPrinter(){
