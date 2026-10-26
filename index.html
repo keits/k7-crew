@@ -297,7 +297,8 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
       </div>
       <button class="dbtn" id="next" aria-label="後一天">›</button>
       <button class="todaybtn" id="gotoToday">今日</button>
-      <button class="printbtn" id="printDay" title="列印當日簽單" aria-label="列印當日簽單">🖨</button>
+      <button class="printbtn" id="printDay" title="直接列印到 L6190 印表機" aria-label="直接列印到印表機">🖨</button>
+      <button class="printbtn" id="previewDay" title="瀏覽器列印／另存 PDF" aria-label="瀏覽器列印">📄</button>
     </div>
   </header>
 
@@ -360,7 +361,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   <div class="shbody" id="shBody"></div>
 </div>
 
-<script src="data.enc.js?v=2f82154e"></script>
+<script src="data.enc.js?v=129c8bd9"></script>
 <script>
 (function(){
 "use strict";
@@ -558,7 +559,20 @@ function renderStandby(){
   box.innerHTML=h;
 }
 
-function printDay(){
+/* 列印伺服器（公司電腦 L6190 直印）。Tailscale 私有網段，外人連不到。 */
+var PRINT_SERVER = 'http://100.117.16.1:5001';
+var PRINT_TOKEN  = 'cola_print_secure_888';
+
+function printToPrinter(){
+  var d = BYDATE[curDate];
+  if(!d || !d.sites || d.sites.length===0){ alert('這天沒有出工紀錄，無法列印'); return; }
+  var url = PRINT_SERVER + '/print?date=' + encodeURIComponent(curDate)
+          + '&token=' + encodeURIComponent(PRINT_TOKEN);
+  var w = window.open(url, '_blank');
+  if(!w){ alert('瀏覽器擋住彈出視窗。\n請允許後再按，或改按 📄 用瀏覽器列印。'); }
+}
+
+function printPreview(){
   var d = BYDATE[curDate];
   if(!d || !d.sites || d.sites.length===0){ alert('這天沒有出工紀錄，無法列印'); return; }
   var y=+curDate.slice(0,4), m=+curDate.slice(5,7), dd=+curDate.slice(8,10);
@@ -985,7 +999,8 @@ function bind(){
     else{var past=DAYS.filter(function(x){return x<=iso;});curDate=past.length?past[past.length-1]:DAYS[DAYS.length-1];}
     curMonth=curDate.slice(0,7);renderDay();window.scrollTo({top:0,behavior:'smooth'});
   };
-  document.getElementById('printDay').onclick=printDay;
+  document.getElementById('printDay').onclick=printToPrinter;
+  document.getElementById('previewDay').onclick=printPreview;
   document.getElementById('calPrev').onclick=function(){
     var y=+curMonth.slice(0,4),m=+curMonth.slice(5,7)-1;
     if(m<1){m=12;y--;} curMonth=y+'-'+String(m).padStart(2,'0');renderCal();
