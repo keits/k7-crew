@@ -4,199 +4,225 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow,noarchive">
-<meta name="theme-color" content="#0b1017">
-<title>可樂工程群島 · 出工現場</title>
+<meta name="theme-color" content="#0c110c">
+<title>可樂工程行 · 出工指揮台</title>
 <style>
 :root{
-  --bg:#05080c; --card:#141b25; --card2:#1b2430; --line:#2b3a4a;
-  --txt:#f2f7fc; --dim:#9fb0c2; --dim2:#71829a;
-  --gold:#ffd400; --gold2:#ffe95c; --blue:#5cb3ff; --red:#ff5252; --green:#43d968; --purple:#b98cff;
+  --ink:#050805; --bg:#0c110c; --panel:#111a12; --panel2:#16221a;
+  --line:#2b3d2e; --line2:#3d5342;
+  --gold:#c9a84c; --goldlit:#e3d48e; --golddim:#8a7440;
+  --steel:#93a396; --txt:#eef3ea; --dim:#8fa095; --dim2:#63735f;
+  --alert:#c4472f; --warn:#d08a2e; --ok:#6fa96b;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
 body{
-  background:radial-gradient(ellipse 120% 60% at 50% 0%,#101d2b 0%,#05080c 60%);
+  background:
+    radial-gradient(ellipse 100% 50% at 50% -10%,#16241a 0%,#0c110c 55%,#050805 100%);
   color:var(--txt);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
-  font-size:15px; line-height:1.5; padding-bottom:env(safe-area-inset-bottom);
-  overscroll-behavior-y:contain; min-height:100vh;
+  font-size:15px; line-height:1.5;
+  padding-bottom:env(safe-area-inset-bottom); min-height:100vh;
+  -webkit-font-smoothing:antialiased;
 }
 button{font-family:inherit;cursor:pointer}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
 
-/* ---------- 鎖 ---------- */
+/* ---------- lock ---------- */
 #lock{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(ellipse at 50% 12%,#16263a 0%,#0b1017 68%);padding:24px}
-.lockbox{width:100%;max-width:320px;text-align:center}
-.lockbox .lh{font-size:24px;font-weight:800;letter-spacing:.05em;margin-bottom:4px}
-.lockbox .lh span{color:var(--gold)}
-.lockbox .ls{color:var(--dim);font-size:12.5px;margin-bottom:24px;letter-spacing:.08em}
-.lockbox input{width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--line);
-  background:#080c11;color:var(--txt);font-size:17px;letter-spacing:.14em;text-align:center}
+  background:radial-gradient(ellipse at 50% 0%,#16241a 0%,#050805 70%);padding:24px}
+.lockbox{width:100%;max-width:310px;text-align:center}
+.lockbox img{width:118px;height:auto;margin-bottom:14px;filter:drop-shadow(0 6px 16px rgba(0,0,0,.7))}
+.lockbox .lh{font-size:16px;font-weight:900;letter-spacing:.22em;margin-bottom:2px;color:var(--goldlit)}
+.lockbox .ls{color:var(--dim2);font-size:11px;margin-bottom:22px;letter-spacing:.3em}
+.lockbox input{width:100%;padding:14px;border-radius:6px;border:1px solid var(--line2);
+  background:#040704;color:var(--goldlit);font-size:20px;letter-spacing:.42em;text-align:center;font-weight:700}
 .lockbox input:focus{outline:none;border-color:var(--gold)}
-.lockbox button{width:100%;margin-top:12px;padding:14px;border-radius:12px;border:0;
-  background:var(--gold);color:#12140a;font-weight:800;font-size:15px;letter-spacing:.08em}
-.lockbox button:disabled{opacity:.6}
-.lerr{color:var(--red);font-size:13px;margin-top:12px;min-height:18px}
-.lremember{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;color:var(--dim);font-size:12.5px}
+.lockbox button{width:100%;margin-top:11px;padding:13px;border-radius:6px;border:1px solid var(--golddim);
+  background:linear-gradient(180deg,#c9a84c,#9c7d33);color:#12160f;font-weight:900;font-size:14px;letter-spacing:.22em}
+.lockbox button:disabled{opacity:.55}
+.lerr{color:#e2705c;font-size:12px;margin-top:10px;min-height:17px}
+.lremember{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:13px;color:var(--dim2);font-size:12px}
 .lremember input{width:auto;padding:0;accent-color:var(--gold)}
 
 /* ---------- header ---------- */
-header{position:sticky;top:0;z-index:40;background:rgba(11,16,23,.93);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  border-bottom:1px solid #1b2532;padding:9px 13px 0}
-.hrow{display:flex;align-items:center;gap:8px}
-.brand{font-weight:800;font-size:14.5px;letter-spacing:.03em;white-space:nowrap}
-.brand b{color:var(--gold)}
-.hmeta{margin-left:auto;font-size:11px;color:var(--dim2);white-space:nowrap}
-.dnav{display:flex;align-items:center;gap:8px;padding:9px 0 10px}
-.dbtn{flex:0 0 auto;width:34px;height:34px;border-radius:10px;border:1px solid var(--line);
-  background:var(--card);color:var(--txt);font-size:16px;display:flex;align-items:center;justify-content:center}
-.dbtn:disabled{opacity:.28}
-.dbtn:active{background:var(--card2)}
-.dcenter{flex:1;min-width:0;text-align:center;line-height:1.2}
-.dcenter .d1{font-size:17px;font-weight:800}
-.dcenter .d2{font-size:11.5px;color:var(--dim);margin-top:1px}
-.todaybtn{flex:0 0 auto;padding:0 11px;height:34px;border-radius:10px;border:1px solid var(--line);
-  background:var(--card);color:var(--gold);font-size:12.5px;font-weight:700}
+header{position:sticky;top:0;z-index:40;background:rgba(9,14,9,.95);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);padding:8px 12px 0}
+.hrow{display:flex;align-items:center;gap:9px}
+.hlogo{width:26px;height:auto;flex:0 0 auto;filter:drop-shadow(0 2px 5px rgba(0,0,0,.6))}
+.htitle{line-height:1.15;min-width:0}
+.htitle .t1{font-size:13.5px;font-weight:900;letter-spacing:.1em;color:var(--goldlit);white-space:nowrap}
+.htitle .t2{font-size:9px;color:var(--dim2);letter-spacing:.26em;white-space:nowrap}
+.hspan{margin-left:auto;font-size:10px;color:var(--dim2);letter-spacing:.08em;white-space:nowrap}
 
-/* ---------- 摘要 ---------- */
-.summary{display:flex;gap:7px;padding:11px 13px 2px;overflow-x:auto;scrollbar-width:none}
-.summary::-webkit-scrollbar{display:none}
-.sum{flex:0 0 auto;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:8px 13px;min-width:72px}
-.sum .sv{font-size:20px;font-weight:800;line-height:1.1;letter-spacing:-.02em}
-.sum .sl{font-size:10px;color:var(--dim);margin-top:2px;letter-spacing:.05em;white-space:nowrap}
-.sum.acc .sv{color:var(--gold)}
-.sum.blu .sv{color:var(--blue)}
-.sum.warn .sv{color:#fb923c}
+.dnav{display:flex;align-items:center;gap:7px;padding:8px 0 9px}
+.dbtn{flex:0 0 auto;width:32px;height:32px;border-radius:5px;border:1px solid var(--line2);
+  background:var(--panel);color:var(--gold);font-size:15px;display:flex;align-items:center;justify-content:center}
+.dbtn:disabled{opacity:.25}
+.dbtn:active{background:var(--panel2)}
+.dcenter{flex:1;min-width:0;text-align:center;line-height:1.15}
+.dcenter .d1{font-size:17px;font-weight:900;letter-spacing:.06em}
+.dcenter .d2{font-size:10.5px;color:var(--dim);letter-spacing:.06em;margin-top:1px}
+.todaybtn{flex:0 0 auto;padding:0 10px;height:32px;border-radius:5px;border:1px solid var(--line2);
+  background:var(--panel);color:var(--goldlit);font-size:11.5px;font-weight:700;letter-spacing:.1em}
 
-main{padding:0 0 80px}
-.stitle{display:flex;align-items:center;gap:8px;padding:15px 13px 8px;
-  font-size:12.5px;font-weight:800;letter-spacing:.1em;color:var(--dim)}
-.stitle .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 9px var(--gold)}
-.stitle .cnt{margin-left:auto;font-weight:600;letter-spacing:0;color:var(--dim2);font-size:11.5px}
+/* ---------- 戰情條 ---------- */
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
+  border-bottom:1px solid var(--line);margin:0}
+.bcell{background:var(--bg);padding:9px 6px 8px;text-align:center}
+.bcell .bv{font-size:19px;font-weight:900;line-height:1;color:var(--goldlit);letter-spacing:-.02em}
+.bcell .bl{font-size:9px;color:var(--dim2);letter-spacing:.14em;margin-top:4px}
+.bcell.alert .bv{color:#e2705c}
+.bcell.ok .bv{color:var(--ok)}
+.bcell .delta{font-size:9px;font-weight:800;letter-spacing:.04em}
+.bcell .delta.up{color:var(--ok)}
+.bcell .delta.down{color:#e2705c}
+.bcell .delta.flat{color:var(--dim2)}
 
-/* ---------- 群島畫布 ---------- */
-#worldWrap{position:relative;padding:0 12px}
-#world{display:block;width:100%;height:auto;overflow:visible;touch-action:manipulation}
+main{padding:0 0 70px}
+.sect-h{display:flex;align-items:center;gap:8px;padding:14px 12px 9px;
+  font-size:11px;font-weight:900;letter-spacing:.24em;color:var(--golddim)}
+.sect-h::before{content:"";width:3px;height:12px;background:var(--gold);flex:0 0 auto}
+.sect-h .r{margin-left:auto;font-weight:600;letter-spacing:.06em;color:var(--dim2);font-size:10.5px}
 
-/* 島 */
-.float{animation:floaty 5.4s ease-in-out infinite}
-@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
-.pop{animation:popIn .5s cubic-bezier(.2,1.25,.38,1) backwards}
-@keyframes popIn{from{opacity:0;transform:translateY(14px) scale(.9)}to{opacity:1;transform:none}}
+/* ---------- 指揮部 ---------- */
+.hq{margin:0 12px;border:1px solid var(--golddim);border-radius:7px;overflow:hidden;
+  background:linear-gradient(180deg,#16241a 0%,#0e150f 100%);position:relative}
+.hq::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:7px;
+  box-shadow:inset 0 0 24px rgba(201,168,76,.12)}
+.hq-in{display:flex;align-items:center;gap:11px;padding:11px 13px}
+.hq-logo{width:52px;height:auto;flex:0 0 auto;filter:drop-shadow(0 3px 8px rgba(0,0,0,.7))}
+.hq-txt{line-height:1.25;min-width:0}
+.hq-txt .n{font-size:15px;font-weight:900;letter-spacing:.07em;color:var(--goldlit)}
+.hq-txt .s{font-size:10px;color:var(--dim);letter-spacing:.16em;margin-top:3px}
+.hq-flag{margin-left:auto;text-align:right;flex:0 0 auto}
+.hq-flag .fv{font-size:17px;font-weight:900;color:var(--goldlit);line-height:1}
+.hq-flag .fl{font-size:9px;color:var(--dim2);letter-spacing:.12em;margin-top:3px}
 
-.isle-body{cursor:pointer}
-.isle-body:active .isle-hi{opacity:.9}
+/* ---------- 陣地 ---------- */
+.posts{display:grid;grid-template-columns:1fr;gap:9px;padding:0 12px}
+@media(min-width:380px){.posts{grid-template-columns:1fr 1fr}}
+@media(min-width:760px){.posts{grid-template-columns:1fr 1fr 1fr}}
+@media(min-width:1100px){.posts{grid-template-columns:repeat(4,1fr)}}
 
-.sea-shadow{fill:#000;opacity:.45}
-.ring{fill:none;stroke:#ffd400;stroke-width:2.5;opacity:.45;animation:ringPulse 2.6s ease-in-out infinite}
-@keyframes ringPulse{0%,100%{opacity:.2}50%{opacity:.85}}
+.post{border:1px solid var(--line2);border-radius:7px;overflow:hidden;background:var(--panel);
+  position:relative;transition:border-color .15s}
+.post:active{border-color:var(--gold)}
+.post.under{border-color:#5a3320}
+.post-plate{display:block;width:100%;height:auto;background:
+  radial-gradient(ellipse 70% 60% at 50% 62%,#16281c 0%,#0d140f 100%)}
 
-.linkbase{fill:none;stroke:#22303f;stroke-width:9;stroke-linecap:round}
-.linkflow{fill:none;stroke:#ffd400;stroke-width:3;stroke-dasharray:6 12;opacity:1;stroke-linecap:round;
-  animation:flow .95s linear infinite;filter:drop-shadow(0 0 4px rgba(255,212,0,.9))}
-@keyframes flow{to{stroke-dashoffset:-36}}
+/* 名牌：HTML 文字，不用 SVG 小字 */
+.post-bar{display:flex;align-items:center;gap:7px;padding:7px 9px 5px;
+  border-top:1px solid var(--line);background:var(--panel2)}
+.post-no{flex:0 0 auto;min-width:20px;height:17px;padding:0 4px;border-radius:3px;
+  background:var(--gold);color:#0d100b;font-size:10px;font-weight:900;letter-spacing:.02em;
+  display:flex;align-items:center;justify-content:center}
+.post-name{font-size:13.5px;font-weight:800;color:#fff;letter-spacing:.02em;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;flex:1}
+.post-str{flex:0 0 auto;font-size:11px;font-weight:900;color:var(--goldlit);letter-spacing:.02em}
+.post-str.short{color:#e2705c}
+.post-meta{display:flex;gap:9px;padding:0 9px 8px;background:var(--panel2);
+  font-size:9.5px;color:var(--dim2);letter-spacing:.03em;flex-wrap:wrap}
+.post-meta b{color:var(--steel);font-weight:800}
+.post-meta .warnc{color:#d9a24a}
 
-/* 文字一律加黑描邊：任何背景下都清楚 */
-.isle-name,.mk-name,.hq-sign{paint-order:stroke fill;stroke:#04070b;stroke-linejoin:round;stroke-linecap:round}
-.isle-name{font-weight:900;fill:#ffffff;letter-spacing:.02em;stroke-width:2.2px}
-.mk-name{font-weight:800;fill:#ffffff;stroke:none}
-.hq-sign{font-weight:900;fill:#ffe95c;stroke-width:3.2px}
-.badge-n{font-weight:900;fill:#0a0d12}
+/* 人員名條 */
+.crew{padding:0 9px 9px;display:flex;flex-wrap:wrap;gap:4px;background:var(--panel2)}
+.mtag{display:flex;align-items:center;gap:4px;padding:3px 7px 3px 4px;border-radius:4px;
+  background:#0b120c;border:1px solid #24331f;font-size:11px;color:#e8efe6;font-weight:700;
+  letter-spacing:.02em;cursor:pointer;line-height:1.3}
+.mtag:active{border-color:var(--gold)}
+.mtag .dot{width:7px;height:7px;border-radius:2px;flex:0 0 auto}
+.mtag.absent{color:#7d8a7e;border-color:#2a1c18;background:#120b09}
+.mtag.absent .nm2{text-decoration:line-through}
+.mtag .tagb{font-size:8.5px;padding:0 3px;border-radius:2px;font-weight:900;
+  background:#c4472f;color:#fff;letter-spacing:0}
+.mtag .tagb.half{background:#8a6d2f}
 
-.mk{cursor:pointer}
-.mk .bob{animation:bobbing 2.0s ease-in-out infinite}
-@keyframes bobbing{
-  0%,100%{transform:translate(-2.2px,0)}
-  50%{transform:translate(2.2px,-6px)}
-}
-.mk.absent .fig-body{opacity:.42;filter:grayscale(.85)}
-.mk.absent .nm-t{fill:#7c8a9a;text-decoration:line-through}
-.mk-tag{font-weight:900;fill:#fff}
-
-@keyframes pop{from{opacity:0;transform:translateY(6px) scale(.8)}to{opacity:1;transform:none}}
-
-.empty{margin:0 13px;padding:38px 18px;text-align:center;color:var(--dim);
-  border:1px dashed var(--line);border-radius:14px;background:rgba(20,27,37,.5)}
-.empty .ei{font-size:28px;margin-bottom:8px;opacity:.5}
+.empty{margin:0 12px;padding:34px 18px;text-align:center;color:var(--dim2);
+  border:1px dashed var(--line2);border-radius:7px;font-size:13px;letter-spacing:.08em}
 
 /* ---------- 月曆 ---------- */
-.calwrap{padding:0 13px}
-.calhead{display:flex;align-items:center;gap:10px;margin-bottom:9px}
-.calhead .cm{font-size:14.5px;font-weight:800}
-.calhead .cnav{margin-left:auto;display:flex;gap:6px}
-.calnavbtn{width:30px;height:30px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--txt);font-size:14px}
-.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.cal .wd{text-align:center;font-size:10px;color:var(--dim2);padding-bottom:3px}
-.cell{aspect-ratio:1;border-radius:8px;border:1px solid transparent;background:#111823;
+.calwrap{padding:0 12px}
+.calhead{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.calhead .cm{font-size:13px;font-weight:900;letter-spacing:.1em;color:var(--goldlit)}
+.calhead .cnav{margin-left:auto;display:flex;gap:5px}
+.calnavbtn{width:28px;height:28px;border-radius:5px;border:1px solid var(--line2);
+  background:var(--panel);color:var(--gold);font-size:13px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal .wd{text-align:center;font-size:9px;color:var(--dim2);padding-bottom:2px;letter-spacing:.06em}
+.cell{aspect-ratio:1;border-radius:4px;border:1px solid transparent;background:#0e150f;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  font-size:11.5px;color:var(--dim);padding:0;line-height:1.1}
+  font-size:11px;color:var(--dim);padding:0;line-height:1.1;position:relative}
 .cell.blank{background:none;pointer-events:none}
-.cell.has{color:#12140a;font-weight:800}
-.cell.dim0{color:var(--dim2)}
-.cell.rest{font-weight:700}
-.cell .cd{font-size:11.5px;font-weight:700}
-.cell .cn{font-size:9.5px;opacity:.85;font-weight:600;margin-top:1px}
+.cell.has{color:#0d100b;font-weight:900}
+.cell.dim0{color:#3d4a3f}
+.cell.rest{font-weight:800;color:#7f907f}
+.cell .cd{font-size:11px;font-weight:700}
+.cell .cn{font-size:8.5px;opacity:.9;font-weight:800;margin-top:1px}
 .cell.sel{outline:2px solid var(--gold);outline-offset:1px}
-.cell.today::after{content:"";position:absolute;top:3px;right:3px;width:4px;height:4px;border-radius:50%;background:var(--red)}
-.cell{position:relative}
+.cell.today::after{content:"";position:absolute;top:2px;right:2px;width:3px;height:3px;border-radius:50%;background:#e2705c}
+
+footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;line-height:1.8;letter-spacing:.04em}
+.logout{background:none;border:0;color:var(--dim2);font-size:10px;text-decoration:underline;padding:4px}
 
 /* ---------- sheet ---------- */
-.mask{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.64);opacity:0;pointer-events:none;
-  transition:opacity .22s;backdrop-filter:blur(2px)}
+.mask{position:fixed;inset:0;z-index:60;background:rgba(2,4,2,.72);opacity:0;pointer-events:none;
+  transition:opacity .2s;backdrop-filter:blur(2px)}
 .mask.on{opacity:1;pointer-events:auto}
-.sheet{position:fixed;left:0;right:0;bottom:0;z-index:61;background:var(--card);
-  border-radius:20px 20px 0 0;border-top:1px solid var(--line);max-height:84vh;overflow-y:auto;
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:61;background:var(--panel);
+  border-radius:12px 12px 0 0;border-top:1px solid var(--golddim);max-height:84vh;overflow-y:auto;
   -webkit-overflow-scrolling:touch;transform:translateY(102%);
-  transition:transform .28s cubic-bezier(.3,1,.35,1);padding:0 0 calc(20px + env(safe-area-inset-bottom))}
+  transition:transform .26s cubic-bezier(.3,1,.35,1);padding:0 0 calc(18px + env(safe-area-inset-bottom))}
 .sheet.on{transform:none}
 @media(min-width:620px){
-  .sheet{left:50%;right:auto;bottom:auto;top:48%;transform:translate(-50%,-46%) scale(.96);
-    opacity:0;width:520px;border-radius:18px;border:1px solid var(--line);max-height:80vh;transition:all .22s}
+  .sheet{left:50%;right:auto;bottom:auto;top:48%;transform:translate(-50%,-46%) scale(.97);
+    opacity:0;width:510px;border-radius:10px;border:1px solid var(--golddim);max-height:80vh;transition:all .2s}
   .sheet.on{transform:translate(-50%,-50%);opacity:1}
 }
-.shgrab{width:38px;height:4px;border-radius:3px;background:#39424f;margin:10px auto 0}
-.shhead{padding:13px 17px 11px;border-bottom:1px solid var(--line);position:sticky;top:0;
-  background:var(--card);z-index:2}
+.shgrab{width:34px;height:3px;border-radius:2px;background:#3a4a3c;margin:9px auto 0}
+.shhead{padding:12px 16px 10px;border-bottom:1px solid var(--line);position:sticky;top:0;
+  background:var(--panel);z-index:2}
 .shhead .st1{display:flex;align-items:center;gap:9px}
-.shhead .stn{font-size:18.5px;font-weight:800}
-.shhead .st2{font-size:12px;color:var(--dim);margin-top:4px}
-.shclose{margin-left:auto;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);
-  background:var(--card2);color:var(--dim);font-size:15px;display:flex;align-items:center;justify-content:center}
-.shbody{padding:13px 17px 4px}
-.kv{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:15px}
-.kvi{background:var(--card2);border-radius:11px;padding:10px 12px}
-.kvi .kv1{font-size:19px;font-weight:800}
-.kvi .kv2{font-size:10.5px;color:var(--dim);margin-top:2px}
-.sect{font-size:11px;font-weight:800;color:var(--dim);letter-spacing:.1em;margin:15px 0 8px}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{font-size:12px;padding:4px 10px;border-radius:20px;background:var(--card2);
-  color:#c3ccd8;border:1px solid var(--line)}
-.chip b{color:var(--gold);font-weight:800;margin-left:3px}
-.lrow{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid #1e2733;font-size:13px}
+.shhead .stn{font-size:17px;font-weight:900;letter-spacing:.04em;color:#fff}
+.shhead .st2{font-size:11px;color:var(--dim);margin-top:3px;letter-spacing:.04em}
+.shclose{margin-left:auto;width:28px;height:28px;border-radius:5px;border:1px solid var(--line2);
+  background:var(--panel2);color:var(--dim);font-size:14px;display:flex;align-items:center;justify-content:center}
+.shbody{padding:12px 16px 4px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.kvi{background:var(--panel2);border-radius:6px;padding:9px 11px;border:1px solid var(--line)}
+.kvi .kv1{font-size:18px;font-weight:900;color:var(--goldlit)}
+.kvi .kv2{font-size:10px;color:var(--dim2);margin-top:2px;letter-spacing:.1em}
+.sect{font-size:10px;font-weight:900;color:var(--golddim);letter-spacing:.2em;margin:14px 0 7px}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{font-size:11.5px;padding:3px 9px;border-radius:4px;background:#0b120c;
+  color:#cfd9cc;border:1px solid #24331f;font-weight:600}
+.chip b{color:var(--goldlit);font-weight:900;margin-left:3px}
+.lrow{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid #1b261c;font-size:12.5px}
 .lrow:last-child{border-bottom:0}
-.lrow .ld{color:var(--dim);font-size:12px;flex:0 0 82px}
-.lrow .ls2{color:#c3ccd8;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.tagpill{font-size:10.5px;padding:1.5px 7px;border-radius:12px;background:rgba(239,68,68,.15);
-  color:#f87171;font-weight:700;white-space:nowrap}
-.tagpill.halfp{background:rgba(163,113,247,.16);color:#c4a5ff}
-.tagpill.okp{background:rgba(63,185,80,.14);color:#5fd075}
+.lrow .ld{color:var(--dim2);font-size:11px;flex:0 0 78px;letter-spacing:.02em}
+.lrow .ls2{color:#cfd9cc;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tagpill{font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(196,71,47,.2);
+  color:#e2705c;font-weight:800;white-space:nowrap}
+.tagpill.halfp{background:rgba(138,109,47,.28);color:#d9b269}
+.tagpill.okp{background:rgba(111,169,107,.18);color:#8fc98a}
 
-footer{text-align:center;color:var(--dim2);font-size:11px;padding:20px 13px 10px;line-height:1.7}
-.logout{background:none;border:0;color:var(--dim2);font-size:11px;text-decoration:underline;padding:4px}
+/* 人物微動 */
+@keyframes bob{0%,100%{transform:translate(-1.6px,0)}50%{transform:translate(1.6px,-5px)}}
+.bob{animation:bob 2.4s ease-in-out infinite}
 
-@media(prefers-reduced-motion:reduce){
-  /* 動態是這個工具的核心功能，不因系統設定關閉；只停用面板過渡 */
-  .sheet,.mask{transition:none}
-}
+@media(prefers-reduced-motion:reduce){ .sheet,.mask{transition:none} }
 </style>
 </head>
 <body>
 
 <div id="lock">
   <div class="lockbox">
-    <div class="lh">可樂<span>工程群島</span></div>
-    <div class="ls">出工現場 · 內部專用</div>
+    <img src="assets/logo_320.png" alt="可樂工程行">
+    <div class="lh">出工指揮台</div>
+    <div class="ls">AUTHORIZED ONLY</div>
     <input id="pw" type="password" inputmode="text" autocomplete="current-password" placeholder="通行碼">
     <button id="gobtn">進 入</button>
     <div class="lerr" id="lerr"></div>
@@ -207,29 +233,46 @@ footer{text-align:center;color:var(--dim2);font-size:11px;padding:20px 13px 10px
 <div id="app" hidden>
   <header>
     <div class="hrow">
-      <div class="brand">可樂<b>工程群島</b></div>
-      <div class="hmeta" id="hrange"></div>
+      <img class="hlogo" src="assets/logo_160.png" alt="">
+      <div class="htitle">
+        <div class="t1">可樂工程行</div>
+        <div class="t2">出工指揮台</div>
+      </div>
+      <div class="hspan" id="hrange"></div>
     </div>
     <div class="dnav">
       <button class="dbtn" id="prev" aria-label="前一天">‹</button>
       <div class="dcenter">
-        <div class="d1" id="dMain">—</div>
+        <div class="d1 num" id="dMain">—</div>
         <div class="d2" id="dSub">—</div>
       </div>
       <button class="dbtn" id="next" aria-label="後一天">›</button>
-      <button class="todaybtn" id="gotoToday">今天</button>
+      <button class="todaybtn" id="gotoToday">今日</button>
     </div>
   </header>
 
-  <div class="summary" id="summary"></div>
+  <div class="board" id="board"></div>
 
   <main>
-    <div class="stitle"><span class="dot"></span>今日群島<span class="cnt" id="siteCnt"></span></div>
-    <div id="worldWrap">
-      <svg id="world" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="sect-h">指揮部<span class="r" id="hqState"></span></div>
+    <div class="hq">
+      <div class="hq-in">
+        <img class="hq-logo" src="assets/logo_320.png" alt="可樂工程行">
+        <div class="hq-txt">
+          <div class="n">可樂工程行</div>
+          <div class="s">OFFICE RENOVATION · 出工指揮</div>
+        </div>
+        <div class="hq-flag">
+          <div class="fv num" id="hqMen">—</div>
+          <div class="fl">派出兵力</div>
+        </div>
+      </div>
     </div>
 
-    <div class="stitle" style="margin-top:18px"><span class="dot"></span>月曆 · 出工密度<span class="cnt" id="calCnt"></span></div>
+    <div class="sect-h">陣地部署<span class="r" id="postCnt"></span></div>
+    <div class="posts" id="posts"></div>
+
+    <div class="sect-h" style="margin-top:14px">出工紀錄<span class="r" id="calCnt"></span></div>
     <div class="calwrap">
       <div class="calhead">
         <div class="cm" id="calMonth">—</div>
@@ -242,9 +285,9 @@ footer{text-align:center;color:var(--dim2);font-size:11px;padding:20px 13px 10px
     </div>
 
     <footer>
-      資料源：每日領款單 Excel 　·　<span id="fgen"></span><br>
-      <span id="frange"></span> 共 <b id="fdays"></b> 個工作日 · <span id="fppl"></span> 位師傅 · <span id="fsite"></span> 個工地<br>
-      <button class="logout" id="logout">登出／清除通行碼</button>
+      資料源：每日領款單 Excel　·　<span id="fgen"></span><br>
+      <span id="frange"></span>　共 <b id="fdays"></b> 個工作日　·　<span id="fppl"></span> 位師傅　·　<span id="fsite"></span> 個工地<br>
+      <button class="logout" id="logout">登出</button>
     </footer>
   </main>
 </div>
@@ -266,68 +309,64 @@ footer{text-align:center;color:var(--dim2);font-size:11px;padding:20px 13px 10px
 <script>
 (function(){
 "use strict";
-
 var DATA=null, DAYS=[], BYDATE={}, PIDX={}, SIDX={};
 var curDate=null, curMonth=null;
-var NS="http://www.w3.org/2000/svg";
 
-/* ================= 解密 ================= */
+/* ---------- 解密 ---------- */
 function b64(s){var bin=atob(s),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return u;}
 function cat(a,b){var u=new Uint8Array(a.length+b.length);u.set(a,0);u.set(b,a.length);return u;}
 async function unlock(pw){
-  var e=window.__ENC__;
-  if(!e) throw new Error('no data');
+  var e=window.__ENC__; if(!e) throw new Error('no data');
   var km=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
   var key=await crypto.subtle.deriveKey(
     {name:'PBKDF2',salt:b64(e.salt),iterations:e.iter,hash:'SHA-256'},
     km,{name:'AES-GCM',length:256},false,['decrypt']);
-  var pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(e.iv),tagLength:128},key,
-    cat(b64(e.ct),b64(e.tag)));
+  var pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(e.iv),tagLength:128},key,cat(b64(e.ct),b64(e.tag)));
   return JSON.parse(new TextDecoder().decode(pt));
 }
 
-/* ================= 顏色 ================= */
 function hash(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return Math.abs(h);}
-function vest(n){return 'hsl('+(hash(n)%360)+',72%,58%)';}
-function vestD(n){return 'hsl('+(hash(n)%360)+',64%,41%)';}
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){
   return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
-function txtW(s,fs){
-  var w=0;
-  for(var i=0;i<s.length;i++){ w += /[\u4e00-\u9fff]/.test(s[i]) ? fs : fs*0.56; }
-  return w;
+
+/* 制式安全帽：品牌金；紹齊支援＝橙 */
+function capColor(s7,absent){ return absent?'#4e5a50':(s7?'#c9762f':'#d4b45a'); }
+function capDark(s7,absent){ return absent?'#39423a':(s7?'#9c561f':'#a68c3c'); }
+/* 制服色：低飽和，軍綠基底混個人色相 */
+function suitColor(n,absent){
+  if(absent) return '#3f4a42';
+  var h=hash(n)%360, s=34+ (hash(n)%14), l=42+ (hash(n)%9);
+  return 'hsl('+h+','+s+'%,'+l+'%)';
 }
 
-/* ================= 小人（座標系 0..44 x 0..60，原點左上） ================= */
+/* ---------- 小人（0..44 x 0..60） ---------- */
 function manInner(name,s7,absent){
-  var v=absent?'#4a5462':vest(name);
-  var vd=absent?'#333c48':vestD(name);
-  var hm=absent?'#5c6878':(s7?'#ff8a3d':'#ffd400');
-  var hmd=absent?'#414c5a':(s7?'#d1600f':'#c9a600');
-  var sk=absent?'#8a94a2':'#f2cfa8';
-  var o=absent?'0.55':'1';
-  var ol='#04070b';
-  return '<g class="fig-body" opacity="'+o+'">'
-   +'<ellipse cx="22" cy="58" rx="11.5" ry="2.2" fill="#000" opacity=".35"/>'
-   +'<rect x="15" y="45" width="5.4" height="12" rx="2.5" fill="'+(absent?'#3d4652':'#26303c')+'" stroke="'+ol+'" stroke-width=".9"/>'
-   +'<rect x="23.6" y="45" width="5.4" height="12" rx="2.5" fill="'+(absent?'#3d4652':'#26303c')+'" stroke="'+ol+'" stroke-width=".9"/>'
-   +'<rect x="13.2" y="53.6" width="8" height="3.8" rx="1.9" fill="#12171f" stroke="'+ol+'" stroke-width=".8"/>'
-   +'<rect x="22.8" y="53.6" width="8" height="3.8" rx="1.9" fill="#12171f" stroke="'+ol+'" stroke-width=".8"/>'
-   +'<rect x="9.9" y="26" width="4" height="12.6" rx="2" fill="'+vd+'" stroke="'+ol+'" stroke-width="1"/>'
-   +'<rect x="30.1" y="26" width="4" height="12.6" rx="2" fill="'+vd+'" stroke="'+ol+'" stroke-width="1"/>'
-   +'<path d="M12.4 25.5 h19.2 l2.4 20 h-24 z" fill="'+v+'" stroke="'+ol+'" stroke-width="1.3" stroke-linejoin="round"/>'
-   +'<rect x="11.8" y="33.4" width="20.4" height="3" fill="'+(absent?'#7c8694':'#f4f9ff')+'" opacity="'+(absent?'.3':'.92')+'"/>'
-   +'<circle cx="22" cy="18" r="7" fill="'+sk+'" stroke="'+ol+'" stroke-width="1.1"/>'
-   +'<path d="M14.4 16 a7.6 7.6 0 0 1 15.2 0 q0 1.5-1.4 1.5 h-12.4 q-1.4 0-1.4-1.5z" fill="'+hm+'" stroke="'+ol+'" stroke-width="1.2" stroke-linejoin="round"/>'
-   +'<rect x="12.6" y="15" width="18.8" height="2.4" rx="1.2" fill="'+hmd+'" stroke="'+ol+'" stroke-width=".8"/>'
-   +'<rect x="20.7" y="9.9" width="2.6" height="3.2" rx="1.1" fill="'+hmd+'" stroke="'+ol+'" stroke-width=".8"/>'
+  var suit=suitColor(name,absent);
+  var suitD=absent?'#333c36':'hsl('+(hash(name)%360)+',30%,33%)';
+  var cap=capColor(s7,absent), capD=capDark(s7,absent);
+  var skin=absent?'#7e8a80':'#e6c9a2';
+  var ol='#050805';
+  var op=absent?'0.55':'1';
+  return '<g class="fig" opacity="'+op+'">'
+   +'<ellipse cx="22" cy="58" rx="11" ry="2" fill="#000" opacity=".4"/>'
+   +'<rect x="15.2" y="45" width="5.2" height="12" rx="1.4" fill="'+(absent?'#333c36':'#232d26')+'" stroke="'+ol+'" stroke-width=".9"/>'
+   +'<rect x="23.6" y="45" width="5.2" height="12" rx="1.4" fill="'+(absent?'#333c36':'#232d26')+'" stroke="'+ol+'" stroke-width=".9"/>'
+   +'<rect x="13.4" y="53.6" width="8" height="3.6" rx="1" fill="#0e1410" stroke="'+ol+'" stroke-width=".8"/>'
+   +'<rect x="22.6" y="53.6" width="8" height="3.6" rx="1" fill="#0e1410" stroke="'+ol+'" stroke-width=".8"/>'
+   +'<rect x="10.2" y="26" width="3.8" height="12.4" rx="1.6" fill="'+suitD+'" stroke="'+ol+'" stroke-width=".9"/>'
+   +'<rect x="30" y="26" width="3.8" height="12.4" rx="1.6" fill="'+suitD+'" stroke="'+ol+'" stroke-width=".9"/>'
+   +'<path d="M12.6 25.4 h18.8 l2.2 20 h-23.2 z" fill="'+suit+'" stroke="'+ol+'" stroke-width="1.2" stroke-linejoin="round"/>'
+   +'<rect x="12.2" y="33.2" width="19.6" height="2.6" fill="'+(absent?'#6d786e':'#f0f4ec')+'" opacity="'+(absent?'.28':'.85')+'"/>'
+   +'<circle cx="22" cy="18" r="6.8" fill="'+skin+'" stroke="'+ol+'" stroke-width="1"/>'
+   +'<path d="M14.8 16.2 a7.2 7.2 0 0 1 14.4 0 q0 1.3-1.3 1.3 h-11.8 q-1.3 0-1.3-1.3z" fill="'+cap+'" stroke="'+ol+'" stroke-width="1.1" stroke-linejoin="round"/>'
+   +'<rect x="13" y="15.3" width="18" height="2.2" rx="1.1" fill="'+capD+'" stroke="'+ol+'" stroke-width=".7"/>'
+   +'<rect x="20.8" y="10.4" width="2.4" height="3" rx="1" fill="'+capD+'" stroke="'+ol+'" stroke-width=".7"/>'
    +'</g>';
 }
 
-/* ================= 島體 ================= */
-// 七邊形低多邊形輪廓，k=縮放，dy=垂直位移
+/* ---------- 陣地地台（等角沙盤，墨綠 + 金邊） ---------- */
 function isleShape(W,H,dy,k){
-  var w=W*k, h=H*k;
+  var w=W*k,h=H*k;
   var p=[[-0.99,-0.10],[-0.58,-0.96],[0.06,-1.06],[0.93,-0.44],
          [0.86,0.54],[0.14,1.03],[-0.63,0.86]];
   var d='M';
@@ -338,313 +377,234 @@ function isleShape(W,H,dy,k){
   return d+'Z';
 }
 
-function tree(x,y,s){
-  return '<g transform="translate('+x+','+y+') scale('+s+')">'
-   +'<rect x="-1.6" y="-7" width="3.2" height="8" fill="#6b4a2c" stroke="#04070b" stroke-width=".6"/>'
-   +'<path d="M0,-27 L8.5,-8 L-8.5,-8 Z" fill="#1f6b45" stroke="#0b2b1c" stroke-width=".9"/>'
-   +'<path d="M0,-34 L7,-16 L-7,-16 Z" fill="#2f8f5f" stroke="#0b2b1c" stroke-width=".9"/>'
-   +'</g>';
-}
-
-/* ================= 版面計算 ================= */
-function measure(){
-  var w=document.getElementById('worldWrap');
-  return Math.max(280, Math.floor(w.clientWidth-24));
-}
-
-function layout(n, CW){
-  var GAP=12, PAD=6;
-  var cols = CW>=680?5:(CW>=520?4:(CW>=400?3:2));
-  if(n>0 && n<cols) cols=n;
-  var IW=Math.min(200, Math.floor((CW-PAD*2-GAP*(cols-1))/cols));
-  IW=Math.max(122,IW);
-  var IH=Math.round(IW*0.52);
-  var DEP=Math.round(IW*0.13);
-  var halfH=IH/2;
-
-  var HQW=Math.min(212, Math.round(CW*0.58));
-  var HQH=Math.round(HQW*0.46);
-  var HQDEP=Math.round(HQW*0.11);
-  var HQhalfH=HQH/2;
-
-  var HQX=CW/2;
-  var HQY=Math.round(HQhalfH+HQDEP*2.35+64);
-
-  var rowGapY=Math.round(IH+DEP*2.4+98);
-  var firstY=Math.round(HQY+HQhalfH+HQDEP*2.35+152);
-
-  var slots=[];
-  for(var i=0;i<n;i++){
-    var col=i%cols, row=Math.floor(i/cols);
-    var inRow=Math.min(cols, n-row*cols);
-    var totalW=inRow*IW+(inRow-1)*GAP;
-    var sx=PAD+(CW-PAD*2-totalW)/2 + IW/2;
-    slots.push({
-      x: sx+col*(IW+GAP),
-      y: firstY+row*rowGapY,
-      row: row
-    });
-  }
-  var rows=Math.ceil(n/Math.max(1,cols));
-  var H = n===0 ? HQY+HQhalfH+HQDEP*2.35+40
-                : firstY+(rows-1)*rowGapY+halfH+DEP*2.4+34;
-
-  return {CW:CW, H:Math.round(H), cols:cols, IW:IW, IH:IH, DEP:DEP, halfH:halfH,
-    HQX:HQX, HQY:HQY, HQW:HQW, HQH:HQH, HQDEP:HQDEP, HQhalfH:HQhalfH, slots:slots, n:n};
-}
-
-/* ================= 島繪製 ================= */
-function drawIsland(cx,cy,W,H,DEP,opts){
-  W=W/2; H=H/2;   // 傳入為全寬全高，內部換算半值
-  var s='';
-  // 陰影
-  s+='<ellipse class="sea-shadow" cx="'+cx+'" cy="'+(cy+H*1.06+DEP)+'" rx="'+(W*1.02)+'" ry="'+(H*0.42)+'"/>';
-  // 光環（在地面）
-  s+='<ellipse class="ring" cx="'+cx+'" cy="'+(cy+H*1.0+DEP)+'" rx="'+(W*0.9)+'" ry="'+(H*0.3)+'" style="animation-delay:'+(opts.delay/1000).toFixed(2)+'s"/>';
+function plateSVG(site, W, H){
+  var DEP=Math.round(W*0.125);
+  var cx=W/2, cy=H*0.5;
+  var hw=W*0.44, hh=H*0.30;
+  var s='<svg class="post-plate" viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">';
+  // 地台投影
+  s+='<ellipse cx="'+cx+'" cy="'+(cy+hh*1.5+DEP)+'" rx="'+(hw*0.95)+'" ry="'+(hh*0.4)+'" fill="#000" opacity=".4"/>';
   // 岩層
-  s+='<path d="'+isleShape(W,H,DEP*2.35,0.70)+'" transform="translate('+cx+','+cy+')" fill="#3d5169"/>';
+  s+='<path d="'+isleShape(hw,hh,DEP*2.3,0.72)+'" transform="translate('+cx+','+cy+')" fill="#1c2a1e"/>';
   // 土層
-  s+='<path d="'+isleShape(W,H,DEP*1.32,0.86)+'" transform="translate('+cx+','+cy+')" fill="#7d5431"/>';
-  // 草皮（亮邊）
-  s+='<path d="'+isleShape(W,H,0,1)+'" transform="translate('+cx+','+cy+')" fill="#4f9268" stroke="#96e8b6" stroke-width="1.8" stroke-opacity=".6"/>';
-  // 高光
-  s+='<path d="'+isleShape(W,H,-DEP*0.16,0.72)+'" transform="translate('+cx+','+cy+')" fill="#7ed6a0" opacity=".4"/>';
+  s+='<path d="'+isleShape(hw,hh,DEP*1.3,0.87)+'" transform="translate('+cx+','+cy+')" fill="#2c3b2b"/>';
+  // 沙盤面
+  s+='<path d="'+isleShape(hw,hh,0,1)+'" transform="translate('+cx+','+cy+')" fill="#33482f" stroke="#c9a84c" stroke-width="1.3" stroke-opacity=".75"/>';
+  // 內圈（陣地範圍線）
+  s+='<path d="'+isleShape(hw,hh,0,0.62)+'" transform="translate('+cx+','+cy+')" fill="none" stroke="#7d8a5a" stroke-width=".8" stroke-dasharray="3 4" opacity=".55"/>';
+
+  // 人物
+  var ppl=site.people;
+  var n=ppl.length;
+  var perRow=Math.min(n,3); if(perRow<1) perRow=1;
+  var scale=Math.min(0.82,(H*0.40)/60);
+  var stepX=W*0.235, stepY=H*0.115;
+  var baseY=cy+hh*0.34;
+  var slots=[];
+  ppl.forEach(function(p,i){
+    var r=Math.floor(i/perRow), c=i%perRow;
+    var inRow=Math.min(perRow, n-r*perRow);
+    var px=cx+(c-(inRow-1)/2)*stepX;
+    var py=baseY-r*stepY;
+    var sc=scale*(1-r*0.08);
+    var absent=(p.tag==='沒出來');
+    s+='<g transform="translate('+px.toFixed(1)+','+py.toFixed(1)+')">'
+      +'<g class="bob" style="animation-delay:'+((i*0.27)%2.4).toFixed(2)+'s">'
+      +'<g transform="scale('+sc.toFixed(3)+') translate(-22,-60)">'
+      +manInner(p.n,p.s7,absent)
+      +'</g></g></g>';
+    slots.push({x:px,y:py,sc:sc,p:p});
+  });
+
+  // 陣地標記（金色小旗桿，標在左上角）
+  s+='<g transform="translate('+(cx-hw*0.55)+','+(cy-hh*0.75)+')">'
+    +'<line x1="0" y1="0" x2="0" y2="-16" stroke="#c9a84c" stroke-width="1.6"/>'
+    +'<path d="M0,-16 L11,-13 L0,-10 Z" fill="#c9a84c"/>'
+    +'</g>';
+  s+='</svg>';
   return s;
 }
 
-/* ================= 主場景 ================= */
-function renderWorld(d){
-  var svg=document.getElementById('world');
-  var n = d ? d.sites.length : 0;
-  var CW = measure();
-  var L = layout(n, CW);
-
-  svg.setAttribute('viewBox','0 0 '+CW+' '+L.H);
-  svg.setAttribute('height', L.H);
-  svg.style.height=L.H+'px';
-
-  if(!d || n===0){
-    svg.innerHTML='';
-    document.getElementById('siteCnt').textContent='';
-    return;
-  }
-
-  var out='';
-
-  /* ---- 連線：總部 → 各島 ---- */
-  var hqBottomY = L.HQY + L.HQhalfH*0.85;
-  for(var i=0;i<n;i++){
-    var sl=L.slots[i];
-    var topY = sl.y - L.halfH*1.12;
-    var sx=L.HQX, sy=hqBottomY;
-    var ex=sl.x, ey=topY;
-    if(ey<sy+50){ ey=sy+50; }
-    var mx=(sx+ex)/2, my=(sy+ey)/2 + 26;
-    var dpath='M'+sx.toFixed(1)+','+sy.toFixed(1)+' Q'+mx.toFixed(1)+','+my.toFixed(1)+' '+ex.toFixed(1)+','+ey.toFixed(1);
-    out+='<path class="linkbase" d="'+dpath+'"/>';
-    out+='<path class="linkflow" d="'+dpath+'" style="animation-delay:'+(-(i*0.28)).toFixed(2)+'s"/>';
-  }
-
-  /* ---- 總部島 ---- */
-  out+='<g transform="translate('+L.HQX+','+L.HQY+')">'
-      +'<g class="float" style="animation-delay:-1.2s">'
-      +'<g class="pop" style="animation-delay:0ms">';
-  out+='<g transform="translate('+(-L.HQX)+','+(-L.HQY)+')">';
-  out+=drawIsland(L.HQX,L.HQY,L.HQW,L.HQH,L.HQDEP,{delay:0});
-  out+='</g>';
-  // 貨櫃屋 + 招牌
-  var cw=L.HQW*0.60, ch=L.HQH*0.56;
-  var baseY=L.HQhalfH*0.20;
-  out+='<rect x="'+(-cw/2)+'" y="'+(baseY-ch)+'" width="'+cw+'" height="'+ch+'" rx="3" fill="#3c5878" stroke="#04070b" stroke-width="1.2"/>'
-      +'<rect x="'+(-cw/2)+'" y="'+(baseY-ch)+'" width="'+cw+'" height="'+(ch*0.2)+'" fill="#5c82a8"/>'
-      +'<rect x="'+(-cw*0.10)+'" y="'+(baseY-ch*0.66)+'" width="'+(cw*0.20)+'" height="'+(ch*0.66)+'" fill="#ffd400"/>'
-      +'<text class="hq-sign" x="0" y="'+(baseY-ch-9)+'" text-anchor="middle" font-size="'+(L.HQW*0.115).toFixed(1)+'">可樂工程行</text>';
-  // 兩棵樹
-  out+=tree(-L.HQW*0.33, L.HQhalfH*0.72, L.HQW/230);
-  out+=tree(L.HQW*0.35, L.HQhalfH*0.46, L.HQW/280);
-  out+='</g></g></g>';
-
-  /* ---- 工地島 ---- */
-  var di=0;
-  d.sites.forEach(function(site){
-    var sl=L.slots[di];
-    var delay=140+di*110;
-    var ppl=site.people;
-    var present=ppl.filter(function(p){return p.tag!=='沒出來';}).length;
-    var W=L.IW, H=L.IH, DEP=L.DEP, halfH=L.halfH;
-
-    out+='<g transform="translate('+sl.x.toFixed(1)+','+sl.y.toFixed(1)+')">'
-        +'<g class="float" style="animation-delay:'+(-(di*0.9+0.6)).toFixed(2)+'s">'
-        +'<g class="pop" style="animation-delay:'+delay+'ms">';
-
-    // 島體（點擊區）
-    out+='<g class="isle-body" data-site="'+esc(site.name)+'">';
-    out+='<g transform="translate('+(-sl.x).toFixed(1)+','+(-sl.y).toFixed(1)+')">';
-    out+=drawIsland(sl.x,sl.y,W,H,DEP,{delay:delay});
-    out+='</g>';
-    // 島上裝飾：樹
-    out+=tree(-W*0.30, halfH*0.62, W/270);
-    if(ppl.length<=3) out+=tree(W*0.33, halfH*0.34, W/320);
-
-    // 島名 + 人數（同一行，整體居中）
-    var fs=Math.max(10, Math.round(W*0.086));
-    var fsSub=Math.max(10, Math.round(W*0.072));
-    var nameY=-(halfH*1.24+fs*0.9);
-    var badgeTxt=(present===ppl.length)?(ppl.length+' 人'):(present+'/'+ppl.length+' 人');
-    var bw=Math.max(fsSub*3.3, txtW(badgeTxt,fsSub)+fsSub*1.7), bh=fsSub*1.5;
-    var nw=txtW(site.name,fs);
-    var tot=nw+5+bw;
-    var sx0=-tot/2;
-    out+='<text class="isle-name" x="'+sx0.toFixed(1)+'" y="'+nameY.toFixed(1)+'" text-anchor="start" font-size="'+fs+'">'+esc(site.name)+'</text>';
-    out+='<g transform="translate('+(sx0+nw+5).toFixed(1)+','+(nameY-fs*0.74).toFixed(1)+')">'
-        +'<rect width="'+bw.toFixed(1)+'" height="'+bh.toFixed(1)+'" rx="'+(bh/2)+'" fill="'+(present===ppl.length?'rgba(245,197,24,.92)':'rgba(251,146,60,.92)')+'"/>'
-        +'<text class="badge-n" x="'+(bw/2).toFixed(1)+'" y="'+(bh*0.72).toFixed(1)+'" text-anchor="middle" font-size="'+fsSub+'">'+badgeTxt+'</text>'
-        +'</g>';
-    out+='</g>';
-
-    // 人物
-    var perRow=Math.min(ppl.length, 3);
-    if(perRow<1) perRow=1;
-    var stepX=W*0.28;
-    var stepY=halfH*0.56;
-    var mScale=Math.min(0.90, (halfH*1.22)/60);
-    var basePy=halfH*0.36;
-    ppl.forEach(function(p,pi){
-      var r=Math.floor(pi/perRow), c=pi%perRow;
-      var inRow=Math.min(perRow, ppl.length-r*perRow);
-      var px=(c-(inRow-1)/2)*stepX;
-      var py=basePy - r*stepY;
-      var sc=mScale*(1-r*0.09);
-      var absent=(p.tag==='沒出來');
-      var nmFs=Math.max(8.5, mScale*13.5);
-      var hgt=60*sc;
-      out+='<g class="mk'+(absent?' absent':'')+'" transform="translate('+px.toFixed(1)+','+py.toFixed(1)+')" data-p="'+esc(p.n)+'" data-site="'+esc(site.name)+'">'
-          +'<g class="bob" style="animation-delay:'+((pi*0.22)%2.6).toFixed(2)+'s">'
-          +'<g transform="scale('+sc.toFixed(3)+') translate(-22,-60)">'
-          +manInner(p.n,p.s7,absent)
-          +'</g></g>';
-      // 名字（腳下）：深底片 + 白字，綠草地上也清楚
-      var nW=txtW(p.n,nmFs), nPad=nmFs*0.52, nH=nmFs*1.46, nTop=nmFs*1.05;
-      out+='<rect x="'+(-nW/2-nPad).toFixed(1)+'" y="'+nTop.toFixed(1)+'" width="'+(nW+nPad*2).toFixed(1)+'" height="'+nH.toFixed(1)+'" rx="'+(nH/2).toFixed(1)+'" fill="rgba(3,6,10,.86)" stroke="rgba(255,255,255,.16)" stroke-width=".7"/>';
-      out+='<text class="mk-name" x="0" y="'+(nmFs*1.85).toFixed(1)+'" text-anchor="middle" font-size="'+nmFs.toFixed(1)+'">'+esc(p.n)+'</text>';
-      // 標記（頭頂）
-      if(p.tag){
-        var tagTxt=(p.tag==='沒出來')?'未到':p.tag;
-        var tagFill=(p.tag==='沒出來')?'#ef4444':(p.tag==='半天'?'#a371f7':'#64748b');
-        var tw=Math.max(19, tagTxt.length*nmFs*0.95);
-        var th=nmFs*1.3;
-        out+='<g transform="translate('+(-tw/2).toFixed(1)+','+(-hgt-th-2).toFixed(1)+')">'
-            +'<rect width="'+tw.toFixed(1)+'" height="'+th.toFixed(1)+'" rx="'+(th/2)+'" fill="'+tagFill+'"/>'
-            +'<text class="mk-tag" x="'+(tw/2).toFixed(1)+'" y="'+(th*0.76).toFixed(1)+'" text-anchor="middle" font-size="'+(nmFs*0.86).toFixed(1)+'" fill="#fff">'+esc(tagTxt)+'</text>'
-            +'</g>';
-      }
-      out+='</g>';
-    });
-
-    out+='</g></g></g>';
-    di++;
-  });
-
-  svg.innerHTML=out;
-  document.getElementById('siteCnt').textContent=n+' 座工地島 · '+d.head+' 人';
+/* ---------- 佈局 ---------- */
+function plateSize(){
+  var wrap=document.getElementById('posts');
+  var cw=wrap?wrap.clientWidth:360;
+  var cols = cw>=1100?4:(cw>=760?3:(cw>=430?2:1));
+  var gap = 9;
+  var w=Math.floor((cw-gap*(cols-1))/cols);
+  w=Math.max(150,Math.min(280,w));
+  return {W:w, H:Math.round(w*0.62)};
 }
 
-/* ================= 日期 ================= */
-var WD=['週日','週一','週二','週三','週四','週五','週六'];
-function fmt(iso){return iso;}
-function wdOf(iso){var t=new Date(iso+'T00:00:00');return WD[t.getDay()];}
-
+/* ---------- 索引 ---------- */
 function buildIndex(days){
   PIDX={};SIDX={};
   days.forEach(function(d){
     d.sites.forEach(function(s){
-      if(!SIDX[s.name]) SIDX[s.name]={name:s.name,daySet:{},people:{}};
+      if(!SIDX[s.name]) SIDX[s.name]={name:s.name,daySet:{},people:{},headByDate:{},total:0};
       SIDX[s.name].daySet[d.date]=1;
+      SIDX[s.name].headByDate[d.date]=s.people.length;
+      SIDX[s.name].total+=s.people.length;
       s.people.forEach(function(p){
-        if(!PIDX[p.n]) PIDX[p.n]={name:p.n,s7:false,daySet:{},sites:{},tags:[]};
+        if(!PIDX[p.n]) PIDX[p.n]={name:p.n,s7:false,daySet:{},sites:{},tags:{}};
         if(p.s7) PIDX[p.n].s7=true;
         PIDX[p.n].daySet[d.date]=1;
         PIDX[p.n].sites[s.name]=(PIDX[p.n].sites[s.name]||0)+1;
         SIDX[s.name].people[p.n]=(SIDX[s.name].people[p.n]||0)+1;
-        if(p.tag) PIDX[p.n].tags.push({d:d.date,site:s.name,tag:p.tag});
+        if(p.tag) PIDX[p.n].tags[d.date+'|'+s.name]=p.tag;
       });
     });
   });
 }
 
+/* 陣地常態編制：該陣地最近 30 個有紀錄日的平均人數 */
+function normStrength(siteName, uptoDate){
+  var s=SIDX[siteName]; if(!s) return null;
+  var ds=Object.keys(s.headByDate).filter(function(d){return d<=uptoDate;}).sort().slice(-30);
+  if(ds.length<3) return null;
+  var sum=ds.reduce(function(a,d){return a+s.headByDate[d];},0);
+  return {avg:sum/ds.length, n:ds.length};
+}
+
+/* ---------- 日期 ---------- */
+var WD=['週日','週一','週二','週三','週四','週五','週六'];
+function wdOf(iso){var t=new Date(iso+'T00:00:00');return WD[t.getDay()];}
+function prevWorkday(iso){
+  var i=DAYS.indexOf(iso);
+  return i>0?DAYS[i-1]:null;
+}
+
+/* ---------- 主渲染 ---------- */
 function renderDay(){
   var d=BYDATE[curDate];
-  var mainEl=document.getElementById('dMain'), subEl=document.getElementById('dSub');
   var idx=DAYS.indexOf(curDate);
+  var mainEl=document.getElementById('dMain'), subEl=document.getElementById('dSub');
 
   if(!d){
     mainEl.textContent=curDate.slice(5).replace('-','/');
     subEl.textContent=wdOf(curDate)+' · 無領款單紀錄';
-    document.getElementById('summary').innerHTML='';
-    document.getElementById('siteCnt').textContent='';
-    var svg=document.getElementById('world');
-    svg.innerHTML='';
-    svg.setAttribute('viewBox','0 0 300 90');
-    svg.style.height='90px';
-    document.getElementById('worldWrap').insertAdjacentHTML('afterbegin','');
+    document.getElementById('board').innerHTML='';
+    document.getElementById('posts').innerHTML=
+      '<div class="empty" style="grid-column:1/-1">這天沒有領款單紀錄</div>';
+    document.getElementById('postCnt').textContent='';
+    document.getElementById('hqMen').textContent='—';
+    document.getElementById('hqState').textContent='';
     renderCal();
     document.getElementById('prev').disabled=(idx<=0);
     document.getElementById('next').disabled=(idx>=DAYS.length-1);
     return;
   }
 
-  mainEl.textContent=curDate.slice(5).replace('-','/');
   var isRest=(d.head===0||d.sites.length===0);
-  subEl.textContent=wdOf(d.date)+' · '+(isRest?'全體休息':d.head+' 人出工');
+  mainEl.textContent=curDate.slice(5).replace('-','/');
+  subEl.textContent=wdOf(curDate)+' · '+(isRest?'全員休息':'兵力 '+d.head+' 人');
+  document.getElementById('hqMen').textContent=d.head;
 
-  var s7n=0,absent=0,half=0;
+  /* 統計 */
+  var absent=0,half=0,s7n=0;
   d.sites.forEach(function(s){s.people.forEach(function(p){
-    if(p.s7)s7n++; if(p.tag==='沒出來')absent++; if(p.tag==='半天')half++;
+    if(p.tag==='沒出來')absent++;
+    if(p.tag==='半天')half++;
+    if(p.s7)s7n++;
   })});
-  var sm=[{v:d.head,l:isRest?'出工':'今日出工',c:'acc'},{v:d.sites.length,l:'工地島',c:''}];
-  if(s7n) sm.push({v:s7n,l:'紹齊支援',c:'blu'});
-  if(absent) sm.push({v:absent,l:'未到',c:'warn'});
-  if(half) sm.push({v:half,l:'只做半天',c:'warn'});
-  if(d.header!=null&&d.header!==d.head) sm.push({v:d.header,l:'表頭記載',c:''});
-  document.getElementById('summary').innerHTML=sm.map(function(x){
-    return '<div class="sum '+(x.c||'')+'"><div class="sv">'+x.v+'</div><div class="sl">'+x.l+'</div></div>';
-  }).join('');
 
-  renderWorld(d);
+  var pd=prevWorkday(curDate);
+  var prevHead=pd&&BYDATE[pd]?BYDATE[pd].head:null;
+  var delta=(prevHead!=null && prevHead>0)?(d.head-prevHead):null;
+
+  var mNow=curDate.slice(0,7);
+  var mTotal=0;
+  DAYS.forEach(function(x){ if(x.slice(0,7)===mNow) mTotal+=BYDATE[x].head; });
+
+  document.getElementById('board').innerHTML=
+     '<div class="bcell"><div class="bv num">'+d.head
+       +(delta!=null?' <span class="delta '+(delta>0?'up':delta<0?'down':'flat')+'">'+(delta>0?'▲'+delta:delta<0?'▼'+Math.abs(delta):'—')+'</span>':'')
+       +'</div><div class="bl">總兵力'+(delta!=null?' · 較前日':'')+'</div></div>'
+    +'<div class="bcell"><div class="bv num">'+d.sites.length+'</div><div class="bl">陣地（處）</div></div>'
+    +'<div class="bcell '+(absent>0?'alert':'ok')+'"><div class="bv num">'+absent+'</div><div class="bl">未到</div>'
+       +'<div class="delta flat">'+(half>0?'半日勤 '+half:'—')+'</div></div>'
+    +'<div class="bcell"><div class="bv num">'+mTotal+'</div><div class="bl">本月累計（工）</div></div>';
+
+  document.getElementById('hqState').textContent=isRest?'全員休息':'人員已派出';
+
+  /* 陣地卡 */
+  var order=d.sites.slice().sort(function(a,b){return b.people.length-a.people.length;});
+  var size=plateSize();
+  var html='';
+  if(!order.length){
+    html='<div class="empty" style="grid-column:1/-1">今日全員休息，沒有部署</div>';
+    document.getElementById('postCnt').textContent='';
+  } else {
+    document.getElementById('postCnt').textContent=order.length+' 處 · '+d.head+' 人';
+  }
+
+  order.forEach(function(site,si){
+    var no=String(si+1).padStart(2,'0');
+    var present=site.people.filter(function(p){return p.tag!=='沒出來';}).length;
+    var ns=normStrength(site.name, curDate);
+    var S=SIDX[site.name];
+    var days=S?Object.keys(S.daySet).length:0;
+    var gap=(ns && present<ns.avg-1.5) ? Math.round(ns.avg-present) : 0;
+
+    html+='<div class="post'+(gap>0?' under':'')+'">';
+    html+=plateSVG(site, size.W, size.H);
+    html+='<div class="post-bar">'
+        +'<span class="post-no">'+no+'</span>'
+        +'<span class="post-name">'+esc(site.name)+'</span>'
+        +'<span class="post-str num'+(present<site.people.length?' short':'')+'">'
+          +(present<site.people.length?(present+'/'+site.people.length):site.people.length)+' 人</span>'
+        +'</div>';
+    html+='<div class="post-meta">'
+        +'<span>進駐 <b>'+days+'</b> 日</span>'
+        +(ns?'<span>平時 <b>'+Math.round(ns.avg)+'</b> 人</span>':'')
+        +(gap>0?'<span class="warnc">少 '+gap+' 人</span>':'')
+        +'</div>';
+    html+='<div class="crew">';
+    site.people.forEach(function(p){
+      var absent2=(p.tag==='沒出來');
+      var tagTxt=(p.tag==='沒出來')?'缺':(p.tag==='半天'?'半':p.tag);
+      html+='<div class="mtag'+(absent2?' absent':'')+'" data-p="'+esc(p.n)+'">'
+          +'<span class="dot" style="background:'+(absent2?'#4a544c':capColor(p.s7,false))+'"></span>'
+          +'<span class="nm2">'+esc(p.n)+(p.s7?' <b style="color:#c9762f;font-size:9px">S7</b>':'')+'</span>'
+          +(p.tag?'<span class="tagb'+(p.tag==='半天'?' half':'')+'">'+esc(tagTxt)+'</span>':'')
+          +'</div>';
+    });
+    html+='</div></div>';
+  });
+
+  document.getElementById('posts').innerHTML=html;
   renderCal();
   document.getElementById('prev').disabled=(idx<=0);
   document.getElementById('next').disabled=(idx>=DAYS.length-1);
 }
 
-/* ================= 月曆 ================= */
+/* ---------- 月曆 ---------- */
 function renderCal(){
   if(!curMonth) return;
   var y=+curMonth.slice(0,4), m=+curMonth.slice(5,7);
-  document.getElementById('calMonth').textContent=y+' 年 '+m+' 月';
+  document.getElementById('calMonth').textContent=y+' / '+String(m).padStart(2,'0');
   var first=new Date(y,m-1,1), startDow=first.getDay();
   var dim=new Date(y,m,0).getDate();
   var counts={};
   DAYS.forEach(function(iso){ if(iso.slice(0,7)===curMonth) counts[iso]=BYDATE[iso].head; });
-  var maxC=1, monthHead=0;
-  Object.keys(counts).forEach(function(k){maxC=Math.max(maxC,counts[k]);monthHead+=counts[k];});
-  document.getElementById('calCnt').textContent=Object.keys(counts).length+' 天 · 累計 '+monthHead+' 人次';
+  var maxC=1, mh=0;
+  Object.keys(counts).forEach(function(k){maxC=Math.max(maxC,counts[k]);mh+=counts[k];});
+  document.getElementById('calCnt').textContent=Object.keys(counts).length+' 天 · 累計 '+mh+' 工';
 
   var t=new Date();
   var todayIso=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
-
   var h='';
   ['日','一','二','三','四','五','六'].forEach(function(w){h+='<div class="wd">'+w+'</div>';});
   for(var i=0;i<startDow;i++) h+='<div class="cell blank"></div>';
   for(var dd=1;dd<=dim;dd++){
     var iso=y+'-'+String(m).padStart(2,'0')+'-'+String(dd).padStart(2,'0');
-    var rec=counts[iso];
-    var c=(rec===undefined?null:rec);
+    var rec=counts[iso], c=(rec===undefined?null:rec);
     var cls='cell', style='';
     if(c===null){ cls+=' dim0'; }
-    else if(c===0){ cls+=' rest'; style='background:rgba(74,158,255,.09);color:#7f93a8'; }
+    else if(c===0){ cls+=' rest'; style='background:#141d16'; }
     else{
-      var a=0.16+(c/maxC)*0.72;
-      style='background:rgba(245,197,24,'+a.toFixed(2)+');color:#12140a';
+      var a=0.14+(c/maxC)*0.78;
+      style='background:rgba(201,168,76,'+a.toFixed(2)+');color:#0d100b';
       cls+=' has';
     }
     if(iso===curDate) cls+=' sel';
@@ -657,7 +617,7 @@ function renderCal(){
   document.getElementById('cal').innerHTML=h;
 }
 
-/* ================= sheet ================= */
+/* ---------- sheet ---------- */
 function showSheet(){document.getElementById('sheet').classList.add('on');document.getElementById('mask').classList.add('on');}
 function closeSheet(){document.getElementById('sheet').classList.remove('on');document.getElementById('mask').classList.remove('on');}
 
@@ -667,28 +627,29 @@ function personSheet(name){
   var mNow=curDate.slice(0,7);
   var mDays=Object.keys(p.daySet).filter(function(x){return x.slice(0,7)===mNow;}).length;
   var sites=Object.keys(p.sites).sort(function(a,b){return p.sites[b]-p.sites[a];});
-  var tags=p.tags.slice().sort(function(a,b){return b.d.localeCompare(a.d);});
+  var tagKeys=Object.keys(p.tags).sort().reverse();
   var recent=Object.keys(p.daySet).sort().reverse().slice(0,6);
 
-  document.getElementById('shName').innerHTML=esc(p.name)+(p.s7?' <span style="font-size:10px;color:#5fd075;font-weight:800">S7 紹齊</span>':'');
-  document.getElementById('shSub').textContent='累計出工 '+days+' 天　·　本月 '+mDays+' 天';
+  document.getElementById('shName').innerHTML=esc(p.name)+(p.s7?' <span style="font-size:10px;color:#c9762f;font-weight:900">S7 紹齊</span>':'');
+  document.getElementById('shSub').textContent='累計出工 '+days+' 天 · 本月 '+mDays+' 天';
 
   var h='<div class="kv">'
-    +'<div class="kvi"><div class="kv1">'+days+'</div><div class="kv2">歷史出工天數</div></div>'
-    +'<div class="kvi"><div class="kv1">'+mDays+'</div><div class="kv2">本月出工</div></div></div>';
+    +'<div class="kvi"><div class="kv1 num">'+days+'</div><div class="kv2">歷史出工</div></div>'
+    +'<div class="kvi"><div class="kv1 num">'+mDays+'</div><div class="kv2">本月出工</div></div></div>';
 
-  h+='<div class="sect">常去工地</div><div class="chips">';
+  h+='<div class="sect">常駐陣地</div><div class="chips">';
   sites.slice(0,6).forEach(function(s){h+='<div class="chip">'+esc(s)+'<b>'+p.sites[s]+'</b></div>';});
   if(!sites.length) h+='<div class="chip">—</div>';
   h+='</div>';
 
-  if(tags.length){
-    h+='<div class="sect">異動紀錄（'+tags.length+'）</div>';
-    tags.slice(0,12).forEach(function(t){
-      var cls=t.tag==='半天'?'halfp':(t.tag==='沒出來'?'':'okp');
-      h+='<div class="lrow"><div class="ld">'+t.d.slice(2)+'</div>'
-        +'<div class="ls2">'+esc(t.site)+'</div>'
-        +'<span class="tagpill '+cls+'">'+esc(t.tag)+'</span></div>';
+  if(tagKeys.length){
+    h+='<div class="sect">異動紀錄（'+tagKeys.length+'）</div>';
+    tagKeys.slice(0,12).forEach(function(k){
+      var parts=k.split('|'), tg=p.tags[k];
+      var cls=tg==='半天'?'halfp':(tg==='沒出來'?'':'okp');
+      h+='<div class="lrow"><div class="ld">'+parts[0].slice(2)+'</div>'
+        +'<div class="ls2">'+esc(parts[1])+'</div>'
+        +'<span class="tagpill '+cls+'">'+esc(tg)+'</span></div>';
     });
   }
 
@@ -712,15 +673,17 @@ function siteSheet(siteName){
   var ppl=Object.keys(s.people).sort(function(a,b){return s.people[b]-s.people[a];});
   var mNow=curDate.slice(0,7);
   var mDays=Object.keys(s.daySet).filter(function(x){return x.slice(0,7)===mNow;}).length;
+  var ns=normStrength(siteName,curDate);
 
   document.getElementById('shName').textContent=siteName;
-  document.getElementById('shSub').textContent='累計出工 '+days+' 天　·　本月 '+mDays+' 天　·　'+ppl.length+' 位師傅';
+  document.getElementById('shSub').textContent='進駐 '+days+' 天 · 本月 '+mDays+' 天 · '+ppl.length+' 位師傅'
+    +(ns?' · 常態 '+ns.avg.toFixed(1)+' 人':'');
 
   var h='<div class="kv">'
-    +'<div class="kvi"><div class="kv1">'+days+'</div><div class="kv2">歷史出工天數</div></div>'
-    +'<div class="kvi"><div class="kv1">'+mDays+'</div><div class="kv2">本月出工</div></div></div>';
+    +'<div class="kvi"><div class="kv1 num">'+days+'</div><div class="kv2">進駐天數</div></div>'
+    +'<div class="kvi"><div class="kv1 num">'+s.total+'</div><div class="kv2">累計人次</div></div></div>';
 
-  h+='<div class="sect">來過的師傅（次數）</div>';
+  h+='<div class="sect">派駐過的師傅</div>';
   ppl.forEach(function(n){
     h+='<div class="lrow" data-p="'+esc(n)+'" style="cursor:pointer"><div class="ld">'
       +(PIDX[n]&&PIDX[n].s7?'S7 ':'')+esc(n)+'</div>'
@@ -731,7 +694,7 @@ function siteSheet(siteName){
   showSheet();
 }
 
-/* ================= 事件 ================= */
+/* ---------- 事件 ---------- */
 function bind(){
   document.getElementById('prev').onclick=function(){
     var i=DAYS.indexOf(curDate);
@@ -745,7 +708,7 @@ function bind(){
     var t=new Date();
     var iso=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
     if(BYDATE[iso]) curDate=iso;
-    else { var past=DAYS.filter(function(x){return x<=iso;}); curDate=past.length?past[past.length-1]:DAYS[DAYS.length-1]; }
+    else{var past=DAYS.filter(function(x){return x<=iso;});curDate=past.length?past[past.length-1]:DAYS[DAYS.length-1];}
     curMonth=curDate.slice(0,7);renderDay();window.scrollTo({top:0,behavior:'smooth'});
   };
   document.getElementById('calPrev').onclick=function(){
@@ -757,16 +720,18 @@ function bind(){
     if(m>12){m=1;y++;} curMonth=y+'-'+String(m).padStart(2,'0');renderCal();
   };
   document.getElementById('cal').addEventListener('click',function(e){
-    var b=e.target.closest('.cell[data-d]');
-    if(!b) return;
+    var b=e.target.closest('.cell[data-d]'); if(!b) return;
     var iso=b.getAttribute('data-d');
     if(BYDATE[iso]){curDate=iso;renderDay();window.scrollTo({top:0,behavior:'smooth'});}
   });
-  document.getElementById('world').addEventListener('click',function(e){
-    var mk=e.target.closest('.mk');
-    if(mk){ e.stopPropagation(); personSheet(mk.getAttribute('data-p')); return; }
-    var isl=e.target.closest('.isle-body');
-    if(isl){ e.stopPropagation(); siteSheet(isl.getAttribute('data-site')); return; }
+  document.getElementById('posts').addEventListener('click',function(e){
+    var m=e.target.closest('.mtag');
+    if(m){ personSheet(m.getAttribute('data-p')); return; }
+    var pl=e.target.closest('.post');
+    if(pl){
+      var nm=pl.querySelector('.post-name');
+      if(nm) siteSheet(nm.textContent);
+    }
   });
   document.getElementById('shBody').addEventListener('click',function(e){
     var r=e.target.closest('.lrow[data-p]');
@@ -783,26 +748,23 @@ function bind(){
     if(e.key==='ArrowLeft') document.getElementById('prev').click();
     if(e.key==='ArrowRight') document.getElementById('next').click();
   });
-
   var rt=null;
   window.addEventListener('resize',function(){
     clearTimeout(rt);
-    rt=setTimeout(function(){ if(BYDATE[curDate]) renderWorld(BYDATE[curDate]); }, 180);
+    rt=setTimeout(function(){ if(BYDATE[curDate]) renderDay(); },180);
   });
 }
 
-/* ================= 啟動 ================= */
+/* ---------- 啟動 ---------- */
 function boot(data){
-  DATA=data;
-  DAYS=data.days.map(function(d){return d.date;});
+  DATA=data; DAYS=data.days.map(function(d){return d.date;});
   data.days.forEach(function(d){BYDATE[d.date]=d;});
   buildIndex(data.days);
-  curDate=DAYS[DAYS.length-1];
-  curMonth=curDate.slice(0,7);
+  curDate=DAYS[DAYS.length-1]; curMonth=curDate.slice(0,7);
 
-  document.getElementById('hrange').textContent=DAYS[0].slice(0,7)+' ~ '+DAYS[DAYS.length-1].slice(0,7);
-  document.getElementById('fgen').textContent='更新於 '+data.generated;
-  document.getElementById('frange').textContent=DAYS[0]+' — '+DAYS[DAYS.length-1];
+  document.getElementById('hrange').textContent=DAYS[0].slice(0,7)+' – '+DAYS[DAYS.length-1].slice(0,7);
+  document.getElementById('fgen').textContent='更新 '+data.generated;
+  document.getElementById('frange').textContent=DAYS[0]+' – '+DAYS[DAYS.length-1];
   document.getElementById('fdays').textContent=data.day_count;
   document.getElementById('fppl').textContent=data.unique_people;
   document.getElementById('fsite').textContent=data.unique_sites;
@@ -818,22 +780,17 @@ async function tryPw(pw,remember){
     var data=await unlock(pw);
     if(remember){try{localStorage.setItem('cola_explorer_pw',pw);}catch(e){}}
     try{sessionStorage.setItem('cola_explorer_pw',pw);}catch(e){}
-    boot(data);
-    return true;
+    boot(data); return true;
   }catch(e){ return false; }
 }
 
-var gobtn=document.getElementById('gobtn');
-var pwin=document.getElementById('pw');
+var gobtn=document.getElementById('gobtn'), pwin=document.getElementById('pw');
 gobtn.onclick=async function(){
   var pw=pwin.value.trim();
   if(!pw){document.getElementById('lerr').textContent='請輸入通行碼';return;}
-  gobtn.textContent='解鎖中…';gobtn.disabled=true;
+  gobtn.textContent='驗證中…';gobtn.disabled=true;
   var ok=await tryPw(pw,document.getElementById('remember').checked);
-  if(!ok){
-    document.getElementById('lerr').textContent='通行碼不正確';
-    gobtn.textContent='進 入';gobtn.disabled=false;pwin.select();
-  }
+  if(!ok){document.getElementById('lerr').textContent='通行碼不正確';gobtn.textContent='進 入';gobtn.disabled=false;pwin.select();}
 };
 pwin.addEventListener('keydown',function(e){if(e.key==='Enter')gobtn.click();});
 
@@ -841,8 +798,8 @@ pwin.addEventListener('keydown',function(e){if(e.key==='Enter')gobtn.click();});
   var pw=null;
   try{pw=sessionStorage.getItem('cola_explorer_pw')||localStorage.getItem('cola_explorer_pw');}catch(e){}
   if(pw){
-    gobtn.textContent='解鎖中…';gobtn.disabled=true;
-    tryPw(pw,true).then(function(ok){ if(!ok){gobtn.textContent='進 入';gobtn.disabled=false;} });
+    gobtn.textContent='驗證中…';gobtn.disabled=true;
+    tryPw(pw,true).then(function(ok){if(!ok){gobtn.textContent='進 入';gobtn.disabled=false;}});
   }else{ setTimeout(function(){pwin.focus();},300); }
 })();
 
