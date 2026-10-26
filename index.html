@@ -69,6 +69,10 @@ header{position:sticky;top:0;z-index:40;background:rgba(9,14,9,.95);
 .printbtn{flex:0 0 auto;width:36px;height:32px;border-radius:5px;border:1px solid var(--line2);
   background:var(--panel);color:var(--goldlit);font-size:15px;line-height:1;padding:0;cursor:pointer}
 .printbtn:active{background:var(--gold);color:#0b0f0a}
+.staticlink{flex:0 0 auto;padding:0 10px;height:32px;line-height:30px;border-radius:5px;
+  border:1px solid var(--line2);background:var(--panel);color:#7fa7d8;font-size:11.5px;
+  font-weight:700;text-decoration:none;letter-spacing:.05em}
+.staticlink:hover{border-color:#7fa7d8;color:#a8c8ef}
 
 /* ---------- 戰情條 ---------- */
 .board{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
@@ -299,6 +303,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
       <button class="todaybtn" id="gotoToday">今日</button>
       <button class="printbtn" id="printDay" title="直接列印到 L6190 印表機" aria-label="直接列印到印表機">🖨</button>
       <button class="printbtn" id="previewDay" title="下載當日領款單 Excel 原檔" aria-label="下載領款單原檔">⬇</button>
+      <a class="staticlink" id="staticLink" href="/static" target="_blank" rel="noopener" hidden>📋 靜態版</a>
     </div>
   </header>
 
@@ -361,7 +366,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   <div class="shbody" id="shBody"></div>
 </div>
 
-<script src="data.enc.js?v=b2461d16"></script>
+<script src="data.enc.js?v=cb33669e"></script>
 <script>
 (function(){
 "use strict";
@@ -969,6 +974,10 @@ function bind(){
   };
   document.getElementById('printDay').onclick=printToPrinter;
   document.getElementById('previewDay').onclick=downloadSheet;
+  if(IS_LOCAL_HTTP){
+    var _sl=document.getElementById('staticLink');
+    if(_sl) _sl.hidden=false;
+  }
   document.getElementById('calPrev').onclick=function(){
     var y=+curMonth.slice(0,4),m=+curMonth.slice(5,7)-1;
     if(m<1){m=12;y--;} curMonth=y+'-'+String(m).padStart(2,'0');renderCal();
