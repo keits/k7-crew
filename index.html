@@ -207,6 +207,16 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
 .tagpill{font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(196,71,47,.2);
   color:#e2705c;font-weight:800;white-space:nowrap}
 .tagpill.halfp{background:rgba(138,109,47,.28);color:#d9b269}
+/* 人員卡動作列 */
+.actRow{display:flex;gap:8px;margin:0 0 13px}
+.actBtn{flex:1;text-align:center;padding:10px 8px;border-radius:5px;font-size:12.5px;
+  font-weight:800;text-decoration:none;letter-spacing:.03em;transition:filter .12s}
+.actBtn:hover{filter:brightness(1.15)}
+.actBtn:active{transform:translateY(1px)}
+.actBtn.call{background:rgba(111,169,107,.16);border:1px solid rgba(111,169,107,.42);color:#8fc98a}
+.actBtn.line{background:rgba(6,199,85,.13);border:1px solid rgba(6,199,85,.38);color:#4fd88a}
+.actBtn.off{background:rgba(120,130,120,.07);border:1px solid rgba(120,130,120,.2);color:#5d6a5f;pointer-events:none}
+
 /* 待命人員 */
 .sbBox{background:linear-gradient(180deg,#151a12,#0c110c);border:1px solid #4a3d1c;border-radius:6px;padding:12px 13px}
 .sbTop{display:flex;align-items:center;gap:6px;margin-bottom:10px;font-size:11.5px;color:#a89160;letter-spacing:.02em}
@@ -344,7 +354,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   <div class="shbody" id="shBody"></div>
 </div>
 
-<script src="data.enc.js?v=ef552813"></script>
+<script src="data.enc.js?v=cc0cf94e"></script>
 <script>
 (function(){
 "use strict";
@@ -689,6 +699,15 @@ function renderCal(){
 function showSheet(){document.getElementById('sheet').classList.add('on');document.getElementById('mask').classList.add('on');}
 function closeSheet(){document.getElementById('sheet').classList.remove('on');document.getElementById('mask').classList.remove('on');}
 
+function lineUrl(v){
+  if(!v) return null;
+  var s=String(v).trim().replace(/^電話號碼[:：]\s*/,'').replace(/\s/g,'');
+  if(!s||s==='沒有設'||s==='無'||s==='none') return null;
+  if(/^09\d{8}$/.test(s)) return 'https://line.me/ti/p/'+s;
+  if(/^\+?8869\d{8}$/.test(s)) return 'https://line.me/ti/p/0'+s.replace(/^\+?886/,'');
+  return 'https://line.me/ti/p/~'+encodeURIComponent(s);
+}
+
 function personSheet(name){
   var dropped=(DATA.employee_meta&&DATA.employee_meta.dropped)||[];
   if(dropped.indexOf(name)>=0){
@@ -723,6 +742,17 @@ function personSheet(name){
 
   var h='';
 
+  /* 快速動作：撥電話／開 LINE */
+  var bb=e.basic||{};
+  var telHref = bb.phone ? 'tel:'+String(bb.phone).replace(/[^0-9+]/g,'') : '';
+  var lineHref = lineUrl(bb.line);
+  h+='<div class="actRow">'
+    +(telHref ? '<a class="actBtn call" href="'+telHref+'">📞 撥電話</a>'
+              : '<span class="actBtn off">📞 無電話</span>')
+    +(lineHref ? '<a class="actBtn line" href="'+lineHref+'" target="_blank" rel="noopener">💬 開 LINE</a>'
+               : '<span class="actBtn off">💬 無 LINE</span>')
+    +'</div>';
+
   /* 出勤概況 */
   h+='<div class="kv3">'
     +'<div class="kvi"><div class="kv1 num">'+e.days+'</div><div class="kv2">累計天數</div></div>'
@@ -738,8 +768,14 @@ function personSheet(name){
     var v=B[r[1]];
     var val='未建檔';
     if(v){
-      if(r[1]==='phone') val='<a href="tel:'+esc(String(v).replace(/[^0-9+]/g,''))+'">'+esc(v)+'</a>';
-      else val=esc(v);
+      if(r[1]==='phone'){
+        val='<a href="tel:'+esc(String(v).replace(/[^0-9+]/g,''))+'">'+esc(v)+'</a>';
+      }else if(r[1]==='line'){
+        var lu=lineUrl(v);
+        val=lu?'<a href="'+lu+'" target="_blank" rel="noopener">'+esc(v)+'</a>':esc(v);
+      }else{
+        val=esc(v);
+      }
     }
     h+='<div class="basic-r"><span class="k">'+r[0]+'</span>'
       +'<span class="v'+(v?'':' miss')+'">'+val+'</span></div>';
