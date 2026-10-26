@@ -4,294 +4,202 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow,noarchive">
-<meta name="theme-color" content="#0e1116">
-<title>可樂工程行 · 出工現場</title>
+<meta name="theme-color" content="#0b1017">
+<title>可樂工程群島 · 出工現場</title>
 <style>
 :root{
-  --bg:#0e1116; --card:#171c24; --card2:#1d2430; --line:#2a3341;
+  --bg:#0b1017; --card:#141b25; --card2:#1b2430; --line:#25303d;
   --txt:#e6edf3; --dim:#8b949e; --dim2:#5d6875;
-  --hi:#f5c518; --blue:#4a9eff; --red:#ef4444; --green:#3fb950; --purple:#a371f7;
-  --r:14px;
+  --gold:#f5c518; --gold2:#ffd84d; --blue:#4a9eff; --red:#ef4444; --green:#3fb950; --purple:#a371f7;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
 body{
-  background:var(--bg); color:var(--txt);
+  background:radial-gradient(ellipse 120% 60% at 50% 0%,#132030 0%,#0b1017 62%);
+  color:var(--txt);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
   font-size:15px; line-height:1.5; padding-bottom:env(safe-area-inset-bottom);
-  overscroll-behavior-y:contain;
+  overscroll-behavior-y:contain; min-height:100vh;
 }
 button{font-family:inherit;cursor:pointer}
 
-/* ---------- 密碼鎖 ---------- */
-#lock{
-  position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(ellipse at 50% 0%,#1a2230 0%,#0e1116 70%);padding:24px;
-}
-.lockbox{width:100%;max-width:330px;text-align:center}
-.lockbox .lh{font-size:26px;font-weight:800;letter-spacing:.06em;margin-bottom:6px}
-.lockbox .lh span{color:var(--hi)}
-.lockbox .ls{color:var(--dim);font-size:13px;margin-bottom:26px}
-.lockbox input{
-  width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--line);
-  background:#0b0f14;color:var(--txt);font-size:16px;letter-spacing:.08em;text-align:center;
-}
-.lockbox input:focus{outline:none;border-color:var(--hi)}
-.lockbox button{
-  width:100%;margin-top:12px;padding:14px;border-radius:12px;border:0;
-  background:var(--hi);color:#111;font-weight:800;font-size:15px;letter-spacing:.06em;
-}
-.lockbox button:active{transform:scale(.98)}
+/* ---------- 鎖 ---------- */
+#lock{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at 50% 12%,#16263a 0%,#0b1017 68%);padding:24px}
+.lockbox{width:100%;max-width:320px;text-align:center}
+.lockbox .lh{font-size:24px;font-weight:800;letter-spacing:.05em;margin-bottom:4px}
+.lockbox .lh span{color:var(--gold)}
+.lockbox .ls{color:var(--dim);font-size:12.5px;margin-bottom:24px;letter-spacing:.08em}
+.lockbox input{width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--line);
+  background:#080c11;color:var(--txt);font-size:17px;letter-spacing:.14em;text-align:center}
+.lockbox input:focus{outline:none;border-color:var(--gold)}
+.lockbox button{width:100%;margin-top:12px;padding:14px;border-radius:12px;border:0;
+  background:var(--gold);color:#12140a;font-weight:800;font-size:15px;letter-spacing:.08em}
+.lockbox button:disabled{opacity:.6}
 .lerr{color:var(--red);font-size:13px;margin-top:12px;min-height:18px}
-.lremember{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:16px;color:var(--dim);font-size:12.5px}
-.lremember input{width:auto;padding:0;accent-color:var(--hi)}
+.lremember{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;color:var(--dim);font-size:12.5px}
+.lremember input{width:auto;padding:0;accent-color:var(--gold)}
 
 /* ---------- header ---------- */
-header{
-  position:sticky;top:0;z-index:40;
-  background:rgba(14,17,22,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line);
-  padding:10px 14px 0;
-}
-.hrow{display:flex;align-items:center;gap:10px}
-.brand{font-weight:800;font-size:15px;letter-spacing:.04em;white-space:nowrap}
-.brand b{color:var(--hi)}
-.hmeta{margin-left:auto;display:flex;gap:6px;align-items:center;font-size:11.5px;color:var(--dim2)}
-.hmeta span{white-space:nowrap}
-
-/* date nav */
+header{position:sticky;top:0;z-index:40;background:rgba(11,16,23,.93);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid #1b2532;padding:9px 13px 0}
+.hrow{display:flex;align-items:center;gap:8px}
+.brand{font-weight:800;font-size:14.5px;letter-spacing:.03em;white-space:nowrap}
+.brand b{color:var(--gold)}
+.hmeta{margin-left:auto;font-size:11px;color:var(--dim2);white-space:nowrap}
 .dnav{display:flex;align-items:center;gap:8px;padding:9px 0 10px}
-.dbtn{
-  flex:0 0 auto;width:34px;height:34px;border-radius:10px;border:1px solid var(--line);
-  background:var(--card);color:var(--txt);font-size:16px;display:flex;align-items:center;justify-content:center;
-}
-.dbtn:disabled{opacity:.3}
+.dbtn{flex:0 0 auto;width:34px;height:34px;border-radius:10px;border:1px solid var(--line);
+  background:var(--card);color:var(--txt);font-size:16px;display:flex;align-items:center;justify-content:center}
+.dbtn:disabled{opacity:.28}
 .dbtn:active{background:var(--card2)}
 .dcenter{flex:1;min-width:0;text-align:center;line-height:1.2}
-.dcenter .d1{font-size:17px;font-weight:800;letter-spacing:.02em}
+.dcenter .d1{font-size:17px;font-weight:800}
 .dcenter .d2{font-size:11.5px;color:var(--dim);margin-top:1px}
-.todaybtn{
-  flex:0 0 auto;padding:0 12px;height:34px;border-radius:10px;border:1px solid var(--line);
-  background:var(--card);color:var(--hi);font-size:12.5px;font-weight:700;
-}
-.todaybtn:active{background:var(--card2)}
+.todaybtn{flex:0 0 auto;padding:0 11px;height:34px;border-radius:10px;border:1px solid var(--line);
+  background:var(--card);color:var(--gold);font-size:12.5px;font-weight:700}
 
-/* ---------- 摘要列 ---------- */
-.summary{display:flex;gap:8px;padding:12px 14px 4px;overflow-x:auto;scrollbar-width:none}
+/* ---------- 摘要 ---------- */
+.summary{display:flex;gap:7px;padding:11px 13px 2px;overflow-x:auto;scrollbar-width:none}
 .summary::-webkit-scrollbar{display:none}
-.sum{
-  flex:0 0 auto;background:var(--card);border:1px solid var(--line);border-radius:12px;
-  padding:9px 14px;min-width:78px;
-}
-.sum .sv{font-size:21px;font-weight:800;line-height:1.1;letter-spacing:-.02em}
-.sum .sl{font-size:10.5px;color:var(--dim);margin-top:3px;letter-spacing:.04em;white-space:nowrap}
-.sum.acc .sv{color:var(--hi)}
+.sum{flex:0 0 auto;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:8px 13px;min-width:72px}
+.sum .sv{font-size:20px;font-weight:800;line-height:1.1;letter-spacing:-.02em}
+.sum .sl{font-size:10px;color:var(--dim);margin-top:2px;letter-spacing:.05em;white-space:nowrap}
+.sum.acc .sv{color:var(--gold)}
 .sum.blu .sv{color:var(--blue)}
 .sum.warn .sv{color:#fb923c}
 
-/* ---------- 工地現場 ---------- */
-main{padding:0 0 90px}
-.stitle{
-  display:flex;align-items:center;gap:8px;padding:16px 14px 10px;
-  font-size:13px;font-weight:800;letter-spacing:.1em;color:var(--dim);
-}
-.stitle .dot{width:6px;height:6px;border-radius:50%;background:var(--hi);box-shadow:0 0 8px var(--hi)}
-.stitle .cnt{margin-left:auto;font-weight:600;letter-spacing:0;color:var(--dim2);font-size:12px}
+main{padding:0 0 80px}
+.stitle{display:flex;align-items:center;gap:8px;padding:15px 13px 8px;
+  font-size:12.5px;font-weight:800;letter-spacing:.1em;color:var(--dim)}
+.stitle .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 9px var(--gold)}
+.stitle .cnt{margin-left:auto;font-weight:600;letter-spacing:0;color:var(--dim2);font-size:11.5px}
 
-.sites{display:grid;grid-template-columns:1fr;gap:11px;padding:0 14px}
-@media(min-width:620px){.sites{grid-template-columns:1fr 1fr}}
-@media(min-width:1000px){.sites{grid-template-columns:1fr 1fr 1fr}}
+/* ---------- 群島畫布 ---------- */
+#worldWrap{position:relative;padding:0 12px}
+#world{display:block;width:100%;height:auto;overflow:visible;touch-action:manipulation}
 
-.site{
-  position:relative;border-radius:var(--r);overflow:hidden;
-  background:linear-gradient(180deg,#151b24 0%,#11161d 62%,#0d1218 100%);
-  border:1px solid var(--line);
-  transition:border-color .18s;
-}
-.site:active{border-color:#3d4a5c}
-.site::before{ /* 藍圖網格 */
-  content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
-  background-image:linear-gradient(rgba(74,158,255,.055) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(74,158,255,.055) 1px,transparent 1px);
-  background-size:22px 22px;
-}
-.site::after{ /* 地面 */
-  content:"";position:absolute;left:0;right:0;bottom:22px;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(245,197,24,.45),transparent);
-}
-.shead{
-  position:relative;z-index:2;display:flex;align-items:center;gap:8px;
-  padding:11px 13px 6px;
-}
-.sname{
-  font-weight:800;font-size:14.5px;letter-spacing:.02em;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.scount{
-  flex:0 0 auto;margin-left:auto;font-size:11px;font-weight:800;
-  background:rgba(245,197,24,.14);color:var(--hi);
-  padding:2.5px 8px;border-radius:20px;letter-spacing:.02em;
-}
-.scount.zero{background:rgba(139,148,158,.14);color:var(--dim)}
+/* 島 */
+.float{animation:floaty 7.5s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-4.5px)}}
+.pop{animation:popIn .5s cubic-bezier(.2,1.25,.38,1) backwards}
+@keyframes popIn{from{opacity:0;transform:translateY(14px) scale(.9)}to{opacity:1;transform:none}}
 
-/* 工人排列 */
-.crew{
-  position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:flex-end;
-  gap:2px 0;padding:4px 10px 30px;min-height:104px;
-}
+.isle-body{cursor:pointer}
+.isle-body:active .isle-hi{opacity:.9}
 
-/* ---------- 工人 ---------- */
-.man{
-  position:relative;flex:0 0 auto;width:52px;
-  display:flex;flex-direction:column;align-items:center;
-  padding-bottom:2px;border:0;background:none;
-  animation:walk var(--wd,5s) ease-in-out infinite;
-  animation-delay:var(--wdly,0s);
-}
-.man:active .fig{filter:drop-shadow(0 0 10px rgba(245,197,24,.85))}
-@keyframes walk{
-  0%,100%{transform:translateX(-2.6px)}
-  50%{transform:translateX(2.6px)}
-}
-.fig{
-  width:44px;height:60px;
-  animation:bob 2.4s ease-in-out infinite, enter .45s cubic-bezier(.2,1.3,.4,1) backwards;
-  transform-origin:50% 100%;
-  filter:drop-shadow(0 4px 6px rgba(0,0,0,.45));
-}
-@keyframes enter{
-  from{opacity:0;transform:translateY(9px) scale(.85)}
-  to{opacity:1;transform:none}
-}
-.man .nm{
-  font-size:10.5px;color:#b9c3cf;margin-top:1px;letter-spacing:.02em;
-  max-width:52px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  font-weight:600;
-}
-.man .badge{
-  position:absolute;top:-2px;right:4px;z-index:3;
-  font-size:9px;font-weight:800;padding:1px 5px;border-radius:6px;
-  background:var(--blue);color:#04121f;letter-spacing:.02em;
-}
-.man .badge.half{background:var(--purple);color:#fff}
-.man .badge.absent{background:var(--red);color:#fff}
-.man.absent .fig{filter:grayscale(1) opacity(.42) drop-shadow(0 2px 3px rgba(0,0,0,.3))}
-.man.absent .nm{color:#5d6875;text-decoration:line-through}
-.man.absent .nm::after{content:""}
-.s7mark{
-  display:inline-block;font-size:8.5px;font-weight:800;color:#0d1218;
-  background:var(--green);border-radius:3px;padding:0 3px;margin-left:3px;vertical-align:1px;
-}
+.sea-shadow{fill:#000;opacity:.34}
+.rock{fill:#26313f}
+.soil{fill:#463527}
+.grass{fill:#37614a}
+.grass-hi{fill:#4a8060;opacity:.55}
+.ring{fill:none;stroke:var(--gold);stroke-width:1.5;opacity:.28;animation:ringPulse 3.4s ease-in-out infinite}
+@keyframes ringPulse{0%,100%{opacity:.16}50%{opacity:.5}}
 
-@keyframes bob{
-  0%,100%{transform:translateY(0) rotate(-1.1deg)}
-  50%{transform:translateY(-3px) rotate(1.1deg)}
-}
-@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.86)}to{opacity:1;transform:none}}
+.linkbase{fill:none;stroke:#1a2330;stroke-width:8;stroke-linecap:round}
+.linkflow{fill:none;stroke:var(--gold);stroke-width:2;stroke-dasharray:4 11;opacity:.85;
+  animation:flow 1.5s linear infinite;stroke-linecap:round}
+@keyframes flow{to{stroke-dashoffset:-30}}
 
-/* 空狀態 */
-.empty{
-  margin:0 14px;padding:40px 20px;text-align:center;color:var(--dim);
-  border:1px dashed var(--line);border-radius:var(--r);background:rgba(23,28,36,.5);
+.isle-name{font-weight:800;fill:#dbe5ef;letter-spacing:.02em}
+.isle-sub{fill:#7d8b9b;font-weight:600}
+.badge-n{font-weight:800;fill:#12140a}
+.hq-sign{fill:var(--gold2);font-weight:800;letter-spacing:.06em}
+
+.mk{cursor:pointer}
+.mk .bob{animation:bobbing 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes bobbing{
+  0%,100%{transform:translate(-1px,0) rotate(-1.4deg)}
+  50%{transform:translate(1px,-2.4px) rotate(1.4deg)}
 }
-.empty .ei{font-size:30px;margin-bottom:8px;opacity:.5}
+.mk.absent .fig-body{opacity:.32;filter:grayscale(1)}
+.mk.absent .nm-t{fill:#4e5a68;text-decoration:line-through}
+.mk-name{fill:#b7c3d1;font-weight:600}
+.mk-tag{font-weight:800}
+
+@keyframes pop{from{opacity:0;transform:translateY(6px) scale(.8)}to{opacity:1;transform:none}}
+
+.empty{margin:0 13px;padding:38px 18px;text-align:center;color:var(--dim);
+  border:1px dashed var(--line);border-radius:14px;background:rgba(20,27,37,.5)}
+.empty .ei{font-size:28px;margin-bottom:8px;opacity:.5}
 
 /* ---------- 月曆 ---------- */
-.calwrap{padding:0 14px}
-.calhead{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.calhead .cm{font-size:15px;font-weight:800;letter-spacing:.04em}
+.calwrap{padding:0 13px}
+.calhead{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.calhead .cm{font-size:14.5px;font-weight:800}
 .calhead .cnav{margin-left:auto;display:flex;gap:6px}
 .calnavbtn{width:30px;height:30px;border-radius:9px;border:1px solid var(--line);background:var(--card);color:var(--txt);font-size:14px}
 .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.cal .wd{text-align:center;font-size:10px;color:var(--dim2);padding-bottom:3px;letter-spacing:.04em}
-.cell{
-  aspect-ratio:1;border-radius:8px;border:1px solid transparent;
-  background:#131922;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  font-size:11.5px;color:var(--dim);position:relative;padding:0;line-height:1.1;
-  transition:transform .12s;
-}
-.cell.blank{background:none;border-color:transparent;pointer-events:none}
-.cell.has{color:#0d1218;font-weight:800}
-.cell.dim0{background:#131922;color:var(--dim2)}
+.cal .wd{text-align:center;font-size:10px;color:var(--dim2);padding-bottom:3px}
+.cell{aspect-ratio:1;border-radius:8px;border:1px solid transparent;background:#111823;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-size:11.5px;color:var(--dim);padding:0;line-height:1.1}
+.cell.blank{background:none;pointer-events:none}
+.cell.has{color:#12140a;font-weight:800}
+.cell.dim0{color:var(--dim2)}
+.cell.rest{font-weight:700}
 .cell .cd{font-size:11.5px;font-weight:700}
-.cell .cn{font-size:9.5px;opacity:.8;font-weight:600;margin-top:1px}
-.cell.sel{outline:2px solid var(--hi);outline-offset:1px}
+.cell .cn{font-size:9.5px;opacity:.85;font-weight:600;margin-top:1px}
+.cell.sel{outline:2px solid var(--gold);outline-offset:1px}
 .cell.today::after{content:"";position:absolute;top:3px;right:3px;width:4px;height:4px;border-radius:50%;background:var(--red)}
-.cell:not(.blank):active{transform:scale(.93)}
+.cell{position:relative}
 
 /* ---------- sheet ---------- */
-.mask{
-  position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.62);
-  opacity:0;pointer-events:none;transition:opacity .22s;
-  backdrop-filter:blur(2px);
-}
+.mask{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.64);opacity:0;pointer-events:none;
+  transition:opacity .22s;backdrop-filter:blur(2px)}
 .mask.on{opacity:1;pointer-events:auto}
-.sheet{
-  position:fixed;left:0;right:0;bottom:0;z-index:61;
-  background:var(--card);border-radius:20px 20px 0 0;
-  border-top:1px solid var(--line);
-  max-height:82vh;overflow-y:auto;-webkit-overflow-scrolling:touch;
-  transform:translateY(102%);transition:transform .28s cubic-bezier(.3,1,.35,1);
-  padding:0 0 calc(20px + env(safe-area-inset-bottom));
-}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:61;background:var(--card);
+  border-radius:20px 20px 0 0;border-top:1px solid var(--line);max-height:84vh;overflow-y:auto;
+  -webkit-overflow-scrolling:touch;transform:translateY(102%);
+  transition:transform .28s cubic-bezier(.3,1,.35,1);padding:0 0 calc(20px + env(safe-area-inset-bottom))}
 .sheet.on{transform:none}
 @media(min-width:620px){
-  .sheet{left:50%;right:auto;bottom:auto;top:50%;transform:translate(-50%,-46%) scale(.96);opacity:0;
-    width:520px;border-radius:18px;border:1px solid var(--line);max-height:80vh;transition:all .22s}
+  .sheet{left:50%;right:auto;bottom:auto;top:48%;transform:translate(-50%,-46%) scale(.96);
+    opacity:0;width:520px;border-radius:18px;border:1px solid var(--line);max-height:80vh;transition:all .22s}
   .sheet.on{transform:translate(-50%,-50%);opacity:1}
 }
 .shgrab{width:38px;height:4px;border-radius:3px;background:#39424f;margin:10px auto 0}
-.shhead{padding:14px 18px 12px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--card);z-index:2}
-.shhead .st1{display:flex;align-items:center;gap:10px}
-.shhead .stn{font-size:19px;font-weight:800;letter-spacing:.02em}
+.shhead{padding:13px 17px 11px;border-bottom:1px solid var(--line);position:sticky;top:0;
+  background:var(--card);z-index:2}
+.shhead .st1{display:flex;align-items:center;gap:9px}
+.shhead .stn{font-size:18.5px;font-weight:800}
 .shhead .st2{font-size:12px;color:var(--dim);margin-top:4px}
-.shclose{
-  margin-left:auto;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);
-  background:var(--card2);color:var(--dim);font-size:15px;display:flex;align-items:center;justify-content:center;
-}
-.shbody{padding:14px 18px 4px}
-.kv{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px}
+.shclose{margin-left:auto;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);
+  background:var(--card2);color:var(--dim);font-size:15px;display:flex;align-items:center;justify-content:center}
+.shbody{padding:13px 17px 4px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:15px}
 .kvi{background:var(--card2);border-radius:11px;padding:10px 12px}
 .kvi .kv1{font-size:19px;font-weight:800}
-.kvi .kv2{font-size:10.5px;color:var(--dim);margin-top:2px;letter-spacing:.03em}
-.sect{font-size:11px;font-weight:800;color:var(--dim);letter-spacing:.1em;margin:16px 0 8px}
+.kvi .kv2{font-size:10.5px;color:var(--dim);margin-top:2px}
+.sect{font-size:11px;font-weight:800;color:var(--dim);letter-spacing:.1em;margin:15px 0 8px}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{
-  font-size:12px;padding:4px 10px;border-radius:20px;
-  background:var(--card2);color:#c3ccd8;border:1px solid var(--line);
-}
-.chip b{color:var(--hi);font-weight:800;margin-left:3px}
-.lrow{
-  display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid #212836;
-  font-size:13px;
-}
+.chip{font-size:12px;padding:4px 10px;border-radius:20px;background:var(--card2);
+  color:#c3ccd8;border:1px solid var(--line)}
+.chip b{color:var(--gold);font-weight:800;margin-left:3px}
+.lrow{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid #1e2733;font-size:13px}
 .lrow:last-child{border-bottom:0}
-.lrow .ld{color:var(--dim);font-size:12px;flex:0 0 84px}
+.lrow .ld{color:var(--dim);font-size:12px;flex:0 0 82px}
 .lrow .ls2{color:#c3ccd8;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.tagpill{font-size:10.5px;padding:1.5px 7px;border-radius:12px;background:rgba(239,68,68,.15);color:#f87171;font-weight:700;white-space:nowrap}
+.tagpill{font-size:10.5px;padding:1.5px 7px;border-radius:12px;background:rgba(239,68,68,.15);
+  color:#f87171;font-weight:700;white-space:nowrap}
 .tagpill.halfp{background:rgba(163,113,247,.16);color:#c4a5ff}
 .tagpill.okp{background:rgba(63,185,80,.14);color:#5fd075}
 
-/* footer */
-footer{text-align:center;color:var(--dim2);font-size:11px;padding:22px 14px 10px;line-height:1.7}
-footer a{color:var(--dim);text-decoration:none;border-bottom:1px dotted #3a434f}
+footer{text-align:center;color:var(--dim2);font-size:11px;padding:20px 13px 10px;line-height:1.7}
 .logout{background:none;border:0;color:var(--dim2);font-size:11px;text-decoration:underline;padding:4px}
 
 @media(prefers-reduced-motion:reduce){
-  .fig{animation:none}
-  .man{animation:none}
-  .sheet,.mask{transition:none}
+  .float,.bob,.linkflow,.ring,.pop{animation:none !important}
 }
 </style>
 </head>
 <body>
 
-<!-- 密碼鎖 -->
 <div id="lock">
   <div class="lockbox">
-    <div class="lh">可樂<span>工程行</span></div>
+    <div class="lh">可樂<span>工程群島</span></div>
     <div class="ls">出工現場 · 內部專用</div>
-    <input id="pw" type="password" inputmode="text" autocomplete="current-password" placeholder="輸入通行碼">
+    <input id="pw" type="password" inputmode="text" autocomplete="current-password" placeholder="通行碼">
     <button id="gobtn">進 入</button>
     <div class="lerr" id="lerr"></div>
     <label class="lremember"><input type="checkbox" id="remember" checked> 記住這台裝置</label>
@@ -301,8 +209,8 @@ footer a{color:var(--dim);text-decoration:none;border-bottom:1px dotted #3a434f}
 <div id="app" hidden>
   <header>
     <div class="hrow">
-      <div class="brand">可樂<b>工程行</b> · 出工現場</div>
-      <div class="hmeta"><span id="hrange"></span></div>
+      <div class="brand">可樂<b>工程群島</b></div>
+      <div class="hmeta" id="hrange"></div>
     </div>
     <div class="dnav">
       <button class="dbtn" id="prev" aria-label="前一天">‹</button>
@@ -318,10 +226,12 @@ footer a{color:var(--dim);text-decoration:none;border-bottom:1px dotted #3a434f}
   <div class="summary" id="summary"></div>
 
   <main>
-    <div class="stitle"><span class="dot"></span>工地現場<span class="cnt" id="siteCnt"></span></div>
-    <div class="sites" id="sites"></div>
+    <div class="stitle"><span class="dot"></span>今日群島<span class="cnt" id="siteCnt"></span></div>
+    <div id="worldWrap">
+      <svg id="world" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
 
-    <div class="stitle" style="margin-top:22px"><span class="dot"></span>月曆 · 出工密度<span class="cnt" id="calCnt"></span></div>
+    <div class="stitle" style="margin-top:18px"><span class="dot"></span>月曆 · 出工密度<span class="cnt" id="calCnt"></span></div>
     <div class="calwrap">
       <div class="calhead">
         <div class="cm" id="calMonth">—</div>
@@ -361,11 +271,11 @@ footer a{color:var(--dim);text-decoration:none;border-bottom:1px dotted #3a434f}
 
 var DATA=null, DAYS=[], BYDATE={}, PIDX={}, SIDX={};
 var curDate=null, curMonth=null;
+var NS="http://www.w3.org/2000/svg";
 
-/* ---------- 解密 ---------- */
+/* ================= 解密 ================= */
 function b64(s){var bin=atob(s),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return u;}
 function cat(a,b){var u=new Uint8Array(a.length+b.length);u.set(a,0);u.set(b,a.length);return u;}
-
 async function unlock(pw){
   var e=window.__ENC__;
   if(!e) throw new Error('no data');
@@ -373,45 +283,281 @@ async function unlock(pw){
   var key=await crypto.subtle.deriveKey(
     {name:'PBKDF2',salt:b64(e.salt),iterations:e.iter,hash:'SHA-256'},
     km,{name:'AES-GCM',length:256},false,['decrypt']);
-  var pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(e.iv),tagLength:128},key,cat(b64(e.ct),b64(e.tag)));
+  var pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(e.iv),tagLength:128},key,
+    cat(b64(e.ct),b64(e.tag)));
   return JSON.parse(new TextDecoder().decode(pt));
 }
 
-/* ---------- 顏色／小人 ---------- */
-function hash(s){var h=0;for(var i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))|0;}return Math.abs(h);}
-function vestColor(n){var h=hash(n)%360;return 'hsl('+h+',58%,54%)';}
-function vestDark(n){var h=hash(n)%360;return 'hsl('+h+',52%,38%)';}
-
-function svgMan(name,s7,absent){
-  var vest=absent?'#3a434f':vestColor(name);
-  var helm=absent?'#4a5563':(s7?'#f97316':'#f5c518');
-  var helmD=absent?'#39424f':(s7?'#c2410c':'#d4a90f');
-  var skin=absent?'#7b8592':'#efc9a4';
-  return '<svg class="fig" viewBox="0 0 44 60" xmlns="http://www.w3.org/2000/svg">'
-   +'<ellipse cx="22" cy="57.5" rx="12" ry="2.4" fill="#000" opacity="'+(absent?'.12':'.3')+'"/>'
-   +'<rect x="14.5" y="44" width="5.5" height="12" rx="2.6" fill="'+(absent?'#39424f':'#2c3644')+'"/>'
-   +'<rect x="24" y="44" width="5.5" height="12" rx="2.6" fill="'+(absent?'#39424f':'#2c3644')+'"/>'
-   +'<rect x="13" y="52.5" width="8" height="4" rx="2" fill="#1b222c"/>'
-   +'<rect x="22.5" y="52.5" width="8" height="4" rx="2" fill="#1b222c"/>'
-   +'<path d="M12 25 h20 l2.5 20 h-25 z" fill="'+vest+'"/>'
-   +'<rect x="11.4" y="33" width="21.2" height="3.2" fill="#e8eef5" opacity="'+(absent?'.16':'.72')+'"/>'
-   +'<rect x="11.4" y="39" width="21.2" height="1.8" fill="#e8eef5" opacity="'+(absent?'.1':'.4')+'"/>'
-   +'<rect x="9.8" y="25.5" width="4.2" height="13" rx="2" fill="'+(absent?'#39424f':vestDark(name))+'"/>'
-   +'<rect x="30" y="25.5" width="4.2" height="13" rx="2" fill="'+(absent?'#39424f':vestDark(name))+'"/>'
-   +'<circle cx="22" cy="17.5" r="7.2" fill="'+skin+'"/>'
-   +'<path d="M14.2 15.6 a7.8 7.8 0 0 1 15.6 0 q0 1.6-1.4 1.6 h-12.8 q-1.4 0-1.4-1.6z" fill="'+helm+'"/>'
-   +'<rect x="12.4" y="14.6" width="19.2" height="2.5" rx="1.25" fill="'+helmD+'"/>'
-   +'<rect x="20.6" y="9.4" width="2.8" height="3.4" rx="1.2" fill="'+helmD+'"/>'
-   +'</svg>';
+/* ================= 顏色 ================= */
+function hash(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return Math.abs(h);}
+function vest(n){return 'hsl('+(hash(n)%360)+',56%,52%)';}
+function vestD(n){return 'hsl('+(hash(n)%360)+',50%,36%)';}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function txtW(s,fs){
+  var w=0;
+  for(var i=0;i<s.length;i++){ w += /[\u4e00-\u9fff]/.test(s[i]) ? fs : fs*0.56; }
+  return w;
 }
 
-/* ---------- 索引 ---------- */
+/* ================= 小人（座標系 0..44 x 0..60，原點左上） ================= */
+function manInner(name,s7,absent){
+  var v=absent?'#39424f':vest(name);
+  var vd=absent?'#2b333d':vestD(name);
+  var hm=absent?'#4c5766':(s7?'#f97316':'#f5c518');
+  var hmd=absent?'#39424f':(s7?'#c2410c':'#d4a90f');
+  var sk=absent?'#77818e':'#efc9a4';
+  var o=absent?'0.5':'1';
+  return '<g class="fig-body" opacity="'+o+'">'
+   +'<ellipse cx="22" cy="58" rx="11.5" ry="2.2" fill="#000" opacity=".28"/>'
+   +'<rect x="15" y="45" width="5.4" height="12" rx="2.5" fill="'+(absent?'#39424f':'#2c3644')+'"/>'
+   +'<rect x="23.6" y="45" width="5.4" height="12" rx="2.5" fill="'+(absent?'#39424f':'#2c3644')+'"/>'
+   +'<rect x="13.2" y="53.6" width="8" height="3.8" rx="1.9" fill="#171d26"/>'
+   +'<rect x="22.8" y="53.6" width="8" height="3.8" rx="1.9" fill="#171d26"/>'
+   +'<path d="M12.4 25.5 h19.2 l2.4 20 h-24 z" fill="'+v+'"/>'
+   +'<rect x="11.8" y="33.4" width="20.4" height="3" fill="#e8eef5" opacity="'+(absent?'.14':'.7')+'"/>'
+   +'<rect x="9.9" y="26" width="4" height="12.6" rx="2" fill="'+vd+'"/>'
+   +'<rect x="30.1" y="26" width="4" height="12.6" rx="2" fill="'+vd+'"/>'
+   +'<circle cx="22" cy="18" r="7" fill="'+sk+'"/>'
+   +'<path d="M14.4 16 a7.6 7.6 0 0 1 15.2 0 q0 1.5-1.4 1.5 h-12.4 q-1.4 0-1.4-1.5z" fill="'+hm+'"/>'
+   +'<rect x="12.6" y="15" width="18.8" height="2.4" rx="1.2" fill="'+hmd+'"/>'
+   +'<rect x="20.7" y="9.9" width="2.6" height="3.2" rx="1.1" fill="'+hmd+'"/>'
+   +'</g>';
+}
+
+/* ================= 島體 ================= */
+// 七邊形低多邊形輪廓，k=縮放，dy=垂直位移
+function isleShape(W,H,dy,k){
+  var w=W*k, h=H*k;
+  var p=[[-0.99,-0.10],[-0.58,-0.96],[0.06,-1.06],[0.93,-0.44],
+         [0.86,0.54],[0.14,1.03],[-0.63,0.86]];
+  var d='M';
+  for(var i=0;i<p.length;i++){
+    d+=(p[i][0]*w).toFixed(1)+','+((p[i][1]*h)+dy).toFixed(1);
+    if(i<p.length-1) d+='L';
+  }
+  return d+'Z';
+}
+
+function tree(x,y,s){
+  return '<g transform="translate('+x+','+y+') scale('+s+')">'
+   +'<rect x="-1.6" y="-7" width="3.2" height="8" fill="#43301f"/>'
+   +'<path d="M0,-27 L8.5,-8 L-8.5,-8 Z" fill="#28503a"/>'
+   +'<path d="M0,-34 L7,-16 L-7,-16 Z" fill="#386b48"/>'
+   +'</g>';
+}
+
+/* ================= 版面計算 ================= */
+function measure(){
+  var w=document.getElementById('worldWrap');
+  return Math.max(280, Math.floor(w.clientWidth-24));
+}
+
+function layout(n, CW){
+  var GAP=12, PAD=6;
+  var cols = CW>=680?5:(CW>=520?4:(CW>=400?3:2));
+  if(n>0 && n<cols) cols=n;
+  var IW=Math.min(200, Math.floor((CW-PAD*2-GAP*(cols-1))/cols));
+  IW=Math.max(122,IW);
+  var IH=Math.round(IW*0.52);
+  var DEP=Math.round(IW*0.13);
+  var halfH=IH/2;
+
+  var HQW=Math.min(212, Math.round(CW*0.58));
+  var HQH=Math.round(HQW*0.46);
+  var HQDEP=Math.round(HQW*0.11);
+  var HQhalfH=HQH/2;
+
+  var HQX=CW/2;
+  var HQY=Math.round(HQhalfH+HQDEP*2.35+64);
+
+  var rowGapY=Math.round(IH+DEP*2.4+98);
+  var firstY=Math.round(HQY+HQhalfH+HQDEP*2.35+152);
+
+  var slots=[];
+  for(var i=0;i<n;i++){
+    var col=i%cols, row=Math.floor(i/cols);
+    var inRow=Math.min(cols, n-row*cols);
+    var totalW=inRow*IW+(inRow-1)*GAP;
+    var sx=PAD+(CW-PAD*2-totalW)/2 + IW/2;
+    slots.push({
+      x: sx+col*(IW+GAP),
+      y: firstY+row*rowGapY,
+      row: row
+    });
+  }
+  var rows=Math.ceil(n/Math.max(1,cols));
+  var H = n===0 ? HQY+HQhalfH+HQDEP*2.35+40
+                : firstY+(rows-1)*rowGapY+halfH+DEP*2.4+34;
+
+  return {CW:CW, H:Math.round(H), cols:cols, IW:IW, IH:IH, DEP:DEP, halfH:halfH,
+    HQX:HQX, HQY:HQY, HQW:HQW, HQH:HQH, HQDEP:HQDEP, HQhalfH:HQhalfH, slots:slots, n:n};
+}
+
+/* ================= 島繪製 ================= */
+function drawIsland(cx,cy,W,H,DEP,opts){
+  W=W/2; H=H/2;   // 傳入為全寬全高，內部換算半值
+  var s='';
+  // 陰影
+  s+='<ellipse class="sea-shadow" cx="'+cx+'" cy="'+(cy+H*1.06+DEP)+'" rx="'+(W*1.02)+'" ry="'+(H*0.42)+'"/>';
+  // 光環（在地面）
+  s+='<ellipse class="ring" cx="'+cx+'" cy="'+(cy+H*1.0+DEP)+'" rx="'+(W*0.9)+'" ry="'+(H*0.3)+'" style="animation-delay:'+(opts.delay/1000).toFixed(2)+'s"/>';
+  // 岩層
+  s+='<path d="'+isleShape(W,H,DEP*2.35,0.70)+'" transform="translate('+cx+','+cy+')" fill="#26313f"/>';
+  // 土層
+  s+='<path d="'+isleShape(W,H,DEP*1.32,0.86)+'" transform="translate('+cx+','+cy+')" fill="#463527"/>';
+  // 草皮
+  s+='<path d="'+isleShape(W,H,0,1)+'" transform="translate('+cx+','+cy+')" fill="#37614a"/>';
+  // 高光
+  s+='<path d="'+isleShape(W,H,-DEP*0.16,0.72)+'" transform="translate('+cx+','+cy+')" class="grass-hi"/>';
+  return s;
+}
+
+/* ================= 主場景 ================= */
+function renderWorld(d){
+  var svg=document.getElementById('world');
+  var n = d ? d.sites.length : 0;
+  var CW = measure();
+  var L = layout(n, CW);
+
+  svg.setAttribute('viewBox','0 0 '+CW+' '+L.H);
+  svg.setAttribute('height', L.H);
+  svg.style.height=L.H+'px';
+
+  if(!d || n===0){
+    svg.innerHTML='';
+    document.getElementById('siteCnt').textContent='';
+    return;
+  }
+
+  var out='';
+
+  /* ---- 連線：總部 → 各島 ---- */
+  var hqBottomY = L.HQY + L.HQhalfH*0.85;
+  for(var i=0;i<n;i++){
+    var sl=L.slots[i];
+    var topY = sl.y - L.halfH*1.12;
+    var sx=L.HQX, sy=hqBottomY;
+    var ex=sl.x, ey=topY;
+    if(ey<sy+50){ ey=sy+50; }
+    var mx=(sx+ex)/2, my=(sy+ey)/2 + 26;
+    var dpath='M'+sx.toFixed(1)+','+sy.toFixed(1)+' Q'+mx.toFixed(1)+','+my.toFixed(1)+' '+ex.toFixed(1)+','+ey.toFixed(1);
+    out+='<path class="linkbase" d="'+dpath+'"/>';
+    out+='<path class="linkflow" d="'+dpath+'" style="animation-delay:'+(-(i*0.28)).toFixed(2)+'s"/>';
+  }
+
+  /* ---- 總部島 ---- */
+  out+='<g transform="translate('+L.HQX+','+L.HQY+')">'
+      +'<g class="float" style="animation-delay:-1.2s">'
+      +'<g class="pop" style="animation-delay:0ms">';
+  out+='<g transform="translate('+(-L.HQX)+','+(-L.HQY)+')">';
+  out+=drawIsland(L.HQX,L.HQY,L.HQW,L.HQH,L.HQDEP,{delay:0});
+  out+='</g>';
+  // 貨櫃屋 + 招牌
+  var cw=L.HQW*0.60, ch=L.HQH*0.56;
+  var baseY=L.HQhalfH*0.20;
+  out+='<rect x="'+(-cw/2)+'" y="'+(baseY-ch)+'" width="'+cw+'" height="'+ch+'" rx="3" fill="#2b3a4a"/>'
+      +'<rect x="'+(-cw/2)+'" y="'+(baseY-ch)+'" width="'+cw+'" height="'+(ch*0.2)+'" fill="#3d5265"/>'
+      +'<rect x="'+(-cw*0.10)+'" y="'+(baseY-ch*0.66)+'" width="'+(cw*0.20)+'" height="'+(ch*0.66)+'" fill="#f5c518" opacity=".92"/>'
+      +'<text class="hq-sign" x="0" y="'+(baseY-ch-9)+'" text-anchor="middle" font-size="'+(L.HQW*0.115).toFixed(1)+'">可樂工程行</text>';
+  // 兩棵樹
+  out+=tree(-L.HQW*0.33, L.HQhalfH*0.72, L.HQW/230);
+  out+=tree(L.HQW*0.35, L.HQhalfH*0.46, L.HQW/280);
+  out+='</g></g></g>';
+
+  /* ---- 工地島 ---- */
+  var di=0;
+  d.sites.forEach(function(site){
+    var sl=L.slots[di];
+    var delay=140+di*110;
+    var ppl=site.people;
+    var present=ppl.filter(function(p){return p.tag!=='沒出來';}).length;
+    var W=L.IW, H=L.IH, DEP=L.DEP, halfH=L.halfH;
+
+    out+='<g transform="translate('+sl.x.toFixed(1)+','+sl.y.toFixed(1)+')">'
+        +'<g class="float" style="animation-delay:'+(-(di*0.9+0.6)).toFixed(2)+'s">'
+        +'<g class="pop" style="animation-delay:'+delay+'ms">';
+
+    // 島體（點擊區）
+    out+='<g class="isle-body" data-site="'+esc(site.name)+'">';
+    out+='<g transform="translate('+(-sl.x).toFixed(1)+','+(-sl.y).toFixed(1)+')">';
+    out+=drawIsland(sl.x,sl.y,W,H,DEP,{delay:delay});
+    out+='</g>';
+    // 島上裝飾：樹
+    out+=tree(-W*0.30, halfH*0.62, W/270);
+    if(ppl.length<=3) out+=tree(W*0.33, halfH*0.34, W/320);
+
+    // 島名 + 人數（同一行，整體居中）
+    var fs=Math.max(10, Math.round(W*0.086));
+    var fsSub=Math.max(9, Math.round(W*0.062));
+    var nameY=-(halfH*1.24+fs*0.9);
+    var badgeTxt=present+'/'+ppl.length;
+    var bw=fsSub*3.3, bh=fsSub*1.5;
+    var nw=txtW(site.name,fs);
+    var tot=nw+5+bw;
+    var sx0=-tot/2;
+    out+='<text class="isle-name" x="'+sx0.toFixed(1)+'" y="'+nameY.toFixed(1)+'" text-anchor="start" font-size="'+fs+'">'+esc(site.name)+'</text>';
+    out+='<g transform="translate('+(sx0+nw+5).toFixed(1)+','+(nameY-fs*0.74).toFixed(1)+')">'
+        +'<rect width="'+bw.toFixed(1)+'" height="'+bh.toFixed(1)+'" rx="'+(bh/2)+'" fill="'+(present===ppl.length?'rgba(245,197,24,.92)':'rgba(251,146,60,.92)')+'"/>'
+        +'<text class="badge-n" x="'+(bw/2).toFixed(1)+'" y="'+(bh*0.72).toFixed(1)+'" text-anchor="middle" font-size="'+fsSub+'">'+badgeTxt+'</text>'
+        +'</g>';
+    out+='</g>';
+
+    // 人物
+    var perRow=Math.min(ppl.length, W>=165?4:3);
+    if(perRow<1) perRow=1;
+    var stepX=W*0.25;
+    var stepY=halfH*0.52;
+    var mScale=Math.min(0.80, (halfH*0.98)/60);
+    var basePy=halfH*0.34;
+    ppl.forEach(function(p,pi){
+      var r=Math.floor(pi/perRow), c=pi%perRow;
+      var inRow=Math.min(perRow, ppl.length-r*perRow);
+      var px=(c-(inRow-1)/2)*stepX;
+      var py=basePy - r*stepY;
+      var sc=mScale*(1-r*0.09);
+      var absent=(p.tag==='沒出來');
+      var nmFs=Math.max(7.5, mScale*15);
+      var hgt=60*sc;
+      out+='<g class="mk'+(absent?' absent':'')+'" transform="translate('+px.toFixed(1)+','+py.toFixed(1)+')" data-p="'+esc(p.n)+'" data-site="'+esc(site.name)+'">'
+          +'<g class="bob" style="animation-delay:'+((pi*0.22)%2.6).toFixed(2)+'s">'
+          +'<g transform="scale('+sc.toFixed(3)+') translate(-22,-60)">'
+          +manInner(p.n,p.s7,absent)
+          +'</g></g>';
+      // 名字（腳下）
+      out+='<text class="mk-name" x="0" y="'+(nmFs*1.85).toFixed(1)+'" text-anchor="middle" font-size="'+nmFs.toFixed(1)+'">'+esc(p.n)+'</text>';
+      // 標記（頭頂）
+      if(p.tag){
+        var tagTxt=(p.tag==='沒出來')?'未到':p.tag;
+        var tagFill=(p.tag==='沒出來')?'#ef4444':(p.tag==='半天'?'#a371f7':'#64748b');
+        var tw=Math.max(19, tagTxt.length*nmFs*0.95);
+        var th=nmFs*1.3;
+        out+='<g transform="translate('+(-tw/2).toFixed(1)+','+(-hgt-th-2).toFixed(1)+')">'
+            +'<rect width="'+tw.toFixed(1)+'" height="'+th.toFixed(1)+'" rx="'+(th/2)+'" fill="'+tagFill+'"/>'
+            +'<text class="mk-tag" x="'+(tw/2).toFixed(1)+'" y="'+(th*0.76).toFixed(1)+'" text-anchor="middle" font-size="'+(nmFs*0.86).toFixed(1)+'" fill="#fff">'+esc(tagTxt)+'</text>'
+            +'</g>';
+      }
+      out+='</g>';
+    });
+
+    out+='</g></g></g>';
+    di++;
+  });
+
+  svg.innerHTML=out;
+  document.getElementById('siteCnt').textContent=n+' 座工地島 · '+d.head+' 人';
+}
+
+/* ================= 日期 ================= */
+var WD=['週日','週一','週二','週三','週四','週五','週六'];
+function fmt(iso){return iso;}
+function wdOf(iso){var t=new Date(iso+'T00:00:00');return WD[t.getDay()];}
+
 function buildIndex(days){
   PIDX={};SIDX={};
   days.forEach(function(d){
-    var seenInDay={};
     d.sites.forEach(function(s){
-      if(!SIDX[s.name]) SIDX[s.name]={name:s.name,daySet:{},people:{},visit:0};
+      if(!SIDX[s.name]) SIDX[s.name]={name:s.name,daySet:{},people:{}};
       SIDX[s.name].daySet[d.date]=1;
       s.people.forEach(function(p){
         if(!PIDX[p.n]) PIDX[p.n]={name:p.n,s7:false,daySet:{},sites:{},tags:[]};
@@ -425,109 +571,51 @@ function buildIndex(days){
   });
 }
 
-/* ---------- 日期工具 ---------- */
-var WD=['週日','週一','週二','週三','週四','週五','週六'];
-function fmtDate(iso){var a=iso.split('-');return a[0]+'-'+a[1]+'-'+a[2];}
-function wdOf(iso){var d=new Date(iso+'T00:00:00');return WD[d.getDay()];}
-function shiftDate(iso,n){var d=new Date(iso+'T00:00:00');d.setDate(d.getDate()+n);
-  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
-
-/* ---------- 渲染：當日 ---------- */
-function tagInfo(tag){
-  if(!tag) return null;
-  if(tag==='沒出來') return {k:'absent',t:'未到',cls:'absent'};
-  if(tag==='半天') return {k:'half',t:'半天',cls:'half'};
-  return {k:'note',t:tag,cls:''};
-}
-
 function renderDay(){
   var d=BYDATE[curDate];
   var mainEl=document.getElementById('dMain'), subEl=document.getElementById('dSub');
-  var totalOld=DAYS.length;
   var idx=DAYS.indexOf(curDate);
 
   if(!d){
     mainEl.textContent=curDate.slice(5).replace('-','/');
     subEl.textContent=wdOf(curDate)+' · 無領款單紀錄';
-    document.getElementById('sites').innerHTML=
-      '<div class="empty" style="grid-column:1/-1"><div class="ei">▦</div>這天沒有領款單紀錄</div>';
-    document.getElementById('siteCnt').textContent='';
     document.getElementById('summary').innerHTML='';
+    document.getElementById('siteCnt').textContent='';
+    var svg=document.getElementById('world');
+    svg.innerHTML='';
+    svg.setAttribute('viewBox','0 0 300 90');
+    svg.style.height='90px';
+    document.getElementById('worldWrap').insertAdjacentHTML('afterbegin','');
+    renderCal();
     document.getElementById('prev').disabled=(idx<=0);
     document.getElementById('next').disabled=(idx>=DAYS.length-1);
-    renderCal();
     return;
   }
 
-  mainEl.textContent=fmtDate(d.date).slice(5).replace('-','/');
+  mainEl.textContent=curDate.slice(5).replace('-','/');
   var isRest=(d.head===0||d.sites.length===0);
   subEl.textContent=wdOf(d.date)+' · '+(isRest?'全體休息':d.head+' 人出工');
 
-  // summary
   var s7n=0,absent=0,half=0;
   d.sites.forEach(function(s){s.people.forEach(function(p){
     if(p.s7)s7n++; if(p.tag==='沒出來')absent++; if(p.tag==='半天')half++;
   })});
-  var sm=[{v:d.head,l:'今日出工',c:'acc'},{v:d.sites.length,l:'工地數',c:''}];
+  var sm=[{v:d.head,l:isRest?'出工':'今日出工',c:'acc'},{v:d.sites.length,l:'工地島',c:''}];
   if(s7n) sm.push({v:s7n,l:'紹齊支援',c:'blu'});
   if(absent) sm.push({v:absent,l:'未到',c:'warn'});
   if(half) sm.push({v:half,l:'只做半天',c:'warn'});
-  if(d.header!==null&&d.header!==undefined&&d.header!==d.head)
-    sm.push({v:d.header,l:'表頭記載',c:''});
+  if(d.header!=null&&d.header!==d.head) sm.push({v:d.header,l:'表頭記載',c:''});
   document.getElementById('summary').innerHTML=sm.map(function(x){
     return '<div class="sum '+(x.c||'')+'"><div class="sv">'+x.v+'</div><div class="sl">'+x.l+'</div></div>';
   }).join('');
 
-  // 工地現場
-  var order=d.sites.slice().sort(function(a,b){return b.people.length-a.people.length;});
-  document.getElementById('siteCnt').textContent=order.length+' 個工地 · '+d.head+' 人';
-  var html='';
-  order.forEach(function(s,si){
-    var present=s.people.filter(function(p){return p.tag!=='沒出來';}).length;
-    html+='<div class="site">'
-      +'<div class="shead"><div class="sname">'+esc(s.name)+'</div>'
-      +'<div class="scount'+(s.people.length?'':' zero')+'">'+present+'/'+s.people.length+' 人</div></div>'
-      +'<div class="crew">';
-    s.people.forEach(function(p,pi){
-      var ti=tagInfo(p.tag);
-      var absent=(ti&&ti.k==='absent');
-      var delay=(si*40+pi*55)+'ms';
-      html+='<button class="man'+(absent?' absent':'')+'" data-p="'+esc(p.n)+'" data-site="'+esc(s.name)+'" '
-        +'style="animation-delay:'+delay+'">'
-        +(ti?'<span class="badge '+ti.cls+'">'+esc(ti.t)+'</span>':'')
-        +svgMan(p.n,p.s7,absent)
-        +'<span class="nm">'+esc(p.n)+(p.s7?'<i class="s7mark">S7</i>':'')+'</span>'
-        +'</button>';
-    });
-    html+='</div></div>';
-  });
-  if(!html){
-    html='<div class="empty" style="grid-column:1/-1"><div class="ei">☾</div>今日全體休息，沒有派工</div>';
-    document.getElementById('siteCnt').textContent='0 個工地';
-  }
-  document.getElementById('sites').innerHTML=html;
-
-  // 走動節奏：每人不同速度與相位，避免全體同步
-  var ms=document.querySelectorAll('.man');
-  for(var i=0;i<ms.length;i++){
-    ms[i].style.setProperty('--wd',(4.6+(i%7)*0.62).toFixed(2)+'s');
-    ms[i].style.setProperty('--wdly',(-((i*0.53)%4.6)).toFixed(2)+'s');
-  }
-  var figs=document.querySelectorAll('.fig');
-  for(var j=0;j<figs.length;j++){
-    figs[j].style.animationDelay=(j*46)+'ms';
-    figs[j].style.animationDuration=(2.2+(j%6)*0.14).toFixed(2)+'s,0.45s';
-  }
-
-  document.getElementById('prev').disabled=false;
-  document.getElementById('next').disabled=false;
+  renderWorld(d);
   renderCal();
+  document.getElementById('prev').disabled=(idx<=0);
+  document.getElementById('next').disabled=(idx>=DAYS.length-1);
 }
 
-function esc(s){return String(s).replace(/[&<>"']/g,function(c){
-  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
-
-/* ---------- 月曆 ---------- */
+/* ================= 月曆 ================= */
 function renderCal(){
   if(!curMonth) return;
   var y=+curMonth.slice(0,4), m=+curMonth.slice(5,7);
@@ -535,66 +623,45 @@ function renderCal(){
   var first=new Date(y,m-1,1), startDow=first.getDay();
   var dim=new Date(y,m,0).getDate();
   var counts={};
-  DAYS.forEach(function(iso){
-    if(iso.slice(0,7)===curMonth) counts[iso]=BYDATE[iso].head;
-  });
-  var maxC=1; Object.keys(counts).forEach(function(k){maxC=Math.max(maxC,counts[k]);});
-  var monthDays=Object.keys(counts).length;
-  var monthHead=0; Object.keys(counts).forEach(function(k){monthHead+=counts[k];});
-  document.getElementById('calCnt').textContent=monthDays+' 天 · 累計 '+monthHead+' 人次';
+  DAYS.forEach(function(iso){ if(iso.slice(0,7)===curMonth) counts[iso]=BYDATE[iso].head; });
+  var maxC=1, monthHead=0;
+  Object.keys(counts).forEach(function(k){maxC=Math.max(maxC,counts[k]);monthHead+=counts[k];});
+  document.getElementById('calCnt').textContent=Object.keys(counts).length+' 天 · 累計 '+monthHead+' 人次';
 
-  var today=new Date();
-  var todayIso=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+  var t=new Date();
+  var todayIso=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
 
   var h='';
   ['日','一','二','三','四','五','六'].forEach(function(w){h+='<div class="wd">'+w+'</div>';});
   for(var i=0;i<startDow;i++) h+='<div class="cell blank"></div>';
-  for(var d=1;d<=dim;d++){
-    var iso=y+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+  for(var dd=1;dd<=dim;dd++){
+    var iso=y+'-'+String(m).padStart(2,'0')+'-'+String(dd).padStart(2,'0');
     var rec=counts[iso];
     var c=(rec===undefined?null:rec);
-    var cls='cell';
-    var style='';
-    if(c===null){
-      cls+=' dim0';
-    }else if(c===0){
-      cls+=' rest';
-      style='background:rgba(74,158,255,.09);color:#7f93a8';
-    }else{
-      var t=c/maxC;
-      var alpha=0.16+t*0.72;
-      style='background:rgba(245,197,24,'+alpha.toFixed(2)+');color:#0d1218';
+    var cls='cell', style='';
+    if(c===null){ cls+=' dim0'; }
+    else if(c===0){ cls+=' rest'; style='background:rgba(74,158,255,.09);color:#7f93a8'; }
+    else{
+      var a=0.16+(c/maxC)*0.72;
+      style='background:rgba(245,197,24,'+a.toFixed(2)+');color:#12140a';
       cls+=' has';
     }
     if(iso===curDate) cls+=' sel';
     if(iso===todayIso) cls+=' today';
     h+='<button class="'+cls+'" data-d="'+iso+'" style="'+style+'">'
-      +'<span class="cd">'+d+'</span>'
+      +'<span class="cd">'+dd+'</span>'
       +(c>0?'<span class="cn">'+c+'</span>':(c===0?'<span class="cn">休</span>':''))
       +'</button>';
   }
   document.getElementById('cal').innerHTML=h;
 }
 
-/* ---------- sheet ---------- */
-function openSheet(name,site){
-  if(site && !PIDX[name]){
-    renderSiteSheet(site); return;
-  }
-  renderPersonSheet(name);
-}
-function closeSheet(){
-  document.getElementById('sheet').classList.remove('on');
-  document.getElementById('mask').classList.remove('on');
-}
-function showSheet(){
-  document.getElementById('sheet').classList.add('on');
-  document.getElementById('mask').classList.add('on');
-}
+/* ================= sheet ================= */
+function showSheet(){document.getElementById('sheet').classList.add('on');document.getElementById('mask').classList.add('on');}
+function closeSheet(){document.getElementById('sheet').classList.remove('on');document.getElementById('mask').classList.remove('on');}
 
-function renderPersonSheet(name){
-  var p=PIDX[name];
-  if(!p) return;
+function personSheet(name){
+  var p=PIDX[name]; if(!p) return;
   var days=Object.keys(p.daySet).length;
   var mNow=curDate.slice(0,7);
   var mDays=Object.keys(p.daySet).filter(function(x){return x.slice(0,7)===mNow;}).length;
@@ -602,18 +669,15 @@ function renderPersonSheet(name){
   var tags=p.tags.slice().sort(function(a,b){return b.d.localeCompare(a.d);});
   var recent=Object.keys(p.daySet).sort().reverse().slice(0,6);
 
-  document.getElementById('shName').innerHTML=esc(p.name)+(p.s7?' <i class="s7mark" style="font-size:10px;vertical-align:3px">S7 紹齊</i>':'');
+  document.getElementById('shName').innerHTML=esc(p.name)+(p.s7?' <span style="font-size:10px;color:#5fd075;font-weight:800">S7 紹齊</span>':'');
   document.getElementById('shSub').textContent='累計出工 '+days+' 天　·　本月 '+mDays+' 天';
 
   var h='<div class="kv">'
     +'<div class="kvi"><div class="kv1">'+days+'</div><div class="kv2">歷史出工天數</div></div>'
-    +'<div class="kvi"><div class="kv1">'+mDays+'</div><div class="kv2">本月出工</div></div>'
-    +'</div>';
+    +'<div class="kvi"><div class="kv1">'+mDays+'</div><div class="kv2">本月出工</div></div></div>';
 
   h+='<div class="sect">常去工地</div><div class="chips">';
-  sites.slice(0,6).forEach(function(s){
-    h+='<div class="chip">'+esc(s)+'<b>'+p.sites[s]+'</b></div>';
-  });
+  sites.slice(0,6).forEach(function(s){h+='<div class="chip">'+esc(s)+'<b>'+p.sites[s]+'</b></div>';});
   if(!sites.length) h+='<div class="chip">—</div>';
   h+='</div>';
 
@@ -629,8 +693,7 @@ function renderPersonSheet(name){
 
   h+='<div class="sect">最近出工</div>';
   recent.forEach(function(dd){
-    var d=BYDATE[dd];
-    var where=[];
+    var d=BYDATE[dd], where=[];
     if(d) d.sites.forEach(function(s){
       if(s.people.some(function(x){return x.n===name;})) where.push(s.name);
     });
@@ -642,9 +705,8 @@ function renderPersonSheet(name){
   showSheet();
 }
 
-function renderSiteSheet(siteName){
-  var s=SIDX[siteName];
-  if(!s) return;
+function siteSheet(siteName){
+  var s=SIDX[siteName]; if(!s) return;
   var days=Object.keys(s.daySet).length;
   var ppl=Object.keys(s.people).sort(function(a,b){return s.people[b]-s.people[a];});
   var mNow=curDate.slice(0,7);
@@ -655,8 +717,7 @@ function renderSiteSheet(siteName){
 
   var h='<div class="kv">'
     +'<div class="kvi"><div class="kv1">'+days+'</div><div class="kv2">歷史出工天數</div></div>'
-    +'<div class="kvi"><div class="kv1">'+mDays+'</div><div class="kv2">本月出工</div></div>'
-    +'</div>';
+    +'<div class="kvi"><div class="kv1">'+mDays+'</div><div class="kv2">本月出工</div></div></div>';
 
   h+='<div class="sect">來過的師傅（次數）</div>';
   ppl.forEach(function(n){
@@ -665,13 +726,12 @@ function renderSiteSheet(siteName){
       +'<div class="ls2">出工 '+Object.keys(PIDX[n].daySet).length+' 天</div>'
       +'<span class="tagpill okp">'+s.people[n]+' 次</span></div>';
   });
-
   document.getElementById('shBody').innerHTML=h;
   showSheet();
 }
 
-/* ---------- 事件 ---------- */
-function bindApp(){
+/* ================= 事件 ================= */
+function bind(){
   document.getElementById('prev').onclick=function(){
     var i=DAYS.indexOf(curDate);
     if(i>0){curDate=DAYS[i-1];curMonth=curDate.slice(0,7);renderDay();window.scrollTo({top:0,behavior:'smooth'});}
@@ -701,18 +761,15 @@ function bindApp(){
     var iso=b.getAttribute('data-d');
     if(BYDATE[iso]){curDate=iso;renderDay();window.scrollTo({top:0,behavior:'smooth'});}
   });
-  document.getElementById('sites').addEventListener('click',function(e){
-    var card=e.target.closest('.site');
-    var man=e.target.closest('.man');
-    if(man){ openSheet(man.getAttribute('data-p'),null); return; }
-    if(card){
-      var nm=card.querySelector('.sname');
-      if(nm) renderSiteSheet(nm.textContent);
-    }
+  document.getElementById('world').addEventListener('click',function(e){
+    var mk=e.target.closest('.mk');
+    if(mk){ e.stopPropagation(); personSheet(mk.getAttribute('data-p')); return; }
+    var isl=e.target.closest('.isle-body');
+    if(isl){ e.stopPropagation(); siteSheet(isl.getAttribute('data-site')); return; }
   });
   document.getElementById('shBody').addEventListener('click',function(e){
     var r=e.target.closest('.lrow[data-p]');
-    if(r){ renderPersonSheet(r.getAttribute('data-p')); }
+    if(r) personSheet(r.getAttribute('data-p'));
   });
   document.getElementById('shClose').onclick=closeSheet;
   document.getElementById('mask').onclick=closeSheet;
@@ -725,11 +782,18 @@ function bindApp(){
     if(e.key==='ArrowLeft') document.getElementById('prev').click();
     if(e.key==='ArrowRight') document.getElementById('next').click();
   });
+
+  var rt=null;
+  window.addEventListener('resize',function(){
+    clearTimeout(rt);
+    rt=setTimeout(function(){ if(BYDATE[curDate]) renderWorld(BYDATE[curDate]); }, 180);
+  });
 }
 
-/* ---------- 啟動 ---------- */
+/* ================= 啟動 ================= */
 function boot(data){
-  DATA=data; DAYS=data.days.map(function(d){return d.date;});
+  DATA=data;
+  DAYS=data.days.map(function(d){return d.date;});
   data.days.forEach(function(d){BYDATE[d.date]=d;});
   buildIndex(data.days);
   curDate=DAYS[DAYS.length-1];
@@ -744,11 +808,10 @@ function boot(data){
 
   document.getElementById('lock').style.display='none';
   document.getElementById('app').hidden=false;
-  bindApp();
+  bind();
   renderDay();
 }
 
-/* 密碼處理 */
 async function tryPw(pw,remember){
   try{
     var data=await unlock(pw);
@@ -756,9 +819,7 @@ async function tryPw(pw,remember){
     try{sessionStorage.setItem('cola_explorer_pw',pw);}catch(e){}
     boot(data);
     return true;
-  }catch(e){
-    return false;
-  }
+  }catch(e){ return false; }
 }
 
 var gobtn=document.getElementById('gobtn');
@@ -775,13 +836,12 @@ gobtn.onclick=async function(){
 };
 pwin.addEventListener('keydown',function(e){if(e.key==='Enter')gobtn.click();});
 
-(function autoUnlock(){
+(function(){
   var pw=null;
   try{pw=sessionStorage.getItem('cola_explorer_pw')||localStorage.getItem('cola_explorer_pw');}catch(e){}
-  if(pw){ gobtn.textContent='解鎖中…';gobtn.disabled=true;
-    tryPw(pw,true).then(function(ok){
-      if(!ok){gobtn.textContent='進 入';gobtn.disabled=false;}
-    });
+  if(pw){
+    gobtn.textContent='解鎖中…';gobtn.disabled=true;
+    tryPw(pw,true).then(function(ok){ if(!ok){gobtn.textContent='進 入';gobtn.disabled=false;} });
   }else{ setTimeout(function(){pwin.focus();},300); }
 })();
 
