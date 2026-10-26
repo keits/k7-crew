@@ -693,6 +693,10 @@ function personSheet(name){
     h+='<div class="sect">專長／經歷</div><div class="basic"><div class="basic-r" style="align-items:flex-start">'
       +'<span class="k">經歷</span><span class="v" style="font-weight:500;line-height:1.55">'+esc(B.exp)+'</span></div></div>';
   }
+  if(e.aliasOf){
+    h+='<div class="lackbar" style="background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.26);color:#d9b269">'
+      +'<span>↻</span><span>履歷登記姓名：'+esc(e.aliasOf)+'（已改名，資料沿用）</span></div>';
+  }
   if(e.lacks&&e.lacks.length){
     h+='<div class="lackbar"><span>⚠</span><span>未建檔：'+e.lacks.join('、')
       +'。需補登才能在此直接查看。</span></div>';
