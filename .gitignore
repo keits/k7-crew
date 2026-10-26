@@ -1,0 +1,4 @@
+data.json
+*.py
+*.js
+!data.enc.js
