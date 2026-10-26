@@ -361,7 +361,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   <div class="shbody" id="shBody"></div>
 </div>
 
-<script src="data.enc.js?v=864f7ba8"></script>
+<script src="data.enc.js?v=1e864d0c"></script>
 <script>
 (function(){
 "use strict";
@@ -563,22 +563,29 @@ function renderStandby(){
 var PRINT_SERVER = 'http://100.117.16.1:5001';
 var PRINT_TOKEN  = 'cola_print_secure_888';
 
+/* https 頁面開 http 連結：window.open 會被擋，改用 <a> 點擊 */
+function openExternal(url){
+  var a = document.createElement('a');
+  a.href = url;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){ document.body.removeChild(a); }, 1000);
+}
+
 function printToPrinter(){
   var d = BYDATE[curDate];
   if(!d || !d.sites || d.sites.length===0){ alert('這天沒有出工紀錄，無法列印'); return; }
-  var url = PRINT_SERVER + '/print?date=' + encodeURIComponent(curDate)
-          + '&token=' + encodeURIComponent(PRINT_TOKEN);
-  var w = window.open(url, '_blank');
-  if(!w){ alert('瀏覽器擋住彈出視窗。\n請允許後再按，或改按 📄 用瀏覽器列印。'); }
+  openExternal(PRINT_SERVER + '/print?date=' + encodeURIComponent(curDate)
+             + '&token=' + encodeURIComponent(PRINT_TOKEN));
 }
 
 function downloadSheet(){
   var d = BYDATE[curDate];
   if(!d || !d.sites || d.sites.length===0){ alert('這天沒有出工紀錄'); return; }
-  var url = PRINT_SERVER + '/file?date=' + encodeURIComponent(curDate)
-          + '&token=' + encodeURIComponent(PRINT_TOKEN);
-  var w = window.open(url, '_blank');
-  if(!w){ alert('瀏覽器擋住彈出視窗，請允許後再按'); }
+  openExternal(PRINT_SERVER + '/file?date=' + encodeURIComponent(curDate)
+             + '&token=' + encodeURIComponent(PRINT_TOKEN));
 }
 
 
