@@ -298,7 +298,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
       <button class="dbtn" id="next" aria-label="後一天">›</button>
       <button class="todaybtn" id="gotoToday">今日</button>
       <button class="printbtn" id="printDay" title="直接列印到 L6190 印表機" aria-label="直接列印到印表機">🖨</button>
-      <button class="printbtn" id="previewDay" title="瀏覽器列印／另存 PDF" aria-label="瀏覽器列印">📄</button>
+      <button class="printbtn" id="previewDay" title="下載當日領款單 Excel 原檔" aria-label="下載領款單原檔">⬇</button>
     </div>
   </header>
 
@@ -361,7 +361,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   <div class="shbody" id="shBody"></div>
 </div>
 
-<script src="data.enc.js?v=129c8bd9"></script>
+<script src="data.enc.js?v=864f7ba8"></script>
 <script>
 (function(){
 "use strict";
@@ -572,70 +572,15 @@ function printToPrinter(){
   if(!w){ alert('瀏覽器擋住彈出視窗。\n請允許後再按，或改按 📄 用瀏覽器列印。'); }
 }
 
-function printPreview(){
+function downloadSheet(){
   var d = BYDATE[curDate];
-  if(!d || !d.sites || d.sites.length===0){ alert('這天沒有出工紀錄，無法列印'); return; }
-  var y=+curDate.slice(0,4), m=+curDate.slice(5,7), dd=+curDate.slice(8,10);
-  var roc = y - 1911;
-  var wd = wdOf(curDate);
-  var COLS = 8;
-
-  var head = '<tr><th class="csite">工地</th>';
-  for(var i=1;i<=COLS;i++) head += '<th class="cnum">'+i+'</th>';
-  head += '</tr>';
-
-  var body = '';
-  d.sites.forEach(function(s){
-    if(!s.people || s.people.length===0) return;
-    for(var st=0; st<s.people.length; st+=COLS){
-      var chunk = s.people.slice(st, st+COLS);
-      var nm = '<tr><th class="csite">'+esc(s.name)+(st>0?'（續）':'')+'</th>';
-      for(var i=0;i<COLS;i++){
-        var p = chunk[i];
-        nm += '<td class="cnm">'+(p ? ((p.s7?'S7 ':'')+esc(p.n)) : '')+'</td>';
-      }
-      nm += '</tr>';
-      body += nm;
-      ['簽名','加班','資支付','備註'].forEach(function(lb){
-        var r = '<tr><th class="clb">'+lb+'</th>';
-        for(var i=0;i<COLS;i++) r += '<td class="cbk"></td>';
-        body += r+'</tr>';
-      });
-      if(st+COLS >= s.people.length) break;
-    }
-  });
-
-  var html = '<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8">'
-    + '<title>'+curDate+' 出工領薪簽單</title><style>'
-    + '@page{size:A4 portrait;margin:10mm 8mm}'
-    + '*{box-sizing:border-box}'
-    + 'body{font-family:"標楷體","DFKai-SB","BiauKai",serif;margin:0;color:#000}'
-    + '.ttl{text-align:center;font-size:17pt;font-weight:700;letter-spacing:.15em;margin:0 0 2mm}'
-    + '.sub{display:flex;justify-content:space-between;font-size:11.5pt;margin:0 0 2.5mm;padding:0 1mm}'
-    + 'table{width:100%;border-collapse:collapse;margin-bottom:3mm}'
-    + 'th,td{border:.6pt solid #000;font-size:10.5pt;padding:0}'
-    + '.csite{width:18%;background:#e8e8e8;font-size:11pt;padding:1.4mm .6mm;text-align:center}'
-    + '.cnum{width:10.25%;background:#e8e8e8;font-size:9pt;padding:.8mm}'
-    + '.cnm{padding:1.6mm .4mm;text-align:center;font-size:11.5pt;font-weight:700;height:7mm}'
-    + '.clb{background:#e8e8e8;font-size:9.5pt;padding:.8mm;text-align:center}'
-    + '.cbk{height:9mm}'
-    + '.ft{margin-top:4mm;font-size:8.5pt;color:#333;display:flex;justify-content:space-between;gap:6mm}'
-    + '</style></head><body>'
-    + '<div class="ttl">可樂工程行　出工領薪簽單</div>'
-    + '<div class="sub"><span>'+roc+' 年 '+m+' 月 '+dd+' 日　'+wd+'</span>'
-    + '<span>今日人數：'+d.head+' 人</span></div>'
-    + '<table><thead>'+head+'</thead><tbody>'+body+'</tbody></table>'
-    + '<div class="ft"><span>工地主任：＿＿＿＿＿</span><span>製表：＿＿＿＿＿</span>'
-    + '<span>列印：'+new Date().toLocaleString('zh-TW')+'</span></div>'
-    + '</body></html>';
-
-  var w = window.open('', '_blank');
-  if(!w){ alert('瀏覽器擋住彈出視窗，請允許後再按一次'); return; }
-  w.document.open(); w.document.write(html); w.document.close();
-  setTimeout(function(){
-    try{ if(!w.closed){ w.focus(); w.print(); } }catch(e){}
-  }, 400);
+  if(!d || !d.sites || d.sites.length===0){ alert('這天沒有出工紀錄'); return; }
+  var url = PRINT_SERVER + '/file?date=' + encodeURIComponent(curDate)
+          + '&token=' + encodeURIComponent(PRINT_TOKEN);
+  var w = window.open(url, '_blank');
+  if(!w){ alert('瀏覽器擋住彈出視窗，請允許後再按'); }
 }
+
 
 function renderDay(){
   var d=BYDATE[curDate];
@@ -1000,7 +945,7 @@ function bind(){
     curMonth=curDate.slice(0,7);renderDay();window.scrollTo({top:0,behavior:'smooth'});
   };
   document.getElementById('printDay').onclick=printToPrinter;
-  document.getElementById('previewDay').onclick=printPreview;
+  document.getElementById('previewDay').onclick=downloadSheet;
   document.getElementById('calPrev').onclick=function(){
     var y=+curMonth.slice(0,4),m=+curMonth.slice(5,7)-1;
     if(m<1){m=12;y--;} curMonth=y+'-'+String(m).padStart(2,'0');renderCal();
