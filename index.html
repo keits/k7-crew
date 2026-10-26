@@ -326,7 +326,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   <div class="shbody" id="shBody"></div>
 </div>
 
-<script src="data.enc.js?v=c052cc55"></script>
+<script src="data.enc.js?v=845e55b0"></script>
 <script>
 (function(){
 "use strict";
@@ -643,6 +643,15 @@ function showSheet(){document.getElementById('sheet').classList.add('on');docume
 function closeSheet(){document.getElementById('sheet').classList.remove('on');document.getElementById('mask').classList.remove('on');}
 
 function personSheet(name){
+  var dropped=(DATA.employee_meta&&DATA.employee_meta.dropped)||[];
+  if(dropped.indexOf(name)>=0){
+    document.getElementById('shName').textContent=name;
+    document.getElementById('shSub').textContent='業主／非師傅';
+    document.getElementById('shBody').innerHTML=
+      '<div class="lackbar" style="background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.26);color:#d9b269">'
+      +'<span>ℹ</span><span>此人為業主，不列入師傅人員檔案（出工紀錄仍保留在當日明細）。</span></div>';
+    showSheet(); return;
+  }
   var e=(DATA.employees&&DATA.employees[name]);
   var p=PIDX[name];
   if(!e && !p) return;
