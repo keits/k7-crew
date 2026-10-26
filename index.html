@@ -354,7 +354,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   <div class="shbody" id="shBody"></div>
 </div>
 
-<script src="data.enc.js?v=53fc00f7"></script>
+<script src="data.enc.js?v=e4971cf6"></script>
 <script>
 (function(){
 "use strict";
@@ -746,10 +746,16 @@ function personSheet(name){
   var bb=e.basic||{};
   var telHref = bb.phone ? 'tel:'+String(bb.phone).replace(/[^0-9+]/g,'') : '';
   var lineHref = lineUrl(bb.line);
+  var lineViaPhone = false;
+  if(!lineHref && bb.phone){
+    var p10 = String(bb.phone).replace(/[^0-9]/g,'').replace(/^886/,'0');
+    if(/^09\d{8}$/.test(p10)){ lineHref = 'https://line.me/ti/p/' + p10; lineViaPhone = true; }
+  }
   h+='<div class="actRow">'
     +(telHref ? '<a class="actBtn call" href="'+telHref+'">📞 撥電話</a>'
               : '<span class="actBtn off">📞 無電話</span>')
-    +(lineHref ? '<a class="actBtn line" href="'+lineHref+'" target="_blank" rel="noopener">💬 開 LINE</a>'
+    +(lineHref ? '<a class="actBtn line" href="'+lineHref+'" target="_blank" rel="noopener">'
+                 +(lineViaPhone?'💬 LINE（用電話找）':'💬 開 LINE')+'</a>'
                : '<span class="actBtn off">💬 無 LINE</span>')
     +'</div>';
 
