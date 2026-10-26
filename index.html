@@ -209,6 +209,27 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
 .tagpill.halfp{background:rgba(138,109,47,.28);color:#d9b269}
 .tagpill.okp{background:rgba(111,169,107,.18);color:#8fc98a}
 
+/* 人員檔案 */
+.statusb{font-size:9.5px;padding:1.5px 6px;border-radius:3px;font-weight:900;letter-spacing:.06em;vertical-align:2px;white-space:nowrap}
+.statusb.on{background:rgba(111,169,107,.22);color:#8fc98a}
+.statusb.pt{background:rgba(201,168,76,.22);color:#d9b269}
+.statusb.no{background:rgba(147,163,150,.13);color:#8b9a8e}
+.statusb.warn{background:rgba(208,138,46,.2);color:#e0a556}
+.basic-r .v a{color:var(--goldlit);text-decoration:none;font-weight:900;letter-spacing:.04em}
+.kv3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+.kv3 .kv2{font-size:10.5px}
+#shSub{font-size:12.5px}
+.kv3 .kvi{padding:8px 9px}
+.kv3 .kv1{font-size:16px}
+.basic{background:#0b120c;border:1px solid #24331f;border-radius:5px;overflow:hidden}
+.basic-r{display:flex;gap:8px;padding:7px 10px;border-bottom:1px solid #1b261c;font-size:12.5px;align-items:baseline}
+.basic-r:last-child{border-bottom:0}
+.basic-r .k{flex:0 0 66px;color:var(--dim2);font-size:11px;letter-spacing:.06em}
+.basic-r .v{color:#e6ede4;font-weight:600;word-break:break-all;flex:1}
+.basic-r .v.miss{color:#66755f;font-weight:400}
+.lackbar{display:flex;align-items:flex-start;gap:6px;margin-top:9px;padding:7px 10px;border-radius:4px;
+  background:rgba(196,71,47,.1);border:1px solid rgba(196,71,47,.26);font-size:11px;color:#d98a76;line-height:1.5}
+
 /* 人物微動 */
 @keyframes bob{0%,100%{transform:translate(-1.6px,0)}50%{transform:translate(1.6px,-5px)}}
 .bob{animation:bob 2.4s ease-in-out infinite}
@@ -622,46 +643,102 @@ function showSheet(){document.getElementById('sheet').classList.add('on');docume
 function closeSheet(){document.getElementById('sheet').classList.remove('on');document.getElementById('mask').classList.remove('on');}
 
 function personSheet(name){
-  var p=PIDX[name]; if(!p) return;
-  var days=Object.keys(p.daySet).length;
-  var mNow=curDate.slice(0,7);
-  var mDays=Object.keys(p.daySet).filter(function(x){return x.slice(0,7)===mNow;}).length;
-  var sites=Object.keys(p.sites).sort(function(a,b){return p.sites[b]-p.sites[a];});
-  var tagKeys=Object.keys(p.tags).sort().reverse();
-  var recent=Object.keys(p.daySet).sort().reverse().slice(0,6);
+  var e=(DATA.employees&&DATA.employees[name]);
+  var p=PIDX[name];
+  if(!e && !p) return;
 
-  document.getElementById('shName').innerHTML=esc(p.name)+(p.s7?' <span style="font-size:10px;color:#c9762f;font-weight:900">S7 紹齊</span>':'');
-  document.getElementById('shSub').textContent='累計出工 '+days+' 天 · 本月 '+mDays+' 天';
+  if(!e){
+    // 舊資料 fallback
+    var dd=Object.keys(p.daySet).length;
+    document.getElementById('shName').textContent=p.name;
+    document.getElementById('shSub').textContent='累計出工 '+dd+' 天';
+    document.getElementById('shBody').innerHTML='<div class="lackbar">此人的出勤檔案尚未建立</div>';
+    showSheet(); return;
+  }
 
-  var h='<div class="kv">'
-    +'<div class="kvi"><div class="kv1 num">'+days+'</div><div class="kv2">歷史出工</div></div>'
-    +'<div class="kvi"><div class="kv1 num">'+mDays+'</div><div class="kv2">本月出工</div></div></div>';
+  var stTxt=e.status;
+  var stCls=e.status==='在職'?'on':(e.status==='打工'?'pt':(e.status==='履歷未更新'?'warn':'no'));
+  document.getElementById('shName').innerHTML=
+     esc(name)
+    +(e.s7?' <span style="font-size:10px;color:#c9762f;font-weight:900">S7 紹齊</span>':'')
+    +' <span class="statusb '+stCls+'">'+(stTxt||'未登錄')+'</span>';
+  document.getElementById('shSub').textContent=
+     '累計 '+e.days+' 天 · 本月 '+e.monthDays+' 天 · 最後出工 '+e.last.slice(5).replace('-','/');
 
-  h+='<div class="sect">常駐陣地</div><div class="chips">';
-  sites.slice(0,6).forEach(function(s){h+='<div class="chip">'+esc(s)+'<b>'+p.sites[s]+'</b></div>';});
-  if(!sites.length) h+='<div class="chip">—</div>';
+  var h='';
+
+  /* 出勤概況 */
+  h+='<div class="kv3">'
+    +'<div class="kvi"><div class="kv1 num">'+e.days+'</div><div class="kv2">累計天數</div></div>'
+    +'<div class="kvi"><div class="kv1 num">'+e.monthDays+'</div><div class="kv2">本月</div></div>'
+    +'<div class="kvi"><div class="kv1 num">'+e.last30+'</div><div class="kv2">近 30 日</div></div>'
+    +'</div>';
+
+  /* 基本資料 */
+  var B=e.basic||{};
+  h+='<div class="sect">基本資料</div><div class="basic">';
+  var rows=[["電話","phone"],["性別","sex"],["生日","birth"],["身分證","idmask"],["地址","addr"],["Line","line"],["E-mail","email"]];
+  rows.forEach(function(r){
+    var v=B[r[1]];
+    var val='未建檔';
+    if(v){
+      if(r[1]==='phone') val='<a href="tel:'+esc(String(v).replace(/[^0-9+]/g,''))+'">'+esc(v)+'</a>';
+      else val=esc(v);
+    }
+    h+='<div class="basic-r"><span class="k">'+r[0]+'</span>'
+      +'<span class="v'+(v?'':' miss')+'">'+val+'</span></div>';
+  });
   h+='</div>';
+  if(B.exp){
+    h+='<div class="sect">專長／經歷</div><div class="basic"><div class="basic-r" style="align-items:flex-start">'
+      +'<span class="k">經歷</span><span class="v" style="font-weight:500;line-height:1.55">'+esc(B.exp)+'</span></div></div>';
+  }
+  if(e.lacks&&e.lacks.length){
+    h+='<div class="lackbar"><span>⚠</span><span>未建檔：'+e.lacks.join('、')
+      +'。需補登才能在此直接查看。</span></div>';
+  }
 
-  if(tagKeys.length){
-    h+='<div class="sect">異動紀錄（'+tagKeys.length+'）</div>';
-    tagKeys.slice(0,12).forEach(function(k){
-      var parts=k.split('|'), tg=p.tags[k];
-      var cls=tg==='半天'?'halfp':(tg==='沒出來'?'':'okp');
-      h+='<div class="lrow"><div class="ld">'+parts[0].slice(2)+'</div>'
-        +'<div class="ls2">'+esc(parts[1])+'</div>'
-        +'<span class="tagpill '+cls+'">'+esc(tg)+'</span></div>';
+  /* 常駐陣地 */
+  if(e.sites&&e.sites.length){
+    h+='<div class="sect">常駐陣地</div><div class="chips">';
+    e.sites.forEach(function(s){ h+='<div class="chip">'+esc(s.n)+'<b>'+s.c+'</b></div>'; });
+    h+='</div>';
+  }
+
+  /* 常一起出工 */
+  if(e.mates&&e.mates.length){
+    h+='<div class="sect">常一起出工</div><div class="chips">';
+    e.mates.forEach(function(m){
+      h+='<div class="chip" data-p="'+esc(m.n)+'" style="cursor:pointer">'+esc(m.n)+'<b>'+m.c+' 次</b></div>';
+    });
+    h+='</div>';
+  }
+
+  /* 異動 */
+  if(e.tags&&e.tags.length){
+    var tg=e.tags.slice().sort(function(a,b){return b.d.localeCompare(a.d);});
+    h+='<div class="sect">異動紀錄（'+tg.length+'）</div>';
+    tg.slice(0,10).forEach(function(t){
+      var cls=t.t==='半天'?'halfp':(t.t==='沒出來'?'':'okp');
+      h+='<div class="lrow"><div class="ld">'+t.d.slice(2)+'</div>'
+        +'<div class="ls2">'+esc(t.s)+'</div>'
+        +'<span class="tagpill '+cls+'">'+esc(t.t)+'</span></div>';
     });
   }
 
-  h+='<div class="sect">最近出工</div>';
-  recent.forEach(function(dd){
-    var d=BYDATE[dd], where=[];
-    if(d) d.sites.forEach(function(s){
-      if(s.people.some(function(x){return x.n===name;})) where.push(s.name);
+  /* 最近出工 */
+  var recent=Object.keys(p?p.daySet:{}).sort().reverse().slice(0,6);
+  if(recent.length){
+    h+='<div class="sect">最近出工</div>';
+    recent.forEach(function(dt){
+      var d=BYDATE[dt], where=[];
+      if(d) d.sites.forEach(function(s){
+        if(s.people.some(function(x){return x.n===name;})) where.push(s.name);
+      });
+      h+='<div class="lrow"><div class="ld">'+dt.slice(5).replace('-','/')+' '+wdOf(dt).slice(1)+'</div>'
+        +'<div class="ls2">'+(where.length?esc(where.join('、')):'—')+'</div></div>';
     });
-    h+='<div class="lrow"><div class="ld">'+dd.slice(5).replace('-','/')+' '+wdOf(dd).slice(1)+'</div>'
-      +'<div class="ls2">'+(where.length?esc(where.join('、')):'—')+'</div></div>';
-  });
+  }
 
   document.getElementById('shBody').innerHTML=h;
   showSheet();
@@ -734,7 +811,7 @@ function bind(){
     }
   });
   document.getElementById('shBody').addEventListener('click',function(e){
-    var r=e.target.closest('.lrow[data-p]');
+    var r=e.target.closest('[data-p]');
     if(r) personSheet(r.getAttribute('data-p'));
   });
   document.getElementById('shClose').onclick=closeSheet;
