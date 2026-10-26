@@ -207,6 +207,19 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
 .tagpill{font-size:10px;padding:1px 6px;border-radius:3px;background:rgba(196,71,47,.2);
   color:#e2705c;font-weight:800;white-space:nowrap}
 .tagpill.halfp{background:rgba(138,109,47,.28);color:#d9b269}
+/* 待命人員 */
+.sbBox{background:linear-gradient(180deg,#151a12,#0c110c);border:1px solid #4a3d1c;border-radius:6px;padding:12px 13px}
+.sbTop{display:flex;align-items:center;gap:6px;margin-bottom:10px;font-size:11.5px;color:#a89160;letter-spacing:.02em}
+.sbTop i{font-style:normal;font-size:13px}
+.sbList{display:flex;flex-wrap:wrap;gap:7px}
+.sbPill{display:inline-flex;align-items:center;gap:5px;background:rgba(224,165,86,.14);
+  border:1px solid rgba(224,165,86,.42);color:#f0c98a;font-size:13px;font-weight:800;
+  padding:6px 12px;border-radius:999px;cursor:pointer;transition:background .12s}
+.sbPill:hover{background:rgba(224,165,86,.24)}
+.sbPill:active{transform:translateY(1px)}
+.sbPill .s7{font-size:9px;color:#c9762f;font-weight:900;letter-spacing:.04em}
+.sbEmpty{font-size:12px;color:#7d8b7f}
+
 .tagpill.okp{background:rgba(111,169,107,.18);color:#8fc98a}
 
 /* 人員檔案 */
@@ -293,6 +306,11 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
     <div class="sect-h">陣地部署<span class="r" id="postCnt"></span></div>
     <div class="posts" id="posts"></div>
 
+    <div id="standbyWrap" style="display:none">
+      <div class="sect-h" style="margin-top:16px">待命人員<span class="r" id="sbCnt"></span></div>
+      <div class="sbBox" id="standby"></div>
+    </div>
+
     <div class="sect-h" style="margin-top:14px">出工紀錄<span class="r" id="calCnt"></span></div>
     <div class="calwrap">
       <div class="calhead">
@@ -326,7 +344,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   <div class="shbody" id="shBody"></div>
 </div>
 
-<script src="data.enc.js?v=0004177b"></script>
+<script src="data.enc.js?v=ef552813"></script>
 <script>
 (function(){
 "use strict";
@@ -496,9 +514,38 @@ function prevWorkday(iso){
 }
 
 /* ---------- 主渲染 ---------- */
+function renderStandby(){
+  var wrap=document.getElementById('standbyWrap');
+  var box=document.getElementById('standby');
+  var cnt=document.getElementById('sbCnt');
+  if(!wrap||!box) return;
+  var sb=DATA.standby;
+  /* 報班資料只有當天有，切到歷史日期就隱藏 */
+  if(!sb||!sb.ok||sb.date!==curDate){
+    wrap.style.display='none';
+    return;
+  }
+  var list=sb.standby||[];
+  wrap.style.display='';
+  cnt.textContent='報班 '+sb.reported_count+' 人 · 已派工 '+sb.assigned_count+' 人 · 待命 '+list.length+' 人'
+    +(sb.fetched_at?'　'+sb.fetched_at.slice(11)+' 抓取':'');
+  if(!list.length){
+    box.innerHTML='<div class="sbEmpty">報班的人都派出去了，沒有待命。</div>';
+    return;
+  }
+  var h='<div class="sbTop"><i>⏳</i><span>已報班但還沒排到工作 — 可調派支援</span></div><div class="sbList">';
+  list.forEach(function(p){
+    h+='<div class="sbPill" data-p="'+esc(p.n)+'">'
+      +(p.s7?'<span class="s7">S7</span>':'')+esc(p.n)+'</div>';
+  });
+  h+='</div>';
+  box.innerHTML=h;
+}
+
 function renderDay(){
   var d=BYDATE[curDate];
   var idx=DAYS.indexOf(curDate);
+  renderStandby();
   var mainEl=document.getElementById('dMain'), subEl=document.getElementById('dSub');
 
   if(!d){
@@ -826,6 +873,10 @@ function bind(){
   document.getElementById('shBody').addEventListener('click',function(e){
     var r=e.target.closest('[data-p]');
     if(r) personSheet(r.getAttribute('data-p'));
+  });
+  document.getElementById('standby').addEventListener('click',function(e){
+    var t=e.target.closest('[data-p]');
+    if(t) personSheet(t.getAttribute('data-p'));
   });
   document.getElementById('shClose').onclick=closeSheet;
   document.getElementById('mask').onclick=closeSheet;
