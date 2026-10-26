@@ -99,8 +99,8 @@ main{padding:0 0 80px}
 
 /* 文字一律加黑描邊：任何背景下都清楚 */
 .isle-name,.mk-name,.hq-sign{paint-order:stroke fill;stroke:#04070b;stroke-linejoin:round;stroke-linecap:round}
-.isle-name{font-weight:900;fill:#ffffff;letter-spacing:.02em;stroke-width:3.6px}
-.mk-name{font-weight:800;fill:#ffffff;stroke-width:2.8px}
+.isle-name{font-weight:900;fill:#ffffff;letter-spacing:.02em;stroke-width:2.2px}
+.mk-name{font-weight:800;fill:#ffffff;stroke:none}
 .hq-sign{font-weight:900;fill:#ffe95c;stroke-width:3.2px}
 .badge-n{font-weight:900;fill:#0a0d12}
 
@@ -490,8 +490,8 @@ function renderWorld(d){
     var fs=Math.max(10, Math.round(W*0.086));
     var fsSub=Math.max(10, Math.round(W*0.072));
     var nameY=-(halfH*1.24+fs*0.9);
-    var badgeTxt=present+'/'+ppl.length;
-    var bw=fsSub*3.3, bh=fsSub*1.5;
+    var badgeTxt=(present===ppl.length)?(ppl.length+' 人'):(present+'/'+ppl.length+' 人');
+    var bw=Math.max(fsSub*3.3, txtW(badgeTxt,fsSub)+fsSub*1.7), bh=fsSub*1.5;
     var nw=txtW(site.name,fs);
     var tot=nw+5+bw;
     var sx0=-tot/2;
@@ -523,7 +523,9 @@ function renderWorld(d){
           +'<g transform="scale('+sc.toFixed(3)+') translate(-22,-60)">'
           +manInner(p.n,p.s7,absent)
           +'</g></g>';
-      // 名字（腳下）
+      // 名字（腳下）：深底片 + 白字，綠草地上也清楚
+      var nW=txtW(p.n,nmFs), nPad=nmFs*0.52, nH=nmFs*1.46, nTop=nmFs*1.05;
+      out+='<rect x="'+(-nW/2-nPad).toFixed(1)+'" y="'+nTop.toFixed(1)+'" width="'+(nW+nPad*2).toFixed(1)+'" height="'+nH.toFixed(1)+'" rx="'+(nH/2).toFixed(1)+'" fill="rgba(3,6,10,.86)" stroke="rgba(255,255,255,.16)" stroke-width=".7"/>';
       out+='<text class="mk-name" x="0" y="'+(nmFs*1.85).toFixed(1)+'" text-anchor="middle" font-size="'+nmFs.toFixed(1)+'">'+esc(p.n)+'</text>';
       // 標記（頭頂）
       if(p.tag){
