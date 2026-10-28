@@ -548,9 +548,26 @@ function renderStandby(){
     wrap.style.display='none';
     return;
   }
-  var list=sb.standby||[];
+  /* 以當日領款單 sites 為準，重新計算已安排人員，修正生成器的差集誤判 */
+  var assignedSet={};
+  var d=BYDATE[curDate];
+  if(d&&Array.isArray(d.sites)){
+    d.sites.forEach(function(s){
+      (s.people||[]).forEach(function(p){
+        assignedSet[(p.n||'')+'|'+(p.s7?'1':'0')]=true;
+      });
+    });
+  }
+  var reported=sb.reported||[];
+  var list=reported.filter(function(p){
+    return !assignedSet[(p.n||'')+'|'+(p.s7?'1':'0')];
+  });
+  var reported_count=reported.length;
+  var assigned_count=reported.filter(function(p){
+    return !!assignedSet[(p.n||'')+'|'+(p.s7?'1':'0')];
+  }).length;
   wrap.style.display='';
-  cnt.textContent='報班 '+sb.reported_count+' 人 · 已派工 '+sb.assigned_count+' 人 · 待命 '+list.length+' 人'
+  cnt.textContent='報班 '+reported_count+' 人 · 已派工 '+assigned_count+' 人 · 待命 '+list.length+' 人'
     +(sb.fetched_at?'　'+sb.fetched_at.slice(11)+' 抓取':'');
   if(!list.length){
     box.innerHTML='<div class="sbEmpty">報班的人都派出去了，沒有待命。</div>';
