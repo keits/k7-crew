@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="theme-color" content="#0c110c">
+<title>可樂工程行 · 派工連結控制台</title>
+<style>
+:root{
+  --ink:#050805; --bg:#0c110c; --panel:#111a12; --panel2:#16221a;
+  --line:#2b3d2e; --line2:#3d5342;
+  --gold:#c9a84c; --goldlit:#e3d48e; --golddim:#8a7440;
+  --steel:#93a396; --txt:#eef3ea; --dim:#8fa095; --dim2:#63735f;
+  --alert:#c4472f; --warn:#d08a2e; --ok:#6fa96b; --blue:#3b82f6;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background: radial-gradient(ellipse 100% 50% at 50% -10%,#16241a 0%,#0c110c 55%,#050805 100%);
+  color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  font-size:15px; line-height:1.5;
+  padding-bottom:env(safe-area-inset-bottom); min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+button,input,a{font-family:inherit}
+
+/* ---------- 通行鎖 ---------- */
+#lock{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at 50% 0%,#16241a 0%,#050805 70%);padding:24px}
+.lockbox{width:100%;max-width:320px;text-align:center}
+.lockbox img{width:118px;height:auto;margin-bottom:14px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.6))}
+.lh{font-size:20px;font-weight:700;letter-spacing:2px;color:var(--gold);margin-bottom:4px}
+.ls{font-size:10px;font-weight:600;letter-spacing:3px;color:var(--steel);margin-bottom:20px}
+#pw{width:100%;padding:13px 14px;font-size:16px;background:var(--panel2);border:1px solid var(--line2);
+  color:var(--txt);border-radius:10px;text-align:center;letter-spacing:3px;margin-bottom:12px;outline:none}
+#pw:focus{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,168,76,.25)}
+#gobtn{width:100%;padding:13px;font-size:16px;font-weight:700;letter-spacing:3px;
+  background:linear-gradient(180deg,#c9a84c 0%,#8a7440 100%);color:#050805;border:none;border-radius:10px;cursor:pointer}
+#gobtn:disabled{opacity:.5;cursor:not-allowed}
+.lerr{min-height:22px;color:var(--alert);font-size:13px;margin-top:10px}
+.lremember{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--dim);margin-top:10px;cursor:pointer}
+
+/* ---------- 主控台 ---------- */
+header{
+  position:sticky;top:0;z-index:30;background:rgba(12,17,12,.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);padding:10px 16px;
+}
+.hrow{display:flex;align-items:center;justify-content:space-between;max-width:960px;margin:0 auto}
+.hleft{display:flex;align-items:center;gap:12px}
+.hlogo{width:36px;height:auto}
+.htitle .t1{font-size:17px;font-weight:700;color:var(--gold);letter-spacing:1px;line-height:1.2}
+.htitle .t2{font-size:11px;color:var(--steel);letter-spacing:1.5px;font-weight:600}
+.hnav{display:flex;gap:8px}
+.nav-link{
+  display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:8px;
+  font-size:13px;text-decoration:none;font-weight:600;
+  background:var(--panel2);color:var(--txt);border:1px solid var(--line2);
+  transition:all .15s ease;
+}
+.nav-link:hover{border-color:var(--gold);color:var(--gold)}
+
+main{max-width:960px;margin:0 auto;padding:16px;padding-bottom:60px}
+
+/* ---------- 置頂雙巨鈕 ---------- */
+.spotlight-sect{margin-bottom:24px}
+.sect-title{
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:13px;font-weight:700;letter-spacing:1.5px;color:var(--gold);
+  margin-bottom:12px;padding-left:4px;border-left:3px solid var(--gold);
+}
+.sect-title .extra{font-size:12px;color:var(--dim);font-weight:normal}
+.spotlight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.spot-card{
+  background:linear-gradient(160deg,#16241a 0%,#0f1711 100%);
+  border:1.5px solid var(--line2);border-radius:14px;padding:18px;
+  position:relative;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.35);
+  transition:transform .15s ease,border-color .15s ease;
+}
+.spot-card:hover{border-color:var(--gold);transform:translateY(-2px)}
+.spot-card.tomorrow{border-color:var(--gold);background:linear-gradient(160deg,#1a2818 0%,#111c12 100%)}
+.spot-card.tomorrow::after{
+  content:'';position:absolute;top:0;right:0;width:120px;height:120px;
+  background:radial-gradient(circle,rgba(201,168,76,.15) 0%,transparent 70%);pointer-events:none;
+}
+.spot-badge{
+  display:inline-block;padding:3px 9px;border-radius:6px;font-size:11px;font-weight:700;
+  letter-spacing:1px;margin-bottom:10px;text-transform:uppercase;
+}
+.badge-tomorrow{background:#c9a84c;color:#050805}
+.badge-today{background:#3b82f6;color:#ffffff}
+.badge-note{background:rgba(208,138,46,.25);color:#d08a2e;border:1px solid #d08a2e}
+.spot-date-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px}
+.spot-date{font-size:28px;font-weight:800;color:var(--txt);letter-spacing:1px}
+.spot-weekday{font-size:15px;color:var(--steel);font-weight:600;margin-left:6px}
+.spot-meta{
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px;font-size:13px;color:var(--dim);
+}
+.meta-chip{
+  background:rgba(255,255,255,.05);padding:3px 8px;border-radius:6px;border:1px solid var(--line);
+  display:inline-flex;align-items:center;gap:4px;
+}
+.meta-chip.highlight{color:var(--goldlit);border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.1)}
+.spot-sites{font-size:12px;color:var(--dim2);margin-bottom:16px;line-height:1.4;min-height:34px}
+.spot-actions{display:flex;gap:8px}
+.btn-open-main{
+  flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  background:linear-gradient(180deg,#c9a84c 0%,#8a7440 100%);color:#050805;
+  padding:12px;border-radius:9px;font-size:14px;font-weight:700;text-decoration:none;
+  cursor:pointer;border:none;transition:opacity .15s;
+}
+.btn-open-main:hover{opacity:.92}
+.btn-copy-main{
+  padding:12px 14px;background:var(--panel2);color:var(--txt);
+  border:1px solid var(--line2);border-radius:9px;font-size:13px;font-weight:600;
+  cursor:pointer;display:inline-flex;align-items:center;gap:5px;white-space:nowrap;
+  transition:all .15s;
+}
+.btn-copy-main:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ---------- 搜尋與篩選 ---------- */
+.filter-bar{
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:12px 14px;margin-bottom:20px;display:flex;flex-direction:column;gap:12px;
+}
+.search-box{position:relative}
+.search-input{
+  width:100%;padding:10px 14px;padding-left:36px;font-size:14px;
+  background:var(--panel2);border:1px solid var(--line2);border-radius:8px;
+  color:var(--txt);outline:none;
+}
+.search-input:focus{border-color:var(--gold)}
+.search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--steel);pointer-events:none}
+.month-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.month-tabs::-webkit-scrollbar{display:none}
+.month-btn{
+  background:var(--panel2);border:1px solid var(--line2);color:var(--dim);
+  padding:6px 12px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;
+  white-space:nowrap;transition:all .12s;
+}
+.month-btn.active{background:var(--gold);color:#050805;border-color:var(--gold);font-weight:700}
+
+/* ---------- 歷史與清單區 ---------- */
+.sheet-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.sheet-card{
+  background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:14px;display:flex;flex-direction:column;justify-content:space-between;
+  transition:border-color .12s ease;position:relative;
+}
+.sheet-card:hover{border-color:var(--line2)}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
+.card-date-wrap{display:flex;align-items:baseline;gap:6px}
+.card-date{font-size:20px;font-weight:700;color:var(--txt)}
+.card-wd{font-size:13px;color:var(--steel)}
+.card-badges{display:flex;gap:4px}
+.badge-sub{font-size:10px;padding:2px 6px;border-radius:4px;font-weight:600}
+.badge-typhoon{background:rgba(208,138,46,.2);color:#e09435;border:1px solid #d08a2e}
+.card-stat{display:flex;gap:6px;font-size:12px;color:var(--dim);margin-bottom:8px}
+.stat-pill{background:rgba(255,255,255,.04);padding:2px 6px;border-radius:4px}
+.card-sites{
+  font-size:12px;color:var(--dim2);line-height:1.4;margin-bottom:14px;
+  overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;min-height:34px;
+}
+.card-actions{display:flex;gap:6px}
+.btn-card-open{
+  flex:1;padding:8px 10px;border-radius:7px;font-size:13px;font-weight:600;
+  background:var(--panel2);color:var(--txt);border:1px solid var(--line2);
+  text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:4px;
+  transition:all .12s;
+}
+.btn-card-open:hover{border-color:var(--gold);color:var(--gold)}
+.btn-card-copy{
+  padding:8px 10px;border-radius:7px;font-size:12px;font-weight:600;
+  background:rgba(255,255,255,.04);color:var(--dim);border:1px solid var(--line);
+  cursor:pointer;display:inline-flex;align-items:center;gap:3px;white-space:nowrap;
+  transition:all .12s;
+}
+.btn-card-copy:hover{color:var(--txt);border-color:var(--line2)}
+
+/* ---------- 複製 Toast ---------- */
+#toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);
+  background:rgba(17,26,18,.96);border:1px solid var(--gold);color:var(--goldlit);
+  padding:10px 20px;border-radius:30px;font-size:14px;font-weight:600;
+  box-shadow:0 8px 24px rgba(0,0,0,.6);z-index:999;
+  display:flex;align-items:center;gap:8px;pointer-events:none;opacity:0;
+  transition:transform .2s ease,opacity .2s ease;
+}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+.empty-state{grid-column:1/-1;padding:48px 16px;text-align:center;color:var(--steel)}
+footer{text-align:center;font-size:12px;color:var(--dim2);margin-top:36px;line-height:1.6}
+.logout-btn{background:none;border:none;color:var(--steel);cursor:pointer;text-decoration:underline;padding:4px}
+</style>
+</head>
+<body>
+
+<!-- 通行碼驗證層 -->
+<div id="lock">
+  <div class="lockbox">
+    <img src="assets/logo_320.png" alt="可樂工程行">
+    <div class="lh">派工控制台</div>
+    <div class="ls">DISPATCH CONSOLE</div>
+    <input id="pw" type="password" inputmode="text" autocomplete="current-password" placeholder="請輸入通行碼">
+    <button id="gobtn">進 入</button>
+    <div class="lerr" id="lerr"></div>
+    <label class="lremember"><input type="checkbox" id="remember" checked> 記住這台裝置</label>
+  </div>
+</div>
+
+<!-- 主控制台畫面 -->
+<div id="app" hidden>
+  <header>
+    <div class="hrow">
+      <div class="hleft">
+        <img class="hlogo" src="assets/logo_160.png" alt="">
+        <div class="htitle">
+          <div class="t1">可樂工程行</div>
+          <div class="t2">手動派工連結控制台</div>
+        </div>
+      </div>
+      <div class="hnav">
+        <a class="nav-link" href="index.html">🎖️ 出工指揮台</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 置頂雙巨鈕（明日／今日） -->
+    <section class="spotlight-sect">
+      <div class="sect-title">
+        <span>🔥 快速派工通道 · 優先處理</span>
+        <span class="extra" id="spotlightCount">—</span>
+      </div>
+      <div class="spotlight-grid" id="spotlightGrid"></div>
+    </section>
+
+    <!-- 搜尋與月份篩選 -->
+    <div class="filter-bar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input class="search-input" id="searchInput" type="text" placeholder="快速搜尋日期（例 10/28）、工地名稱（例 長富）、或 颱風假...">
+      </div>
+      <div class="month-tabs" id="monthTabs"></div>
+    </div>
+
+    <!-- 派工表清單 -->
+    <section>
+      <div class="sect-title">
+        <span>📂 全部派工表一覽</span>
+        <span class="extra" id="listSummary">共 0 份試算表</span>
+      </div>
+      <div class="sheet-grid" id="sheetGrid"></div>
+    </section>
+
+    <footer>
+      資料源：Google Drive 手動派工（共 <span id="fTotal">—</span> 份試算表） · 更新 <span id="fGen">—</span><br>
+      <button class="logout-btn" id="logoutBtn">清除儲存的通行碼並登出</button>
+    </footer>
+  </main>
+</div>
+
+<!-- Toast 提示 -->
+<div id="toast">
+  <span>✓</span><span id="toastMsg">已複製 LINE 格式文字！</span>
+</div>
+
+<script src="data.enc.js?v=8bf6bcc6"></script>
+<script>
+(function(){
+"use strict";
+var RAW_DATA = null;
+var SHEETS = [];
+var ACTIVE_MONTH = "ALL";
+var SEARCH_QUERY = "";
+
+/* ---------- 解密邏輯 ---------- */
+function b64(s){var bin=atob(s),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return u;}
+function cat(a,b){var u=new Uint8Array(a.length+b.length);u.set(a,0);u.set(b,a.length);return u;}
+async function unlock(pw){
+  var e=window.__ENC__; if(!e) throw new Error('no data');
+  var km=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
+  var key=await crypto.subtle.deriveKey(
+    {name:'PBKDF2',salt:b64(e.salt),iterations:e.iter,hash:'SHA-256'},
+    km,{name:'AES-GCM',length:256},false,['decrypt']);
+  var pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(e.iv),tagLength:128},key,cat(b64(e.ct),b64(e.tag)));
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+
+function esc(s){return String(s||'').replace(/[&<>"']/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+function showToast(msg){
+  var el=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  el.classList.add('show');
+  setTimeout(function(){el.classList.remove('show');},2000);
+}
+
+function copyLineText(label, url){
+  var txt = label + '\n' + url;
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){
+      showToast('已複製：' + label + ' LINE 連結');
+    }).catch(function(){
+      prompt('請手動複製 LINE 文字：', txt);
+    });
+  } else {
+    prompt('請手動複製 LINE 文字：', txt);
+  }
+}
+
+/* ---------- 渲染邏輯 ---------- */
+function getTodayIso(){
+  var t=new Date();
+  return t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
+}
+function getTomorrowIso(){
+  var t=new Date();
+  t.setDate(t.getDate()+1);
+  return t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
+}
+
+function renderSpotlight(){
+  var todayIso = getTodayIso();
+  var tomorrowIso = getTomorrowIso();
+  var grid = document.getElementById('spotlightGrid');
+  grid.innerHTML = '';
+
+  var tomorrowItem = SHEETS.find(function(s){return s.iso === tomorrowIso;});
+  var todayItem = SHEETS.find(function(s){return s.iso === todayIso;});
+
+  // 如果明天或今天沒建檔，取最新的一兩筆展示
+  var itemsToShow = [];
+  if(tomorrowItem) itemsToShow.push({item: tomorrowItem, type:'tomorrow', title:'🔥 明日派工'});
+  if(todayItem) itemsToShow.push({item: todayItem, type:'today', title:'📌 今日派工'});
+
+  if(itemsToShow.length === 0 && SHEETS.length > 0){
+    itemsToShow.push({item: SHEETS[0], type:'latest', title:'🚀 最新派工單'});
+    if(SHEETS.length > 1) itemsToShow.push({item: SHEETS[1], type:'recent', title:'📋 近期派工單'});
+  }
+
+  document.getElementById('spotlightCount').textContent = itemsToShow.length + ' 份優先處理';
+
+  itemsToShow.forEach(function(entry){
+    var s = entry.item;
+    var card = document.createElement('div');
+    card.className = 'spot-card ' + (entry.type==='tomorrow'?'tomorrow':'');
+
+    var badgeHtml = '';
+    if(entry.type === 'tomorrow'){
+      badgeHtml = '<span class="spot-badge badge-tomorrow">🔥 明日派工</span>';
+    } else if(entry.type === 'today'){
+      badgeHtml = '<span class="spot-badge badge-today">📌 今日派工</span>';
+    } else {
+      badgeHtml = '<span class="spot-badge" style="background:#2b3d2e;color:#c9a84c">'+esc(entry.title)+'</span>';
+    }
+    if(s.note){
+      badgeHtml += ' <span class="spot-badge badge-note">'+esc(s.note)+'</span>';
+    }
+
+    var headTxt = (s.head != null) ? (s.head + ' 人') : '未排班';
+    var siteTxt = (s.site_count > 0) ? (s.site_count + ' 處工地') : '';
+    var sitesPreview = (s.sites && s.sites.length) ? ('工地：' + s.sites.slice(0, 5).join('、') + (s.sites.length>5?'…':'')) : '尚未安排人員與工地';
+
+    card.innerHTML =
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">'
+        + badgeHtml
+        + '<span style="font-size:12px;color:var(--steel)">' + esc(s.iso) + '</span>'
+      + '</div>'
+      + '<div class="spot-date-row">'
+        + '<div><span class="spot-date">' + esc(s.label) + '</span><span class="spot-weekday">' + esc(s.weekday) + '</span></div>'
+      + '</div>'
+      + '<div class="spot-meta">'
+        + '<span class="meta-chip highlight">👥 <b>' + esc(headTxt) + '</b></span>'
+        + (siteTxt ? ('<span class="meta-chip">🏗️ ' + esc(siteTxt) + '</span>') : '')
+      + '</div>'
+      + '<div class="spot-sites">' + esc(sitesPreview) + '</div>'
+      + '<div class="spot-actions">'
+        + '<a class="btn-open-main" href="' + esc(s.url) + '" target="_blank" rel="noopener">開啟 Google 試算表 ↗</a>'
+        + '<button class="btn-copy-main" data-label="' + esc(s.label) + '" data-url="' + esc(s.url) + '">📋 複製 LINE</button>'
+      + '</div>';
+
+    grid.appendChild(card);
+  });
+
+  // 綁定複製事件
+  grid.querySelectorAll('.btn-copy-main').forEach(function(btn){
+    btn.onclick = function(){
+      copyLineText(btn.getAttribute('data-label'), btn.getAttribute('data-url'));
+    };
+  });
+}
+
+function renderMonthTabs(){
+  var tabs = document.getElementById('monthTabs');
+  var months = {};
+  SHEETS.forEach(function(s){
+    if(s.month_group) months[s.month_group] = (months[s.month_group]||0) + 1;
+  });
+
+  var html = '<button class="month-btn ' + (ACTIVE_MONTH==='ALL'?'active':'') + '" data-m="ALL">全部 (' + SHEETS.length + ')</button>';
+  Object.keys(months).sort().reverse().forEach(function(m){
+    html += '<button class="month-btn ' + (ACTIVE_MONTH===m?'active':'') + '" data-m="' + esc(m) + '">'
+          + esc(m) + ' (' + months[m] + ')</button>';
+  });
+  tabs.innerHTML = html;
+
+  tabs.querySelectorAll('.month-btn').forEach(function(btn){
+    btn.onclick = function(){
+      ACTIVE_MONTH = btn.getAttribute('data-m');
+      renderMonthTabs();
+      renderSheetGrid();
+    };
+  });
+}
+
+function renderSheetGrid(){
+  var grid = document.getElementById('sheetGrid');
+  grid.innerHTML = '';
+
+  var q = SEARCH_QUERY.toLowerCase().trim();
+  var filtered = SHEETS.filter(function(s){
+    if(ACTIVE_MONTH !== 'ALL' && s.month_group !== ACTIVE_MONTH) return false;
+    if(!q) return true;
+    if(s.label.toLowerCase().includes(q)) return true;
+    if(s.iso.toLowerCase().includes(q)) return true;
+    if(s.weekday.toLowerCase().includes(q)) return true;
+    if(s.note && s.note.toLowerCase().includes(q)) return true;
+    if(s.sites && s.sites.some(function(st){ return st.toLowerCase().includes(q); })) return true;
+    return false;
+  });
+
+  document.getElementById('listSummary').textContent = '顯示 ' + filtered.length + ' / 共 ' + SHEETS.length + ' 份';
+
+  if(filtered.length === 0){
+    grid.innerHTML = '<div class="empty-state">查無符合條件的派工試算表</div>';
+    return;
+  }
+
+  var todayIso = getTodayIso();
+  var tomorrowIso = getTomorrowIso();
+
+  filtered.forEach(function(s){
+    var card = document.createElement('div');
+    card.className = 'sheet-card';
+
+    var badgeHtml = '';
+    if(s.iso === tomorrowIso){
+      badgeHtml += '<span class="badge-sub" style="background:#c9a84c;color:#050805">明日</span> ';
+    } else if(s.iso === todayIso){
+      badgeHtml += '<span class="badge-sub" style="background:#3b82f6;color:#ffffff">今日</span> ';
+    }
+    if(s.note){
+      badgeHtml += '<span class="badge-sub badge-typhoon">' + esc(s.note) + '</span>';
+    }
+
+    var headTxt = (s.head != null) ? (s.head + ' 人') : '未排';
+    var siteTxt = (s.site_count > 0) ? (s.site_count + ' 工地') : '';
+    var sitesPreview = (s.sites && s.sites.length) ? s.sites.join(' · ') : (s.note ? s.note : '無人員明細');
+
+    card.innerHTML =
+      '<div>'
+        + '<div class="card-head">'
+          + '<div class="card-date-wrap">'
+            + '<span class="card-date">' + esc(s.label) + '</span>'
+            + '<span class="card-wd">' + esc(s.weekday) + '</span>'
+          + '</div>'
+          + '<div class="card-badges">' + badgeHtml + '</div>'
+        + '</div>'
+        + '<div class="card-stat">'
+          + '<span class="stat-pill">👥 ' + esc(headTxt) + '</span>'
+          + (siteTxt ? ('<span class="stat-pill">🏗️ ' + esc(siteTxt) + '</span>') : '')
+          + '<span class="stat-pill" style="margin-left:auto">' + esc(s.iso.slice(5)) + '</span>'
+        + '</div>'
+        + '<div class="card-sites" title="' + esc(sitesPreview) + '">' + esc(sitesPreview) + '</div>'
+      + '</div>'
+      + '<div class="card-actions">'
+        + '<a class="btn-card-open" href="' + esc(s.url) + '" target="_blank" rel="noopener">開啟試算表 ↗</a>'
+        + '<button class="btn-card-copy" data-label="' + esc(s.label) + '" data-url="' + esc(s.url) + '">📋 複製</button>'
+      + '</div>';
+
+    grid.appendChild(card);
+  });
+
+  grid.querySelectorAll('.btn-card-copy').forEach(function(btn){
+    btn.onclick = function(){
+      copyLineText(btn.getAttribute('data-label'), btn.getAttribute('data-url'));
+    };
+  });
+}
+
+function boot(data){
+  RAW_DATA = data;
+  SHEETS = data.dispatch_sheets || [];
+
+  document.getElementById('fTotal').textContent = SHEETS.length;
+  document.getElementById('fGen').textContent = data.generated || '剛剛';
+
+  document.getElementById('lock').style.display = 'none';
+  document.getElementById('app').hidden = false;
+
+  renderSpotlight();
+  renderMonthTabs();
+  renderSheetGrid();
+
+  document.getElementById('searchInput').oninput = function(e){
+    SEARCH_QUERY = e.target.value;
+    renderSheetGrid();
+  };
+
+  document.getElementById('logoutBtn').onclick = function(){
+    try{localStorage.removeItem('cola_explorer_pw');sessionStorage.removeItem('cola_explorer_pw');}catch(e){}
+    location.reload();
+  };
+}
+
+/* ---------- 認證解鎖 ---------- */
+async function tryPw(pw, remember){
+  try{
+    var data = await unlock(pw);
+    if(remember){try{localStorage.setItem('cola_explorer_pw',pw);}catch(e){}}
+    try{sessionStorage.setItem('cola_explorer_pw',pw);}catch(e){}
+    boot(data);
+    return true;
+  }catch(e){
+    return false;
+  }
+}
+
+var gobtn = document.getElementById('gobtn'), pwin = document.getElementById('pw');
+gobtn.onclick = async function(){
+  var pw = pwin.value.trim();
+  if(!pw){document.getElementById('lerr').textContent='請輸入通行碼';return;}
+  gobtn.textContent='驗證中…';gobtn.disabled=true;
+  var ok = await tryPw(pw, document.getElementById('remember').checked);
+  if(!ok){
+    document.getElementById('lerr').textContent='通行碼不正確';
+    gobtn.textContent='進 入';gobtn.disabled=false;
+    pwin.select();
+  }
+};
+pwin.addEventListener('keydown',function(e){if(e.key==='Enter')gobtn.click();});
+
+(function(){
+  var pw = null;
+  try{pw = sessionStorage.getItem('cola_explorer_pw') || localStorage.getItem('cola_explorer_pw');}catch(e){}
+  if(pw){
+    gobtn.textContent='驗證中…';gobtn.disabled=true;
+    tryPw(pw, true).then(function(ok){
+      if(!ok){gobtn.textContent='進 入';gobtn.disabled=false;}
+    });
+  }else{
+    setTimeout(function(){pwin.focus();},300);
+  }
+})();
+
+})();
+</script>
+</body>
+</html>
