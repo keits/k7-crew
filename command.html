@@ -267,6 +267,90 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
 .bob{animation:bob 2.4s ease-in-out infinite}
 
 @media(prefers-reduced-motion:reduce){ .sheet,.mask{transition:none} }
+
+/* ---------- 頂部三大主導航標籤 (手機優先) ---------- */
+.main-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 8px 12px;
+  background: #111a12;
+  border-bottom: 1.5px solid #2b3d2e;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+.tab-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 9px 0;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+  background: #16221a;
+  color: #93a396;
+  border: 1px solid #3d5342;
+  transition: all .15s;
+}
+.tab-item:active { transform: scale(.97); }
+.tab-item.active {
+  background: #263a2c;
+  color: #eef3ea;
+  border-color: #c9a84c;
+  box-shadow: 0 0 8px rgba(201,168,76,.2);
+}
+.tab-item.gold-tab {
+  background: linear-gradient(180deg, rgba(201,168,76,.3) 0%, rgba(138,116,64,.2) 100%);
+  color: #e3d48e;
+  border-color: #c9a84c;
+  box-shadow: 0 2px 10px rgba(201,168,76,.25);
+}
+
+/* ---------- 首頁今日下班收單 Banner ---------- */
+.quick-passbook-banner {
+  background: radial-gradient(ellipse at 50% 0%, #1a2a1e 0%, #111a12 100%);
+  border: 1.5px solid #c9a84c;
+  border-radius: 12px;
+  margin: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.5);
+}
+.qpb-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.qpb-title { font-size: 14.5px; font-weight: 800; color: #e3d48e; display: flex; align-items: center; gap: 6px; }
+.qpb-open-btn {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0c110c;
+  background: linear-gradient(180deg, #c9a84c 0%, #8a7440 100%);
+  padding: 5px 10px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+.qpb-hint { font-size: 11.5px; color: #93a396; margin-bottom: 10px; line-height: 1.4; }
+.qpb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 6px; }
+.qpb-card {
+  background: #16221a;
+  border: 1px solid #3d5342;
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all .12s;
+  user-select: none;
+}
+.qpb-card.saved { background: rgba(208,138,46,.18); border-color: #d08a2e; }
+.qpb-card.noslip { background: rgba(196,71,47,.22); border-color: #c4472f; }
+.qpb-cname { font-size: 13.5px; font-weight: 700; color: #eef3ea; }
+.qpb-badge { font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px; }
+.badge-paid { background: #6fa96b; color: #050805; }
+.badge-saved { background: #d08a2e; color: #050805; }
+.badge-noslip { background: #c4472f; color: #fff; }
+
 </style>
 </head>
 <body>
@@ -284,6 +368,13 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
 </div>
 
 <div id="app" hidden>
+    <!-- 頂部三大主導航標籤 (手機優先) -->
+    <nav class="main-tabs">
+      <a href="index.html" class="tab-item active">🎖️ 出工指揮</a>
+      <a href="sheets.html" class="tab-item">📝 派工表</a>
+      <a href="passbook.html" class="tab-item gold-tab">📒 存領薪</a>
+    </nav>
+
   <header>
     <div class="hrow">
       <img class="hlogo" src="assets/logo_160.png" alt="">
@@ -311,6 +402,18 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   </header>
 
   <div class="board" id="board"></div>
+    <!-- 首頁下班收單專區 -->
+    <div class="quick-passbook-banner" id="quickPassbookBanner">
+      <div class="qpb-head">
+        <div class="qpb-title">
+          <span>💰</span> <span>下班收單：今日誰沒拿現金？</span>
+        </div>
+        <a href="passbook.html" class="qpb-open-btn">打開存領薪存摺 ›</a>
+      </div>
+      <div class="qpb-hint">點一下人名可切換「✅領現 / 💰存薪 / 🚫缺單」；林真德預設存薪。</div>
+      <div class="qpb-grid" id="qpbGrid"></div>
+    </div>
+
 
   <main>
     <div class="sect-h">指揮部<span class="r" id="hqState"></span></div>
@@ -640,7 +743,57 @@ function downloadSheet(){
 }
 
 
+
+var QPB_STATE_KEY = "COLA_PASSBOOK_STATE_V1";
+function getQpbState(){
+  try{
+    var s = localStorage.getItem(QPB_STATE_KEY);
+    if(s) return JSON.parse(s);
+  }catch(e){}
+  return { todayStatus: {}, linUnpaid: [] };
+}
+function setQpbWorkerStatus(name, nextSt){
+  var s = getQpbState();
+  if(!s.todayStatus) s.todayStatus = {};
+  s.todayStatus[name] = nextSt;
+  try{ localStorage.setItem(QPB_STATE_KEY, JSON.stringify(s)); }catch(e){}
+  renderQuickPassbook();
+}
+function renderQuickPassbook(){
+  var box = document.getElementById('qpbGrid');
+  if(!box) return;
+  var d = BYDATE[curDate];
+  if(!d || !d.sites || !d.sites.length){
+    box.innerHTML = '<div style="grid-column:1/-1;font-size:12px;color:#8fa095;text-align:center">今日無出工名單</div>';
+    return;
+  }
+  var s = getQpbState();
+  var seen = {};
+  var list = [];
+  d.sites.forEach(function(st){
+    st.people.forEach(function(p){
+      if(!seen[p.n]){
+        seen[p.n] = true;
+        list.push(p.n);
+      }
+    });
+  });
+  box.innerHTML = list.map(function(n){
+    var st = (s.todayStatus && s.todayStatus[n]) ? s.todayStatus[n] : (n === '林真德' ? 'saved' : 'paid');
+    var badgeHtml = st === 'saved' ? '<span class="qpb-badge badge-saved">💰 存薪</span>' :
+                    (st === 'noslip' ? '<span class="qpb-badge badge-noslip">🚫 缺單</span>' :
+                    '<span class="qpb-badge badge-paid">✅ 領現</span>');
+    var nextSt = st === 'paid' ? 'saved' : (st === 'saved' ? 'noslip' : 'paid');
+    return '<div class="qpb-card ' + st + '" onclick="setQpbWorkerStatus(\'' + n + '\', \'' + nextSt + '\')">' +
+             '<div class="qpb-cname">' + n + '</div>' +
+             badgeHtml +
+           '</div>';
+  }).join('');
+}
+
 function renderDay(){
+  renderQuickPassbook();
+
   var d=BYDATE[curDate];
   var idx=DAYS.indexOf(curDate);
   renderStandby();
