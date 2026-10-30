@@ -18,7 +18,7 @@
 html,body{min-height:100vh;background:#0c110c;color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;font-size:14px;line-height:1.5;padding-bottom:calc(env(safe-area-inset-bottom) + 80px)}
 button,input,select,a{font-family:inherit}
 
-/* 頂部三大功能大導航 */
+/* 頂部三大主導航標籤 */
 .main-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:8px 12px;background:#111a12;border-bottom:1.5px solid #2b3d2e;position:sticky;top:0;z-index:40}
 .tab-item{display:flex;align-items:center;justify-content:center;gap:4px;padding:9px 0;font-size:13px;font-weight:700;border-radius:8px;text-decoration:none;background:#16221a;color:#93a396;border:1px solid #3d5342;transition:all .15s}
 .tab-item:active{transform:scale(.97)}
@@ -75,7 +75,7 @@ main{padding:0 12px}
 
 /* 工種快選列 */
 .role-group{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
-.r-btn{padding:3px 7px;font-size:11px;font-weight:700;border-radius:5px;border:1px solid #3d5342;background:#111a12;color:#93a396;cursor:pointer}
+.r-btn{padding:4px 8px;font-size:11px;font-weight:700;border-radius:5px;border:1px solid #3d5342;background:#111a12;color:#93a396;cursor:pointer}
 .r-btn.active{background:#3b82f6;color:#fff;border-color:#3b82f6}
 
 /* 底部功能浮動欄 */
@@ -146,22 +146,25 @@ main{padding:0 12px}
           </div>
         </div>
 
-                <!-- 實際領款日期選擇 (支援週五沒來、週六/週日來領) -->
-        <div style="background:#16221a;border:1px solid #3d5342;border-radius:8px;padding:10px;margin-bottom:8px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
-            <span style="font-size:13px;font-weight:700;color:var(--goldlit)">📅 實際領款日期：</span>
-            <input type="date" id="settleDateInput" style="background:#111a12;border:1px solid #c9a84c;color:#eef3ea;padding:5px 8px;border-radius:6px;font-size:13px;font-weight:700;outline:none" onchange="onSettleDateChanged()">
+        <!-- 領款日期選擇區 (支援週五沒來、週六/週日來領) -->
+        <div style="background:#16221a;border:1.5px solid #c9a84c;border-radius:10px;padding:12px;margin-bottom:10px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <span style="font-size:13.5px;font-weight:800;color:var(--goldlit)">📅 實際領款時間選擇：</span>
+            <input type="date" id="settleDateInput" style="background:#111a12;border:1px solid #c9a84c;color:#eef3ea;padding:6px 8px;border-radius:6px;font-size:13px;font-weight:700;outline:none" onchange="onSettleDateChanged()">
           </div>
-          <!-- 快捷快速點選 -->
-          <div style="display:flex;gap:4px;overflow-x:auto;padding-top:2px" id="quickDateBtns">
+          <div style="font-size:11.5px;color:var(--steel);margin-bottom:8px">
+            師傅若今天沒回公司，可點選實際發錢的日期：
+          </div>
+          <!-- 快捷點選按鈕 -->
+          <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px" id="quickDateBtns">
             <button type="button" onclick="quickSetSettleDate(0)" class="r-btn active" id="btnDate0">今天(五)</button>
             <button type="button" onclick="quickSetSettleDate(1)" class="r-btn" id="btnDate1">明天(六)</button>
             <button type="button" onclick="quickSetSettleDate(2)" class="r-btn" id="btnDate2">後天(日)</button>
             <button type="button" onclick="quickSetSettleDate(3)" class="r-btn" id="btnDate3">下週一</button>
             <button type="button" onclick="quickSetSettleDate(-1)" class="r-btn" id="btnDate-1">昨天</button>
           </div>
-          <div id="settleDateDisplay" style="font-size:11.5px;color:var(--steel);margin-top:6px;text-align:right">
-            存摺登記日期：<strong style="color:var(--goldlit)" id="rocDateLabel">115/10/30 (五)</strong>
+          <div style="font-size:12px;color:var(--txt);margin-top:8px;text-align:right">
+            存摺登記日期：<strong style="color:var(--goldlit);font-size:13px" id="rocDateLabel">115/10/30 (五)</strong>
           </div>
         </div>
 
@@ -226,14 +229,14 @@ main{padding:0 12px}
 
 <div id="toast"></div>
 
-<script src="data.enc.js?v=13b7a82c"></script>
+<script src="data.enc.js?v=cc4b2e57"></script>
 <script>
 (function(){
 "use strict";
 
-var STORAGE_KEY = "COLA_PASSBOOK_STORE_V2";
+var STORAGE_KEY = "COLA_PASSBOOK_STORE_V3";
 
-// 完整同仁資料庫初始狀態
+// 完整同仁初始資料庫
 var DEFAULT_WORKERS = {
   "林真德": {
     cycle: "固定週五領",
@@ -308,18 +311,70 @@ var db = {
   workers: DEFAULT_WORKERS
 };
 
-// 讀取本地儲存
+// 讀取本地儲存（防呆：若含有亂碼則自動重設）
 try {
   var s = localStorage.getItem(STORAGE_KEY);
   if(s){
     var parsed = JSON.parse(s);
-    if(parsed && parsed.workers) db = parsed;
+    if(parsed && parsed.workers && parsed.workers["林真德"]){
+      db = parsed;
+    }
   }
 }catch(e){}
 
 function saveDb(){
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(db)); }catch(e){}
 }
+
+// 日期處理工具
+var ROC_DATE_STR = "";
+var WEEKDAYS = ["(日)", "(一)", "(二)", "(三)", "(四)", "(五)", "(六)"];
+
+function formatRocDate(dObj){
+  var y = dObj.getFullYear() - 1911;
+  var m = String(dObj.getMonth() + 1).padStart(2, '0');
+  var d = String(dObj.getDate()).padStart(2, '0');
+  var w = WEEKDAYS[dObj.getDay()];
+  return y + "/" + m + "/" + d + " " + w;
+}
+
+function toIsoDate(dObj){
+  var y = dObj.getFullYear();
+  var m = String(dObj.getMonth() + 1).padStart(2, '0');
+  var d = String(dObj.getDate()).padStart(2, '0');
+  return y + "-" + m + "-" + d;
+}
+
+window.quickSetSettleDate = function(offsetDays){
+  var now = new Date();
+  now.setDate(now.getDate() + offsetDays);
+  var iso = toIsoDate(now);
+  var inputEl = document.getElementById('settleDateInput');
+  if(inputEl) inputEl.value = iso;
+  ROC_DATE_STR = formatRocDate(now);
+  var labelEl = document.getElementById('rocDateLabel');
+  if(labelEl) labelEl.textContent = ROC_DATE_STR;
+
+  [-1, 0, 1, 2, 3].forEach(function(off){
+    var b = document.getElementById('btnDate' + off);
+    if(b) b.className = 'r-btn ' + (off === offsetDays ? 'active' : '');
+  });
+};
+
+window.onSettleDateChanged = function(){
+  var val = document.getElementById('settleDateInput').value;
+  if(!val) return;
+  var parts = val.split('-');
+  var dObj = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+  ROC_DATE_STR = formatRocDate(dObj);
+  var labelEl = document.getElementById('rocDateLabel');
+  if(labelEl) labelEl.textContent = ROC_DATE_STR;
+
+  [-1, 0, 1, 2, 3].forEach(function(off){
+    var b = document.getElementById('btnDate' + off);
+    if(b) b.className = 'r-btn';
+  });
+};
 
 function calcRowTotal(r){
   var base = Math.round((Number(r.price)||0) * (Number(r.days)||0));
@@ -360,68 +415,9 @@ window.selectWorker = function(name){
   db.activeWorker = name;
   saveDb();
   renderAll();
-
-  // 初始化領款日期選擇器
-  quickSetSettleDate(0);
-
-};
-
-
-var currentSelectedDate = new Date();
-var ROC_DATE_STR = "";
-var WEEKDAYS = ["(日)", "(一)", "(二)", "(三)", "(四)", "(五)", "(六)"];
-
-function formatRocDate(dObj){
-  var y = dObj.getFullYear() - 1911;
-  var m = String(dObj.getMonth() + 1).padStart(2, '0');
-  var d = String(dObj.getDate()).padStart(2, '0');
-  var w = WEEKDAYS[dObj.getDay()];
-  return y + "/" + m + "/" + d + " " + w;
-}
-
-function toIsoDate(dObj){
-  var y = dObj.getFullYear();
-  var m = String(dObj.getMonth() + 1).padStart(2, '0');
-  var d = String(dObj.getDate()).padStart(2, '0');
-  return y + "-" + m + "-" + d;
-}
-
-window.quickSetSettleDate = function(offsetDays){
-  var now = new Date();
-  now.setDate(now.getDate() + offsetDays);
-  currentSelectedDate = now;
-  var iso = toIsoDate(now);
-  var inputEl = document.getElementById('settleDateInput');
-  if(inputEl) inputEl.value = iso;
-  ROC_DATE_STR = formatRocDate(now);
-  var labelEl = document.getElementById('rocDateLabel');
-  if(labelEl) labelEl.textContent = ROC_DATE_STR;
-
-  // 更新按鈕 active 樣式
-  [-1, 0, 1, 2, 3].forEach(function(off){
-    var b = document.getElementById('btnDate' + off);
-    if(b) b.className = 'r-btn ' + (off === offsetDays ? 'active' : '');
-  });
-};
-
-window.onSettleDateChanged = function(){
-  var val = document.getElementById('settleDateInput').value;
-  if(!val) return;
-  var parts = val.split('-');
-  var dObj = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
-  currentSelectedDate = dObj;
-  ROC_DATE_STR = formatRocDate(dObj);
-  var labelEl = document.getElementById('rocDateLabel');
-  if(labelEl) labelEl.textContent = ROC_DATE_STR;
-
-  [-1, 0, 1, 2, 3].forEach(function(off){
-    var b = document.getElementById('btnDate' + off);
-    if(b) b.className = 'r-btn';
-  });
 };
 
 function renderAll(){
-
   var name = db.activeWorker;
   var w = db.workers[name];
   if(!w) return;
@@ -613,7 +609,7 @@ window.addManualDay = function(){
   showToast("➕ 已新增出工明細！");
 };
 
-// 核心：確認結清發放
+// 核心：確認結清發放 (使用自選領款日期)
 window.confirmSettle = function(){
   var name = db.activeWorker;
   var w = db.workers[name];
@@ -628,15 +624,16 @@ window.confirmSettle = function(){
   var payableAmt = payableRows.reduce((a,r)=>a+calcRowTotal(r),0) + (Number(w.carryOver)||0);
   var actual = parseInt(document.getElementById('actualPayInput').value,10)||0;
   var remain = payableAmt - actual;
+  var useDate = ROC_DATE_STR || formatRocDate(new Date());
 
-  if(!confirm(`確認結算「${name}」薪資？\n\n領款日期：${ROC_DATE_STR || formatRocDate(new Date())}\n\n實發金額：$${actual.toLocaleString()}\n已交單結清：${payableRows.length} 筆\n缺簽單留底：${missingRows.length} 筆`)){
+  if(!confirm(`確認結算「${name}」薪資？\n\n領款日期：${useDate}\n實發金額：$${actual.toLocaleString()}\n已交單結清：${payableRows.length} 筆\n缺簽單留底：${missingRows.length} 筆`)){
     return;
   }
 
   var nextBatch = w.history.length > 0 ? Math.max(...w.history.map(h=>h.batchNo)) + 1 : 12;
   w.history.unshift({
     batchNo: nextBatch,
-    settleDate: ROC_DATE_STR || formatRocDate(new Date()),
+    settleDate: useDate,
     actualPaid: actual,
     totalDue: payableAmt,
     remainCarry: remain,
@@ -650,9 +647,9 @@ window.confirmSettle = function(){
   renderAll();
 
   if(missingRows.length > 0){
-    alert(`🎉 結算完成！\n\n已成功結清發放 $${actual.toLocaleString()}！\n另有 ${missingRows.length} 筆「🚫 缺簽單」已自動留底，等繳回簽單後再結！`);
+    alert(`🎉 結算完成！\n\n領款日期：${useDate}\n已成功發放 $${actual.toLocaleString()}！\n另有 ${missingRows.length} 筆「🚫 缺簽單」已自動留底，等繳回簽單後再結！`);
   } else {
-    alert(`🎉 結算完成！\n\n已全數結清發放 $${actual.toLocaleString()}，已移入【歷史已領存摺】！`);
+    alert(`🎉 結算完成！\n\n領款日期：${useDate}\n已全數結清發放 $${actual.toLocaleString()}，已移入【歷史已領存摺】！`);
   }
 
   copyLineReport();
@@ -676,17 +673,18 @@ window.copyLineReport = function(){
   var payableRows = w.unpaid.filter(r=>!r.missingSlip);
   var missingRows = w.unpaid.filter(r=>r.missingSlip);
   var actual = parseInt(document.getElementById('actualPayInput').value,10)||0;
+  var useDate = ROC_DATE_STR || formatRocDate(new Date());
 
   var lines = [
     `【可樂工程行 薪資結算明細】`,
     `姓名：${name}`,
-    `結算領款日：${ROC_DATE_STR || formatRocDate(new Date())}`,
+    `領款日期：${useDate}`,
     `──────────────`,
     `✅【已交簽單・本次發放】：`
   ];
 
   if(!payableRows.length && w.history.length > 0){
-    lines.push(`（今日已結清領取，明細已轉入存摺）`);
+    lines.push(`（已於 ${w.history[0].settleDate} 結清領取，明細已轉入存摺）`);
     lines.push(`本次實發放現：$${w.history[0].actualPaid.toLocaleString()}`);
   } else {
     payableRows.forEach(function(r){
@@ -729,6 +727,7 @@ async function unlock(pw){
 function bootApp(){
   document.getElementById('lock').style.display = 'none';
   document.getElementById('app').hidden = false;
+  quickSetSettleDate(0);
   renderAll();
 }
 
