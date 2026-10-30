@@ -5,96 +5,67 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="theme-color" content="#0c110c">
-<title>可樂工程行 · 同仁存領薪存摺 (手機版)</title>
+<title>可樂工程行 · 同仁存領薪存摺（手機檢視）</title>
 <style>
-:root{
-  --bg:#0c110c; --panel:#111a12; --panel2:#16221a;
-  --line:#2b3d2e; --line2:#3d5342;
-  --gold:#c9a84c; --goldlit:#e3d48e; --golddim:#8a7440;
-  --steel:#93a396; --txt:#eef3ea; --dim:#8fa095;
-  --alert:#c4472f; --warn:#d08a2e; --ok:#6fa96b; --blue:#3b82f6;
-}
+:root{--panel:#111a12;--panel2:#16221a;--line:#2b3d2e;--line2:#3d5342;--gold:#c9a84c;--goldlit:#e3d48e;--steel:#93a396;--txt:#eef3ea;--dim:#8fa095;--alert:#c4472f;--warn:#d08a2e;--ok:#6fa96b;--blue:#5b9bff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
 html,body{min-height:100vh;background:#0c110c;color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;font-size:14px;line-height:1.5;padding-bottom:calc(env(safe-area-inset-bottom) + 80px)}
-button,input,select,a{font-family:inherit}
-
-/* 頂部三大主導航標籤 */
+button,a{font-family:inherit}
 .main-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:8px 12px;background:#111a12;border-bottom:1.5px solid #2b3d2e;position:sticky;top:0;z-index:40}
-.tab-item{display:flex;align-items:center;justify-content:center;gap:4px;padding:9px 0;font-size:13px;font-weight:700;border-radius:8px;text-decoration:none;background:#16221a;color:#93a396;border:1px solid #3d5342;transition:all .15s}
-.tab-item:active{transform:scale(.97)}
-.tab-item.active{background:#263a2c;color:#eef3ea;border-color:#c9a84c;box-shadow:0 0 8px rgba(201,168,76,.2)}
-.tab-item.gold-tab{background:linear-gradient(180deg,rgba(201,168,76,.3) 0%,rgba(138,116,64,.2) 100%);color:#e3d48e;border-color:#c9a84c;box-shadow:0 2px 10px rgba(201,168,76,.25)}
-
-/* 同仁橫向滑動快選欄 */
+.tab-item{display:flex;align-items:center;justify-content:center;padding:9px 0;font-size:13px;font-weight:700;border-radius:8px;text-decoration:none;background:#16221a;color:#93a396;border:1px solid #3d5342}
+.tab-item.gold-tab{background:linear-gradient(180deg,rgba(201,168,76,.3),rgba(138,116,64,.2));color:#e3d48e;border-color:#c9a84c}
+.tab-item.active{box-shadow:0 0 8px rgba(201,168,76,.25)}
+.notice{background:#142033;border-bottom:1.5px solid #3b6fb5;color:#cfe0ff;padding:9px 12px;font-size:12.5px;font-weight:700;line-height:1.5;text-align:center}
+.notice b{color:#fff;background:#3b6fb5;padding:0 5px;border-radius:3px}
+.notice small{display:block;font-weight:500;color:#9fb8e0;margin-top:2px}
 .worker-scroller{display:flex;gap:8px;overflow-x:auto;padding:10px 12px;background:#16221a;border-bottom:1px solid #2b3d2e;scrollbar-width:none}
 .worker-scroller::-webkit-scrollbar{display:none}
 .w-tab{flex:0 0 auto;padding:8px 14px;border-radius:20px;font-size:13px;font-weight:700;border:1px solid #3d5342;background:#111a12;color:#93a396;cursor:pointer;display:flex;align-items:center;gap:6px}
-.w-tab.active{background:linear-gradient(180deg,#c9a84c 0%,#8a7440 100%);color:#050805;border-color:#c9a84c;box-shadow:0 2px 8px rgba(201,168,76,.3)}
+.w-tab.active{background:linear-gradient(180deg,#c9a84c,#8a7440);color:#050805;border-color:#c9a84c}
 .w-badge{font-size:10px;padding:1px 5px;border-radius:10px;background:rgba(0,0,0,.3)}
-
-/* 頁面子分頁切換 */
 .sub-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px;background:#111a12;padding:4px;border-radius:10px;border:1px solid #2b3d2e}
-.sub-btn{padding:8px 0;font-size:13px;font-weight:700;border-radius:8px;border:none;background:transparent;color:#93a396;cursor:pointer;text-align:center}
+.sub-btn{padding:8px 0;font-size:13px;font-weight:700;border-radius:8px;border:none;background:transparent;color:#93a396;cursor:pointer}
 .sub-btn.active{background:#16221a;color:#e3d48e;box-shadow:0 2px 6px rgba(0,0,0,.4)}
-
-/* 主內容區 */
 main{padding:0 12px}
-
-/* 卡片 */
-.card{background:#111a12;border:1px solid #2b3d2e;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 4px 16px rgba(0,0,0,.3)}
-.card-header{display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid #2b3d2e;margin-bottom:12px}
-.card-title{font-size:15px;font-weight:800;color:#e3d48e;display:flex;align-items:center;gap:6px}
-
-/* 結算統計卡片 */
-.settle-summary{background:radial-gradient(ellipse at 50% 0%,#1a2a1e 0%,#111a12 100%);border:1.5px solid #c9a84c;border-radius:12px;padding:14px;margin-bottom:14px}
+.card{background:#111a12;border:1px solid #2b3d2e;border-radius:12px;padding:14px;margin-bottom:12px}
+.card-title{font-size:15px;font-weight:800;color:#e3d48e;padding-bottom:10px;border-bottom:1px solid #2b3d2e;margin-bottom:12px}
 .sum-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.sum-box{background:#16221a;border:1px solid #3d5342;border-radius:8px;padding:10px}
-.sum-label{font-size:11px;color:#93a396;margin-bottom:4px}
-.sum-val{font-size:18px;font-weight:900}
-.sum-val.green{color:#6fa96b}
-.sum-val.red{color:#c4472f}
-
-/* 結算按鈕大巨鈕 */
-.btn-settle{width:100%;padding:14px;font-size:15px;font-weight:900;letter-spacing:1px;background:linear-gradient(180deg,#22c55e 0%,#16a34a 100%);color:#fff;border:none;border-radius:10px;cursor:pointer;box-shadow:0 4px 14px rgba(34,197,94,.3);margin-top:8px}
-.btn-settle:active{transform:scale(.98)}
-.btn-settle:disabled{opacity:.4;cursor:not-allowed}
-
-/* 列表單項 */
-.item-card{background:#16221a;border:1.5px solid #3d5342;border-radius:10px;padding:12px;margin-bottom:10px}
-.item-card.missing{border-color:#c4472f;background:rgba(196,71,47,.12)}
-.item-row1{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.item-date{font-size:14px;font-weight:800;color:#e3d48e;display:flex;align-items:center;gap:6px}
-.btn-slip{padding:4px 8px;font-size:11.5px;font-weight:800;border-radius:6px;border:none;cursor:pointer}
-.btn-slip.ok{background:rgba(111,169,107,.2);color:#6fa96b;border:1px solid #6fa96b}
-.btn-slip.missing{background:#c4472f;color:#fff}
-
-.item-row2{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.item-site{font-size:13.5px;font-weight:700;color:#eef3ea}
-.item-sub{font-size:16px;font-weight:900;color:#6fa96b}
-.item-sub.frozen{color:#c4472f;text-decoration:line-through;font-size:13px}
-
-/* 工種快選列 */
-.role-group{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px}
-.r-btn{padding:4px 8px;font-size:11px;font-weight:700;border-radius:5px;border:1px solid #3d5342;background:#111a12;color:#93a396;cursor:pointer}
-.r-btn.active{background:#3b82f6;color:#fff;border-color:#3b82f6}
-
-/* 底部功能浮動欄 */
+.sum-box{background:#16221a;border:1px solid #3d5342;border-radius:10px;padding:10px}
+.sum-label{font-size:11px;color:#93a396;margin-bottom:2px}
+.sum-val{font-size:20px;font-weight:900}
+.green{color:#6fa96b}.red{color:#c4472f}
+.sub{font-size:11px;color:var(--dim);margin-top:2px}
+.item{background:#16221a;border:1.5px solid #3d5342;border-radius:10px;padding:12px;margin-bottom:10px}
+.item.missing{border-color:#c4472f;background:rgba(196,71,47,.12)}
+.row1,.row2{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.row1{margin-bottom:6px}
+.date{font-size:14px;font-weight:800;color:#e3d48e}
+.date a{color:var(--blue);font-size:11.5px;text-decoration:none;font-weight:700;margin-left:6px}
+.badge{padding:3px 8px;font-size:11.5px;font-weight:800;border-radius:6px;white-space:nowrap}
+.badge.ok{background:rgba(111,169,107,.2);color:#6fa96b;border:1px solid #6fa96b}
+.badge.miss{background:#c4472f;color:#fff}
+.site{font-size:13.5px;font-weight:700}
+.meta{font-size:11.5px;color:var(--steel);margin-top:2px}
+.note{color:var(--warn)}
+.amt{font-size:16px;font-weight:900;color:#6fa96b;white-space:nowrap}
+.amt.frozen{color:#c4472f;text-decoration:line-through;font-size:13px}
+.batch{background:#16221a;border:1px solid #3d5342;border-radius:10px;padding:12px;margin-bottom:10px}
+.batch-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.batch-t{font-size:14px;font-weight:800;color:#e3d48e}
+.batch-a{font-size:15px;font-weight:900;color:#6fa96b}
+.batch-d{font-size:12px;color:var(--steel);padding:2px 0}
+.empty{padding:28px 12px;text-align:center;color:var(--dim);font-size:13px}
 .dock{position:fixed;bottom:0;left:0;right:0;background:rgba(12,17,12,.97);backdrop-filter:blur(12px);border-top:1.5px solid #2b3d2e;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;max-width:800px;margin:0 auto;z-index:30}
-.dock-due{font-size:11px;color:#93a396}
-.dock-amt{font-size:18px;font-weight:900;color:#6fa96b}
-.btn-dock{padding:8px 14px;font-size:13px;font-weight:800;border-radius:8px;border:none;cursor:pointer;background:#16221a;color:#e3d48e;border:1px solid #c9a84c}
-
-/* Toast */
-#toast{position:fixed;top:60px;left:50%;transform:translateX(-50%);background:rgba(20,32,22,.96);border:1px solid #6fa96b;color:#6fa96b;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:700;z-index:90;display:none;box-shadow:0 4px 16px rgba(0,0,0,.6);text-align:center}
-
-/* 通行鎖 */
-#lock{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 0%,#16241a 0%,#050805 70%);padding:24px}
+.dock-l{font-size:11px;color:#93a396}.dock-a{font-size:18px;font-weight:900;color:#6fa96b}
+.btn-copy{padding:9px 14px;font-size:13px;font-weight:800;border-radius:8px;cursor:pointer;background:#16221a;color:#e3d48e;border:1px solid #c9a84c}
+#toast{position:fixed;top:60px;left:50%;transform:translateX(-50%);background:rgba(20,32,22,.96);border:1px solid #6fa96b;color:#6fa96b;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:700;z-index:90;display:none}
+#lock{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 0%,#16241a,#050805 70%);padding:24px}
 .lockbox{width:100%;max-width:320px;text-align:center}
-.lockbox img{width:100px;height:auto;margin-bottom:14px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.6))}
+.lockbox img{width:100px;height:auto;margin-bottom:14px}
 .lh{font-size:18px;font-weight:700;letter-spacing:2px;color:var(--gold);margin-bottom:4px}
 .ls{font-size:10px;font-weight:600;letter-spacing:3px;color:var(--steel);margin-bottom:20px}
 #pw{width:100%;padding:12px 14px;font-size:16px;background:var(--panel2);border:1px solid var(--line2);color:var(--txt);border-radius:10px;text-align:center;letter-spacing:3px;margin-bottom:12px;outline:none}
-#gobtn{width:100%;padding:12px;font-size:15px;font-weight:700;letter-spacing:3px;background:linear-gradient(180deg,#c9a84c 0%,#8a7440 100%);color:#050805;border:none;border-radius:10px;cursor:pointer}
+#gobtn{width:100%;padding:12px;font-size:15px;font-weight:700;letter-spacing:3px;background:linear-gradient(180deg,#c9a84c,#8a7440);color:#050805;border:none;border-radius:10px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -103,7 +74,7 @@ main{padding:0 12px}
   <div class="lockbox">
     <img src="assets/logo_320.png" alt="可樂工程行">
     <div class="lh">同仁存領薪存摺</div>
-    <div class="ls">PASSBOOK CONSOLE</div>
+    <div class="ls">VIEW ONLY</div>
     <input id="pw" type="password" inputmode="text" autocomplete="current-password" placeholder="請輸入通行碼">
     <button id="gobtn">進 入</button>
     <div id="lerr" style="min-height:22px;color:var(--alert);font-size:12px;margin-top:8px"></div>
@@ -112,615 +83,150 @@ main{padding:0 12px}
 </div>
 
 <div id="app" hidden>
-  <!-- 頂部三大功能大導航 -->
   <nav class="main-tabs">
     <a href="index.html" class="tab-item">🎖️ 出工指揮</a>
     <a href="sheets.html" class="tab-item">📝 派工表</a>
     <a href="passbook.html" class="tab-item gold-tab active">📒 存領薪</a>
   </nav>
-  <!-- 手機版警示：資料僅存本機 -->
-  <div style="background:#5a1a12;border-bottom:2px solid #c4472f;color:#ffd9d2;padding:9px 12px;font-size:12.5px;font-weight:700;line-height:1.5;text-align:center">
-    ⚠️ 手機版僅暫存在這支手機，<span style="color:#fff;background:#c4472f;padding:0 4px;border-radius:3px">不會寫入 Excel 存摺</span><br>
-    正式結算請回辦公室電腦操作；這裡可看明細、複製 LINE 對帳單
+
+  <div class="notice">
+    👀 <b>僅供檢視</b>　手機不能輸入或結算，請在辦公室電腦操作
+    <small id="updatedLine">資料時間：—</small>
   </div>
 
-
-  <!-- 同仁橫向切換欄 -->
   <div class="worker-scroller" id="workerScroller"></div>
 
-  <!-- 子分頁：未領明細 / 歷史存摺 -->
   <div class="sub-tabs">
-    <button onclick="switchTab('unpaid')" id="subBtn-unpaid" class="sub-btn active">📗 目前未領明細</button>
-    <button onclick="switchTab('history')" id="subBtn-history" class="sub-btn">📜 歷史已領存摺</button>
+    <button class="sub-btn active" id="subBtn-unpaid" onclick="switchTab('unpaid')">📗 目前未領明細</button>
+    <button class="sub-btn" id="subBtn-history" onclick="switchTab('history')">📜 歷史已領存摺</button>
   </div>
 
   <main>
-    <!-- 分頁 1：目前未領明細與結清發放 -->
-    <div id="tab-unpaid-box">
-      <!-- 結算統計卡片 -->
-      <section class="settle-summary">
-        <div class="sum-grid">
-          <div class="sum-box">
-            <div class="sum-label">✅ 本次可領總計 (已交單)</div>
-            <div class="sum-val green" id="sumPayable">$0</div>
-            <div style="font-size:11px;color:var(--dim);margin-top:2px" id="sumPayableDays">0 工</div>
-          </div>
-          <div class="sum-box">
-            <div class="sum-label">🚫 缺簽單暫扣 (留底待補)</div>
-            <div class="sum-val red" id="sumFrozen">$0</div>
-            <div style="font-size:11px;color:var(--dim);margin-top:2px" id="sumFrozenCount">0 張缺單</div>
-          </div>
-        </div>
-
-        <!-- 領款日期選擇區 (支援週五沒來、週六/週日來領) -->
-        <div style="background:#16221a;border:1.5px solid #c9a84c;border-radius:10px;padding:12px;margin-bottom:10px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-            <span style="font-size:13.5px;font-weight:800;color:var(--goldlit)">📅 實際領款時間選擇：</span>
-            <input type="date" id="settleDateInput" style="background:#111a12;border:1px solid #c9a84c;color:#eef3ea;padding:6px 8px;border-radius:6px;font-size:13px;font-weight:700;outline:none" onchange="onSettleDateChanged()">
-          </div>
-          <div style="font-size:11.5px;color:var(--steel);margin-bottom:8px">
-            師傅若今天沒回公司，可點選實際發錢的日期：
-          </div>
-          <!-- 快捷點選按鈕 -->
-          <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:4px" id="quickDateBtns">
-            <button type="button" onclick="quickSetSettleDate(0)" class="r-btn active" id="btnDate0">今天(五)</button>
-            <button type="button" onclick="quickSetSettleDate(1)" class="r-btn" id="btnDate1">明天(六)</button>
-            <button type="button" onclick="quickSetSettleDate(2)" class="r-btn" id="btnDate2">後天(日)</button>
-            <button type="button" onclick="quickSetSettleDate(3)" class="r-btn" id="btnDate3">下週一</button>
-            <button type="button" onclick="quickSetSettleDate(-1)" class="r-btn" id="btnDate-1">昨天</button>
-          </div>
-          <div style="font-size:12px;color:var(--txt);margin-top:8px;text-align:right">
-            存摺登記日期：<strong style="color:var(--goldlit);font-size:13px" id="rocDateLabel">115/10/30 (五)</strong>
-          </div>
-        </div>
-
-        <!-- 實發與結清大鈕 -->
-        <div style="background:#16221a;border:1px solid #3d5342;border-radius:8px;padding:10px;margin-bottom:8px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
-            <span style="font-size:13px;font-weight:700">本次實發金額：</span>
-            <div style="display:flex;align-items:center;gap:4px">
-              <span style="font-weight:800;color:var(--goldlit)">$</span>
-              <input type="number" id="actualPayInput" style="width:110px;padding:6px;font-size:16px;font-weight:900;background:#111a12;border:1px solid #c9a84c;border-radius:6px;color:#6fa96b;text-align:right" oninput="updateSettleDiff()">
-            </div>
-          </div>
-          <div id="settleHint" style="font-size:11.5px;color:#6fa96b;text-align:right">✅ 已交單部分剛好結清</div>
-        </div>
-
-        <button onclick="confirmSettle()" id="settleBtn" class="btn-settle">
-          💰 確認結清領取 (缺單日自動留底)
-        </button>
-      </section>
-
-      <!-- 未領出工列表 -->
+    <div id="tab-unpaid">
+      <div class="sum-grid">
+        <div class="sum-box"><div class="sum-label">✅ 已交單可領</div><div class="sum-val green" id="sumPay">$0</div><div class="sub" id="sumPayDays"></div></div>
+        <div class="sum-box"><div class="sum-label">🚫 缺簽單暫扣</div><div class="sum-val red" id="sumFrozen">$0</div><div class="sub" id="sumFrozenN"></div></div>
+      </div>
       <section class="card">
-        <div class="card-header">
-          <div class="card-title">
-            <span>📋</span> <span id="workerTitleName">林真德</span> <span>· 未領出工明細</span>
-          </div>
-          <button onclick="addManualDay()" style="padding:4px 8px;font-size:11.5px;font-weight:700;border-radius:6px;background:#16221a;color:#e3d48e;border:1px solid #c9a84c;cursor:pointer">
-            ➕ 補登一天
-          </button>
-        </div>
+        <div class="card-title"><span id="uName"></span> · 未領出工明細</div>
         <div id="unpaidList"></div>
       </section>
     </div>
-
-    <!-- 分頁 2：歷史已領存摺 -->
-    <div id="tab-history-box" style="display:none">
+    <div id="tab-history" style="display:none">
       <section class="card">
-        <div class="card-header">
-          <div class="card-title">
-            <span>📜</span> <span id="workerHistoryTitle">林真德</span> <span>· 歷史結算存摺</span>
-          </div>
-          <div style="font-size:11px;color:var(--dim)">結清明細永久留底</div>
-        </div>
+        <div class="card-title"><span id="hName"></span> · 歷史結算存摺</div>
         <div id="historyList"></div>
       </section>
     </div>
   </main>
 
-  <!-- 底部固定操作列 -->
   <div class="dock">
-    <div>
-      <div class="dock-due" id="dockLabel">本次實發</div>
-      <div class="dock-amt" id="dockAmt">$0</div>
-    </div>
-    <div style="display:flex;gap:6px">
-      <button onclick="copyLineReport()" class="btn-dock">
-        📋 複製 LINE
-      </button>
-    </div>
+    <div><div class="dock-l">已交單可領（不含缺單）</div><div class="dock-a" id="dockAmt">$0</div></div>
+    <button class="btn-copy" onclick="copyLine()">📋 複製 LINE 對帳單</button>
   </div>
 </div>
-
 <div id="toast"></div>
 
-<script src="data.enc.js?v=8057fe7e"></script>
+<script src="data.enc.js?v=6733d0a6"></script>
 <script>
 (function(){
 "use strict";
 
-var STORAGE_KEY = "COLA_PASSBOOK_STORE_V3";
+var RAW = null, PB = null, activeWorker = null, activeTab = 'unpaid', URLS = {};
 
-// 完整同仁初始資料庫
-var DEFAULT_WORKERS = {
-  "林真德": {
-    cycle: "固定週五領",
-    otRate: 200,
-    rates: { "粗工": 1500, "技術": 1800, "打石小": 2200, "打石大": 2500 },
-    carryOver: 0,
-    unpaid: [
-      { id: 101, date: "115/10/26 (一)", site: "長富 慈雲山", role: "粗工", price: 1500, days: 1, otHours: 0, otAmount: 0, adjAmount: 0, note: "", missingSlip: false, rocKey: "1151026" },
-      { id: 102, date: "115/10/27 (二)", site: "長富", role: "粗工", price: 1500, days: 1, otHours: 0, otAmount: 0, adjAmount: 0, note: "", missingSlip: false, rocKey: "1151027" },
-      { id: 103, date: "115/10/28 (三)", site: "民儒 新港街", role: "粗工", price: 1500, days: 1, otHours: 0, otAmount: 0, adjAmount: 0, note: "", missingSlip: false, rocKey: "1151028" },
-      { id: 104, date: "115/10/29 (四)", site: "葉小姐", role: "粗工", price: 1500, days: 1, otHours: 0, otAmount: 0, adjAmount: 0, note: "簽單未帶回", missingSlip: true, rocKey: "1151029" },
-      { id: 105, date: "115/10/30 (五)", site: "民儒 新港街", role: "粗工", price: 1500, days: 1, otHours: 0, otAmount: 0, adjAmount: 0, note: "", missingSlip: false, rocKey: "1151030" }
-    ],
-    history: [
-      {
-        batchNo: 11,
-        settleDate: "115/10/23 (週五)",
-        actualPaid: 6000,
-        totalDue: 6000,
-        remainCarry: 0,
-        items: [
-          { date: "115/10/19 (一)", site: "東昇", role: "粗工", price: 1500, days: 1, otAmount: 0, adjAmount: 0, note: "" },
-          { date: "115/10/20 (二)", site: "全捷", role: "粗工", price: 1500, days: 1, otAmount: 0, adjAmount: 0, note: "" },
-          { date: "115/10/21 (三)", site: "民儒 新港街", role: "粗工", price: 1500, days: 1, otAmount: 0, adjAmount: 0, note: "" },
-          { date: "115/10/22 (四)", site: "長富", role: "粗工", price: 1500, days: 1, otAmount: 0, adjAmount: 0, note: "" }
-        ]
-      }
-    ]
-  },
-  "林泳瀚": {
-    cycle: "累積不定時領",
-    otRate: 200,
-    rates: { "粗工": 1500, "技術": 1800, "打石小": 2200, "打石大": 2500 },
-    carryOver: 300,
-    unpaid: [
-      { id: 201, date: "115/10/28 (三)", site: "長富 慈雲山", role: "打石小", price: 2200, days: 1, otHours: 0, otAmount: 0, adjAmount: -700, note: "先拿700", missingSlip: false, rocKey: "1151028" },
-      { id: 202, date: "115/10/29 (四)", site: "長富 慈雲山", role: "粗工", price: 1500, days: 1, otHours: 1, otAmount: 200, adjAmount: 0, note: "加班1h", missingSlip: false, rocKey: "1151029" }
-    ],
-    history: []
-  },
-  "蘇少熙": {
-    cycle: "日領(偶爾存)",
-    otRate: 200,
-    rates: { "粗工": 1500, "技術": 1800, "打石小": 2200, "打石大": 2500 },
-    carryOver: 0,
-    unpaid: [
-      { id: 301, date: "115/10/30 (五)", site: "長富 慈雲山", role: "粗工", price: 1500, days: 1, otHours: 0, otAmount: 0, adjAmount: 0, note: "", missingSlip: false, rocKey: "1151030" }
-    ],
-    history: []
-  },
-  "江志傑": {
-    cycle: "日領(偶爾存)",
-    otRate: 200,
-    rates: { "粗工": 1500, "技術": 1800 },
-    carryOver: 0,
-    unpaid: [],
-    history: []
-  },
-  "葉家春": {
-    cycle: "日領(偶爾存)",
-    otRate: 200,
-    rates: { "粗工": 1500, "技術": 1800 },
-    carryOver: 0,
-    unpaid: [],
-    history: []
-  }
-};
+function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function rowTotal(r){ return Math.round((+r.price||0)*(+r.days||0)) + (+r.otAmount||0) + (+r.adjAmount||0); }
+function money(n){ return '$' + (Math.round(n)||0).toLocaleString(); }
+function toast(m){ var e=document.getElementById('toast'); e.textContent=m; e.style.display='block'; setTimeout(function(){e.style.display='none';},2200); }
 
-var db = {
-  activeWorker: "林真德",
-  activeTab: "unpaid",
-  workers: DEFAULT_WORKERS
-};
-
-// 讀取本地儲存（防呆：若含有亂碼則自動重設）
-try {
-  var s = localStorage.getItem(STORAGE_KEY);
-  if(s){
-    var parsed = JSON.parse(s);
-    if(parsed && parsed.workers && parsed.workers["林真德"]){
-      db = parsed;
-    }
-  }
-}catch(e){}
-
-function saveDb(){
-  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(db)); }catch(e){}
-}
-
-// 日期處理工具
-var ROC_DATE_STR = "";
-var WEEKDAYS = ["(日)", "(一)", "(二)", "(三)", "(四)", "(五)", "(六)"];
-
-function formatRocDate(dObj){
-  var y = dObj.getFullYear() - 1911;
-  var m = String(dObj.getMonth() + 1).padStart(2, '0');
-  var d = String(dObj.getDate()).padStart(2, '0');
-  var w = WEEKDAYS[dObj.getDay()];
-  return y + "/" + m + "/" + d + " " + w;
-}
-
-function toIsoDate(dObj){
-  var y = dObj.getFullYear();
-  var m = String(dObj.getMonth() + 1).padStart(2, '0');
-  var d = String(dObj.getDate()).padStart(2, '0');
-  return y + "-" + m + "-" + d;
-}
-
-window.quickSetSettleDate = function(offsetDays){
-  var now = new Date();
-  now.setDate(now.getDate() + offsetDays);
-  var iso = toIsoDate(now);
-  var inputEl = document.getElementById('settleDateInput');
-  if(inputEl) inputEl.value = iso;
-  ROC_DATE_STR = formatRocDate(now);
-  var labelEl = document.getElementById('rocDateLabel');
-  if(labelEl) labelEl.textContent = ROC_DATE_STR;
-
-  [-1, 0, 1, 2, 3].forEach(function(off){
-    var b = document.getElementById('btnDate' + off);
-    if(b) b.className = 'r-btn ' + (off === offsetDays ? 'active' : '');
-  });
-};
-
-window.onSettleDateChanged = function(){
-  var val = document.getElementById('settleDateInput').value;
-  if(!val) return;
-  var parts = val.split('-');
-  var dObj = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
-  ROC_DATE_STR = formatRocDate(dObj);
-  var labelEl = document.getElementById('rocDateLabel');
-  if(labelEl) labelEl.textContent = ROC_DATE_STR;
-
-  [-1, 0, 1, 2, 3].forEach(function(off){
-    var b = document.getElementById('btnDate' + off);
-    if(b) b.className = 'r-btn';
-  });
-};
-
-function calcRowTotal(r){
-  var base = Math.round((Number(r.price)||0) * (Number(r.days)||0));
-  return base + (Number(r.otAmount)||0) + (Number(r.adjAmount)||0);
-}
-
-function showToast(msg){
-  var el = document.getElementById('toast');
-  el.textContent = msg;
-  el.style.display = 'block';
-  setTimeout(function(){ el.style.display = 'none'; }, 2200);
+function dispatchUrl(dateStr){
+  var m = String(dateStr).match(/(\d{3})\/(\d{2})\/(\d{2})/);
+  return m ? (URLS[m[1]+m[2]+m[3]] || '') : '';
 }
 
 window.switchTab = function(t){
-  db.activeTab = t;
-  document.getElementById('tab-unpaid-box').style.display = (t==='unpaid'?'block':'none');
-  document.getElementById('tab-history-box').style.display = (t==='history'?'block':'none');
-  document.getElementById('subBtn-unpaid').className = 'sub-btn ' + (t==='unpaid'?'active':'');
-  document.getElementById('subBtn-history').className = 'sub-btn ' + (t==='history'?'active':'');
+  activeTab = t;
+  document.getElementById('tab-unpaid').style.display = t==='unpaid' ? 'block' : 'none';
+  document.getElementById('tab-history').style.display = t==='history' ? 'block' : 'none';
+  document.getElementById('subBtn-unpaid').className = 'sub-btn' + (t==='unpaid' ? ' active' : '');
+  document.getElementById('subBtn-history').className = 'sub-btn' + (t==='history' ? ' active' : '');
 };
+window.selectWorker = function(n){ activeWorker = n; render(); };
 
-function renderWorkerScroller(){
-  var c = document.getElementById('workerScroller');
-  c.innerHTML = Object.keys(db.workers).map(function(name){
-    var w = db.workers[name];
-    var unpaidCount = w.unpaid.length;
-    var isSel = name === db.activeWorker;
-    return `
-      <div onclick="selectWorker('${name}')" class="w-tab ${isSel?'active':''}">
-        <span>${name}</span>
-        <span class="w-badge">${unpaidCount}工</span>
-      </div>
-    `;
+function render(){
+  var names = Object.keys(PB.workers);
+  document.getElementById('workerScroller').innerHTML = names.map(function(n){
+    var w = PB.workers[n];
+    return '<div class="w-tab' + (n===activeWorker?' active':'') + '" onclick="selectWorker(\'' + esc(n).replace(/'/g,'') + '\')"><span>' + esc(n) + '</span><span class="w-badge">' + (w.unpaid||[]).length + '工</span></div>';
+  }).join('');
+
+  var w = PB.workers[activeWorker];
+  document.getElementById('uName').textContent = activeWorker;
+  document.getElementById('hName').textContent = activeWorker;
+
+  var pay = 0, payDays = 0, fz = 0, fzN = 0;
+  var html = '';
+  if(!(w.unpaid||[]).length){
+    html = '<div class="empty">🎉 目前沒有未結清的出工紀錄</div>';
+  } else {
+    html = w.unpaid.map(function(r){
+      var sub = rowTotal(r);
+      if(r.missingSlip){ fz += sub; fzN++; } else { pay += sub; payDays += (+r.days||0); }
+      var u = dispatchUrl(r.date);
+      var extra = '';
+      if(+r.otAmount) extra += ' +加班' + money(r.otAmount);
+      if(+r.adjAmount) extra += (r.adjAmount>0 ? ' +津貼' : ' -先拿') + money(Math.abs(r.adjAmount));
+      return '<div class="item' + (r.missingSlip?' missing':'') + '">' +
+        '<div class="row1"><div class="date">📅 ' + esc(r.date) + (u ? '<a href="' + esc(u) + '" target="_blank" rel="noopener">🔗派工單</a>' : '') + '</div>' +
+        '<span class="badge ' + (r.missingSlip?'miss':'ok') + '">' + (r.missingSlip?'🚫 缺簽單':'✅ 已交單') + '</span></div>' +
+        '<div class="row2"><div><div class="site">' + esc(r.site) + '</div>' +
+        '<div class="meta">' + esc(r.role) + ' ' + money(r.price) + ' · ' + esc(r.days) + '工' + esc(extra) +
+        (r.note ? ' <span class="note">[📝' + esc(r.note) + ']</span>' : '') + '</div></div>' +
+        '<div class="amt' + (r.missingSlip?' frozen':'') + '">' + money(sub) + '</div></div></div>';
+    }).join('');
+  }
+  var carry = +w.carryOver || 0;
+  pay += carry;
+  document.getElementById('unpaidList').innerHTML = html + (carry ? '<div class="meta" style="text-align:right">含前期結轉 ' + money(carry) + '</div>' : '');
+  document.getElementById('sumPay').textContent = money(pay);
+  document.getElementById('sumPayDays').textContent = payDays.toFixed(1) + ' 工';
+  document.getElementById('sumFrozen').textContent = money(fz);
+  document.getElementById('sumFrozenN').textContent = fzN + ' 張缺單';
+  document.getElementById('dockAmt').textContent = money(pay);
+
+  var hs = w.history || [];
+  document.getElementById('historyList').innerHTML = !hs.length ? '<div class="empty">尚無歷史結算紀錄</div>' : hs.map(function(h){
+    var lines = '';
+    if((h.items||[]).length){
+      lines = h.items.map(function(it){ return '<div class="batch-d">・' + esc(it.date) + ' ' + esc(it.site) + '　' + money(rowTotal(it)) + (it.note ? ' [' + esc(it.note) + ']' : '') + '</div>'; }).join('');
+    } else if(h.summary){
+      lines = String(h.summary).split('、').map(function(s){ return '<div class="batch-d">・' + esc(s) + '</div>'; }).join('');
+    }
+    return '<div class="batch"><div class="batch-h"><div class="batch-t">' + esc(h.batch || '') + ' · ' + esc(h.settleDate) + '</div>' +
+      '<div class="batch-a">實領 ' + money(h.actualPaid) + '</div></div>' +
+      '<div class="batch-d" style="color:#8fa095">' + esc(h.daysStr || '') + (h.method ? '｜' + esc(h.method) : '') + (+h.remainCarry ? '｜結轉 ' + money(h.remainCarry) : '') + '</div>' + lines + '</div>';
   }).join('');
 }
 
-window.selectWorker = function(name){
-  db.activeWorker = name;
-  saveDb();
-  renderAll();
-};
-
-function renderAll(){
-  var name = db.activeWorker;
-  var w = db.workers[name];
-  if(!w) return;
-
-  document.getElementById('workerTitleName').textContent = name;
-  document.getElementById('workerHistoryTitle').textContent = name;
-  renderWorkerScroller();
-
-  var payableDays = 0;
-  var payableAmt = 0;
-  var frozenCount = 0;
-  var frozenAmt = 0;
-
-  var unpaidHtml = '';
-  if(!w.unpaid.length){
-    unpaidHtml = `<div style="padding:30px;text-align:center;color:var(--dim);font-size:13px">
-      🎉 <strong>${name}</strong> 目前沒有未結清的出工紀錄！<br>
-      今日若有存薪或已補簽單，可點右上角「➕ 補登一天」。
-    </div>`;
-  } else {
-    unpaidHtml = w.unpaid.map(function(r, idx){
-      var sub = calcRowTotal(r);
-      if(r.missingSlip){
-        frozenCount++;
-        frozenAmt += sub;
-      } else {
-        payableDays += Number(r.days)||0;
-        payableAmt += sub;
-      }
-
-      var roleBtns = Object.keys(w.rates).map(function(rk){
-        return `<button onclick="changeRole(${idx}, '${rk}')" class="r-btn ${r.role===rk?'active':''}">${rk}</button>`;
-      }).join('');
-
-      return `
-        <div class="item-card ${r.missingSlip?'missing':''}">
-          <div class="item-row1">
-            <div class="item-date">
-              <span>📅</span> <span>${r.date}</span>
-              ${r.rocKey ? `<a href="sheets.html" target="_blank" style="color:var(--blue);font-size:11px;text-decoration:none;font-weight:700">🔗派工單</a>` : ''}
-            </div>
-            <button onclick="toggleSlip(${idx})" class="btn-slip ${r.missingSlip?'missing':'ok'}">
-              ${r.missingSlip ? '🚫 缺簽單 (點此解鎖)' : '✅ 已交單 (可領)'}
-            </button>
-          </div>
-
-          <div class="item-row2">
-            <div>
-              <div class="item-site">${r.site}</div>
-              <div style="font-size:11px;color:var(--steel);margin-top:2px">
-                ${r.role} $${r.price} · ${r.days}工
-                ${r.otAmount ? ` +加班$${r.otAmount}` : ''}
-                ${r.adjAmount ? (r.adjAmount>0?` +津貼$${r.adjAmount}`:` -先拿$${Math.abs(r.adjAmount)}`) : ''}
-                ${r.note ? `<span style="color:var(--warn);margin-left:4px">[📝${r.note}]</span>` : ''}
-              </div>
-            </div>
-            <div class="item-sub ${r.missingSlip?'frozen':''}">
-              $${sub.toLocaleString()}
-            </div>
-          </div>
-
-          <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px dashed #2b3d2e;padding-top:8px;margin-top:8px">
-            <div class="role-group">${roleBtns}</div>
-            <button onclick="removeRow(${idx})" style="background:none;border:none;color:var(--alert);font-size:12px;cursor:pointer">✕ 刪除</button>
-          </div>
-        </div>
-      `;
-    }).join('');
-  }
-  document.getElementById('unpaidList').innerHTML = unpaidHtml;
-
-  // 結算統計卡
-  payableAmt += (Number(w.carryOver)||0);
-  document.getElementById('sumPayable').textContent = '$' + payableAmt.toLocaleString();
-  document.getElementById('sumPayableDays').textContent = payableDays.toFixed(1) + ' 工已交單';
-  document.getElementById('sumFrozen').textContent = '$' + frozenAmt.toLocaleString();
-  document.getElementById('sumFrozenCount').textContent = frozenCount + ' 張缺單留底';
-
-  var actInput = document.getElementById('actualPayInput');
-  actInput.value = payableAmt;
-  document.getElementById('dockAmt').textContent = '$' + payableAmt.toLocaleString();
-  updateSettleDiff();
-
-  // 歷史存摺
-  var historyHtml = '';
-  if(!w.history.length){
-    historyHtml = '<div style="padding:30px;text-align:center;color:var(--dim);font-size:13px">尚無歷史結算紀錄。</div>';
-  } else {
-    historyHtml = w.history.map(function(h, hIdx){
-      var lines = h.items.map(function(it){
-        return `<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0;color:var(--steel)">
-          <span>・${it.date} ${it.site} (${it.role})</span>
-          <span style="font-weight:700;color:var(--txt)">$${calcRowTotal(it).toLocaleString()}</span>
-        </div>`;
-      }).join('');
-      return `
-        <div style="background:#16221a;border:1px solid #3d5342;border-radius:10px;padding:12px;margin-bottom:10px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-            <div style="font-size:14px;font-weight:800;color:var(--goldlit)">第 ${h.batchNo} 批 · ${h.settleDate}</div>
-            <div style="font-size:15px;font-weight:900;color:var(--ok)">實領 $${h.actualPaid.toLocaleString()}</div>
-          </div>
-          <div style="background:#111a12;border-radius:8px;padding:8px;margin-bottom:8px">${lines}</div>
-          <div style="text-align:right">
-            <button onclick="undoSettle(${hIdx})" style="background:none;border:1px solid #c4472f;color:#c4472f;padding:3px 8px;border-radius:4px;font-size:11px;cursor:pointer">↩️ 撤銷退回重算</button>
-          </div>
-        </div>
-      `;
-    }).join('');
-  }
-  document.getElementById('historyList').innerHTML = historyHtml;
-}
-
-window.updateSettleDiff = function(){
-  var name = db.activeWorker;
-  var w = db.workers[name];
-  var payableAmt = w.unpaid.filter(r=>!r.missingSlip).reduce((acc,r)=>acc+calcRowTotal(r),0) + (Number(w.carryOver)||0);
-  var act = parseInt(document.getElementById('actualPayInput').value,10)||0;
-  var diff = payableAmt - act;
-  var hint = document.getElementById('settleHint');
-  var btn = document.getElementById('settleBtn');
-
-  if(payableAmt === 0 && w.unpaid.length > 0){
-    hint.innerHTML = '<span style="color:var(--alert)">⚠️ 所有出工皆缺簽單，已全部凍結！不可領款！</span>';
-    btn.disabled = true;
-  } else if(diff === 0){
-    hint.innerHTML = '✅ 已交單部分剛好結清 ($' + act.toLocaleString() + ')';
-    hint.style.color = 'var(--ok)';
-    btn.disabled = false;
-  } else if(diff > 0){
-    hint.innerHTML = '📌 尚有 $' + diff.toLocaleString() + ' 未發，將自動結轉下期';
-    hint.style.color = 'var(--warn)';
-    btn.disabled = false;
-  } else {
-    hint.innerHTML = '⚠️ 超發/預支 $' + Math.abs(diff).toLocaleString() + '，將結轉下期扣回';
-    hint.style.color = 'var(--alert)';
-    btn.disabled = false;
-  }
-};
-
-window.toggleSlip = function(idx){
-  var w = db.workers[db.activeWorker];
-  var r = w.unpaid[idx];
-  r.missingSlip = !r.missingSlip;
-  if(r.missingSlip){
-    r.note = "簽單未帶回";
-    showToast(`🚫 已凍結 ${r.date} 薪資！缺單不能領！`);
-  } else {
-    r.note = "已補簽單";
-    showToast(`✅ 已解鎖 ${r.date} 薪資！納入可領！`);
-  }
-  saveDb();
-  renderAll();
-};
-
-window.changeRole = function(idx, roleName){
-  var w = db.workers[db.activeWorker];
-  w.unpaid[idx].role = roleName;
-  w.unpaid[idx].price = w.rates[roleName] || 1500;
-  saveDb();
-  renderAll();
-};
-
-window.removeRow = function(idx){
-  if(confirm("確定要移除此筆出工紀錄嗎？")){
-    db.workers[db.activeWorker].unpaid.splice(idx,1);
-    saveDb();
-    renderAll();
-  }
-};
-
-window.addManualDay = function(){
-  var w = db.workers[db.activeWorker];
-  w.unpaid.push({
-    id: Date.now(),
-    date: "115/10/30 (五)",
-    site: "民儒 新港街",
-    role: "粗工",
-    price: w.rates["粗工"] || 1500,
-    days: 1,
-    otHours: 0,
-    otAmount: 0,
-    adjAmount: 0,
-    note: "",
-    missingSlip: false,
-    rocKey: "1151030"
+window.copyLine = function(){
+  var w = PB.workers[activeWorker];
+  var ok = [], miss = [], total = (+w.carryOver||0);
+  (w.unpaid||[]).forEach(function(r){
+    var s = rowTotal(r);
+    if(r.missingSlip) miss.push('・' + r.date + ' ' + r.site + ' ' + money(s) + '（缺簽單，補單後才能領）');
+    else { total += s; ok.push('・' + r.date + ' ' + r.site + '｜' + r.role + ' ' + money(s)); }
   });
-  saveDb();
-  renderAll();
-  showToast("➕ 已新增出工明細！");
-};
-
-// 核心：確認結清發放 (使用自選領款日期)
-window.confirmSettle = function(){
-  var name = db.activeWorker;
-  var w = db.workers[name];
-  var payableRows = w.unpaid.filter(r => !r.missingSlip);
-  var missingRows = w.unpaid.filter(r => r.missingSlip);
-
-  if(!payableRows.length && w.carryOver === 0){
-    alert("目前沒有「已交簽單」的可領項目可供結清！");
-    return;
-  }
-
-  var payableAmt = payableRows.reduce((a,r)=>a+calcRowTotal(r),0) + (Number(w.carryOver)||0);
-  var actual = parseInt(document.getElementById('actualPayInput').value,10)||0;
-  var remain = payableAmt - actual;
-  var useDate = ROC_DATE_STR || formatRocDate(new Date());
-
-  if(!confirm(`確認結算「${name}」薪資？\n\n領款日期：${useDate}\n實發金額：$${actual.toLocaleString()}\n已交單結清：${payableRows.length} 筆\n缺簽單留底：${missingRows.length} 筆`)){
-    return;
-  }
-
-  var nextBatch = w.history.length > 0 ? Math.max(...w.history.map(h=>h.batchNo)) + 1 : 12;
-  w.history.unshift({
-    batchNo: nextBatch,
-    settleDate: useDate,
-    actualPaid: actual,
-    totalDue: payableAmt,
-    remainCarry: remain,
-    items: JSON.parse(JSON.stringify(payableRows))
-  });
-
-  w.unpaid = missingRows; // 缺單自動留在未領明細
-  w.carryOver = remain;
-
-  saveDb();
-  renderAll();
-
-  if(missingRows.length > 0){
-    alert(`🎉 結算完成！\n\n領款日期：${useDate}\n已成功發放 $${actual.toLocaleString()}！\n另有 ${missingRows.length} 筆「🚫 缺簽單」已自動留底，等繳回簽單後再結！`);
-  } else {
-    alert(`🎉 結算完成！\n\n領款日期：${useDate}\n已全數結清發放 $${actual.toLocaleString()}，已移入【歷史已領存摺】！`);
-  }
-
-  copyLineReport();
-};
-
-window.undoSettle = function(hIdx){
-  var w = db.workers[db.activeWorker];
-  if(confirm("確定要撤銷此筆結算紀錄並退回未領清單重算嗎？")){
-    var h = w.history.splice(hIdx,1)[0];
-    w.unpaid = h.items.concat(w.unpaid);
-    w.carryOver -= h.remainCarry;
-    saveDb();
-    renderAll();
-    showToast("↩️ 已撤銷結算，資料已退回重算！");
-  }
-};
-
-window.copyLineReport = function(){
-  var name = db.activeWorker;
-  var w = db.workers[name];
-  var payableRows = w.unpaid.filter(r=>!r.missingSlip);
-  var missingRows = w.unpaid.filter(r=>r.missingSlip);
-  var actual = parseInt(document.getElementById('actualPayInput').value,10)||0;
-  var useDate = ROC_DATE_STR || formatRocDate(new Date());
-
-  var lines = [
-    `【可樂工程行 薪資結算明細】`,
-    `姓名：${name}`,
-    `領款日期：${useDate}`,
-    `──────────────`,
-    `✅【已交簽單・本次發放】：`
-  ];
-
-  if(!payableRows.length && w.history.length > 0){
-    lines.push(`（已於 ${w.history[0].settleDate} 結清領取，明細已轉入存摺）`);
-    lines.push(`本次實發放現：$${w.history[0].actualPaid.toLocaleString()}`);
-  } else {
-    payableRows.forEach(function(r){
-      var sub = calcRowTotal(r);
-      lines.push(`・${r.date} ${r.site}｜${r.role} = $${sub.toLocaleString()}`);
-    });
-    lines.push(`──────────────`);
-    lines.push(`本次實發金額：$${actual.toLocaleString()}`);
-  }
-
-  if(missingRows.length > 0){
-    lines.push(`──────────────`);
-    lines.push(`🚫【未交簽單・暫扣留底待補】：`);
-    missingRows.forEach(function(r){
-      lines.push(`・${r.date} ${r.site} $${calcRowTotal(r).toLocaleString()} (⚠️缺單留待補交)`);
-    });
-  }
-
-  var text = lines.join('\n');
+  var L = ['【可樂工程行 薪資對帳】', '姓名：' + activeWorker, '──────────────', '✅ 已交單可領：'];
+  L = L.concat(ok.length ? ok : ['（無）']);
+  if(miss.length){ L.push('──────────────'); L.push('🚫 缺簽單暫扣：'); L = L.concat(miss); }
+  L.push('──────────────'); L.push('可領合計：' + money(total));
+  var t = L.join('\n');
   if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(text).then(function(){
-      showToast("📋 已複製 LINE 對帳明細！");
-    }).catch(function(){ prompt("請複製下方文字：", text); });
-  } else {
-    prompt("請複製下方文字：", text);
-  }
+    navigator.clipboard.writeText(t).then(function(){ toast('📋 已複製 LINE 對帳單'); }).catch(function(){ prompt('請複製：', t); });
+  } else { prompt('請複製：', t); }
 };
 
-// 通行密碼解鎖機制
-function b64(s){var bin=atob(s),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return u;}
+function b64(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
 function cat(a,b){var u=new Uint8Array(a.length+b.length);u.set(a,0);u.set(b,a.length);return u;}
 async function unlock(pw){
   var e=window.__ENC__; if(!e) throw new Error('no data');
@@ -730,40 +236,37 @@ async function unlock(pw){
   return JSON.parse(new TextDecoder().decode(pt));
 }
 
-function bootApp(){
+function boot(data){
+  RAW = data; PB = data.passbooks;
   document.getElementById('lock').style.display = 'none';
   document.getElementById('app').hidden = false;
-  quickSetSettleDate(0);
-  renderAll();
+  (data.dispatch_sheets||[]).forEach(function(s){ if(s && s.roc) URLS[s.roc] = s.url || ''; });
+  if(!PB || !PB.workers || !Object.keys(PB.workers).length){
+    document.getElementById('unpaidList').innerHTML = '<div class="empty">尚未取得存摺資料<br>（辦公室電腦發布後約 30 分鐘內出現）</div>';
+    document.getElementById('workerScroller').innerHTML = '';
+    return;
+  }
+  document.getElementById('updatedLine').textContent = '資料時間：' + (PB.updated || '—') + '（約每 30 分鐘更新，以辦公室 Excel 為準）';
+  activeWorker = Object.keys(PB.workers)[0];
+  if(PB.workers['林真德']) activeWorker = '林真德';
+  render();
 }
 
 async function tryPw(pw){
-  var err = document.getElementById('lerr');
-  var btn = document.getElementById('gobtn');
+  var err = document.getElementById('lerr'), btn = document.getElementById('gobtn');
   err.textContent = ''; btn.disabled = true;
   try{
-    await unlock(pw);
-    if(document.getElementById('remember').checked){
-      try{ localStorage.setItem('k7_crew_pw', pw); }catch(e){}
-    }
-    bootApp();
-  }catch(e){
-    err.textContent = '通行密碼錯誤 (預設 1201)';
-    btn.disabled = false;
-  }
+    var data = await unlock(pw);
+    if(document.getElementById('remember').checked){ try{ localStorage.setItem('k7_crew_pw', pw); }catch(e){} }
+    boot(data);
+  }catch(e){ err.textContent = '通行密碼錯誤'; btn.disabled = false; }
 }
-
 document.getElementById('gobtn').onclick = function(){ tryPw(document.getElementById('pw').value.trim()); };
 document.getElementById('pw').onkeydown = function(e){ if(e.key==='Enter') tryPw(this.value.trim()); };
-
-(async function init(){
-  var saved = '';
-  try{ saved = localStorage.getItem('k7_crew_pw') || ''; }catch(e){}
-  if(saved){
-    try{ await unlock(saved); bootApp(); return; }catch(e){}
-  }
+(async function(){
+  var s=''; try{ s = localStorage.getItem('k7_crew_pw') || ''; }catch(e){}
+  if(s){ try{ boot(await unlock(s)); }catch(e){} }
 })();
-
 })();
 </script>
 </body>
