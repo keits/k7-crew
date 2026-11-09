@@ -351,6 +351,326 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
 .badge-saved { background: #d08a2e; color: #050805; }
 .badge-noslip { background: #c4472f; color: #fff; }
 
+
+/* ---------- 工地人員查詢 Banner ---------- */
+.site-search-banner {
+  background: radial-gradient(ellipse at 50% 0%, #18281d 0%, #0d150e 100%);
+  border: 1.5px solid var(--golddim);
+  border-radius: 12px;
+  margin: 12px;
+  padding: 13px 14px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.5);
+  transition: border-color .2s;
+}
+.site-search-banner:focus-within {
+  border-color: var(--gold);
+}
+.ssb-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 9px;
+}
+.ssb-title {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--goldlit);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: .04em;
+}
+.ssb-sub {
+  font-size: 11px;
+  color: var(--steel);
+  font-weight: 600;
+}
+.ssb-input-row {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+.ssb-input-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+.ssb-input {
+  width: 100%;
+  padding: 9px 32px 9px 12px;
+  border-radius: 7px;
+  border: 1px solid var(--line2);
+  background: #060a07;
+  color: var(--txt);
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 600;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.ssb-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 8px rgba(201,168,76,.25);
+}
+.ssb-clear {
+  position: absolute;
+  right: 7px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: #233125;
+  color: var(--dim);
+  font-size: 11px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.ssb-clear:hover {
+  background: #364839;
+  color: #fff;
+}
+.ssb-btn {
+  flex: 0 0 auto;
+  padding: 0 14px;
+  height: 38px;
+  border-radius: 7px;
+  border: 1px solid var(--golddim);
+  background: linear-gradient(180deg, #c9a84c 0%, #8a7440 100%);
+  color: #0c110c;
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter .12s, transform .1s;
+}
+.ssb-btn:active {
+  transform: scale(.97);
+}
+.ssb-quick {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 9px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  -webkit-overflow-scrolling: touch;
+}
+.ssb-quick-label {
+  font-size: 10.5px;
+  color: var(--dim2);
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+.ssb-tag {
+  font-size: 11.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: #111a12;
+  border: 1px solid #28392b;
+  color: #c5d4c2;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all .12s;
+  flex: 0 0 auto;
+}
+.ssb-tag:hover {
+  border-color: var(--gold);
+  color: var(--goldlit);
+  background: #172419;
+}
+.ssb-result {
+  margin-top: 13px;
+  padding-top: 13px;
+  border-top: 1px dashed var(--line2);
+}
+.ssb-site-header {
+  background: #121d14;
+  border: 1px solid #283d2a;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+}
+.ssb-site-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ssb-site-name {
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--goldlit);
+  letter-spacing: .03em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ssb-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.ssb-act-btn {
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 5px;
+  border: 1px solid var(--golddim);
+  background: rgba(201,168,76,.18);
+  color: var(--goldlit);
+  cursor: pointer;
+  transition: all .12s;
+}
+.ssb-act-btn:hover {
+  background: rgba(201,168,76,.35);
+}
+.ssb-act-btn.copied {
+  background: var(--ok);
+  color: #050805;
+  border-color: var(--ok);
+}
+.ssb-site-stats {
+  display: flex;
+  gap: 10px;
+  font-size: 11px;
+  color: var(--dim);
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+.ssb-site-stats b {
+  color: var(--steel);
+}
+.ssb-worker-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+@media(min-width: 580px) {
+  .ssb-worker-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.ssb-worker-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: #0f1610;
+  border: 1px solid #243525;
+  cursor: pointer;
+  transition: all .12s;
+  user-select: none;
+}
+.ssb-worker-card:hover {
+  border-color: var(--gold);
+  background: #152217;
+}
+.ssb-wc-left {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  flex: 1;
+}
+.ssb-wc-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex: 0 0 auto;
+}
+.ssb-wc-name {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #eef3ea;
+  white-space: nowrap;
+}
+.ssb-wc-s7 {
+  font-size: 9px;
+  color: #c9762f;
+  font-weight: 900;
+  border: 1px solid rgba(201,118,47,.4);
+  padding: 0 3px;
+  border-radius: 2px;
+}
+.ssb-wc-meta {
+  font-size: 10.5px;
+  color: var(--dim2);
+  white-space: nowrap;
+  margin-left: 2px;
+}
+.ssb-wc-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+.ssb-wc-count {
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--goldlit);
+  background: rgba(201,168,76,.15);
+  border: 1px solid rgba(201,168,76,.3);
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.ssb-wc-act {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.ssb-wc-act.call {
+  background: rgba(111,169,107,.18);
+  color: #8fc98a;
+  border: 1px solid rgba(111,169,107,.35);
+}
+.ssb-wc-act.line {
+  background: rgba(6,199,85,.15);
+  color: #4fd88a;
+  border: 1px solid rgba(6,199,85,.35);
+}
+.ssb-multi-matches {
+  font-size: 12px;
+  color: var(--dim);
+  margin-bottom: 8px;
+}
+.ssb-match-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+.ssb-match-pill {
+  padding: 5px 11px;
+  background: #172419;
+  border: 1px solid var(--golddim);
+  color: var(--goldlit);
+  border-radius: 5px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .12s;
+}
+.ssb-match-pill:hover, .ssb-match-pill.active {
+  background: var(--gold);
+  color: #0c110c;
+}
+
 </style>
 </head>
 <body>
@@ -392,6 +712,8 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
       </div>
       <button class="dbtn" id="next" aria-label="後一天">›</button>
       <button class="todaybtn" id="gotoToday">今日</button>
+      <button class="printbtn" id="navSiteSearchBtn" title="手動輸入工地名稱查詢去過人員" aria-label="手動輸入工地名稱查詢去過人員" style="width:auto;padding:0 9px;font-size:12px;font-weight:700;letter-spacing:.03em;color:var(--goldlit);border-color:var(--golddim);display:flex;align-items:center;gap:3px">🔍 查工地</button>
+
       <button class="printbtn" id="printDay" title="直接列印到 L6190 印表機" aria-label="直接列印到印表機">🖨</button>
       <button class="printbtn" id="previewDay" title="下載當日領款單 Excel 原檔" aria-label="下載領款單原檔">⬇</button>
       <a class="staticlink" id="sheetsLink" href="sheets.html" target="_blank" rel="noopener" style="color:var(--goldlit);border-color:var(--golddim)">📝 派工表</a>
@@ -414,6 +736,28 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
       <div class="qpb-grid" id="qpbGrid"></div>
     </div>
 
+    <!-- 工地去過人員查詢專區 -->
+    <div class="site-search-banner" id="siteSearchBanner">
+      <div class="ssb-head">
+        <div class="ssb-title">
+          <span>🔍</span> <span>工地人員查詢</span>
+        </div>
+        <span class="ssb-sub" id="ssbTotalSites">— 個歷史工地</span>
+      </div>
+      <div class="ssb-input-row">
+        <div class="ssb-input-wrap">
+          <input type="text" id="siteSearchInput" class="ssb-input" list="siteSearchList" placeholder="輸入工地名稱（例如：長富、民儒、東鈺...）" autocomplete="off">
+          <button id="siteSearchClear" class="ssb-clear" title="清除" hidden>✕</button>
+        </div>
+        <button id="siteSearchBtn" class="ssb-btn">查 詢</button>
+      </div>
+      <datalist id="siteSearchList"></datalist>
+      <div class="ssb-quick" id="ssbQuickWrap">
+        <span class="ssb-quick-label">熱門工地：</span>
+        <div id="ssbQuickTags" style="display:inline-flex;gap:5px;flex-wrap:nowrap"></div>
+      </div>
+      <div class="ssb-result" id="ssbResult" hidden></div>
+    </div>
 
   <main>
     <div class="sect-h">指揮部<span class="r" id="hqState"></span></div>
@@ -472,7 +816,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   <div class="shbody" id="shBody"></div>
 </div>
 
-<script src="data.enc.js?v=08feda11"></script>
+<script src="data.enc.js?v=ce11f0f5"></script>
 <script>
 (function(){
 "use strict";
@@ -604,11 +948,12 @@ function plateSize(){
 }
 
 /* ---------- 索引 ---------- */
+/* ---------- 索引 ---------- */
 function buildIndex(days){
   PIDX={};SIDX={};
   days.forEach(function(d){
     d.sites.forEach(function(s){
-      if(!SIDX[s.name]) SIDX[s.name]={name:s.name,daySet:{},people:{},headByDate:{},total:0};
+      if(!SIDX[s.name]) SIDX[s.name]={name:s.name,daySet:{},people:{},personDates:{},headByDate:{},total:0};
       SIDX[s.name].daySet[d.date]=1;
       SIDX[s.name].headByDate[d.date]=s.people.length;
       SIDX[s.name].total+=s.people.length;
@@ -618,6 +963,8 @@ function buildIndex(days){
         PIDX[p.n].daySet[d.date]=1;
         PIDX[p.n].sites[s.name]=(PIDX[p.n].sites[s.name]||0)+1;
         SIDX[s.name].people[p.n]=(SIDX[s.name].people[p.n]||0)+1;
+        if(!SIDX[s.name].personDates[p.n]) SIDX[s.name].personDates[p.n]=[];
+        SIDX[s.name].personDates[p.n].push(d.date);
         if(p.tag) PIDX[p.n].tags[d.date+'|'+s.name]=p.tag;
       });
     });
@@ -1111,6 +1458,179 @@ function personSheet(name){
   showSheet();
 }
 
+
+function renderSiteCrewResults(siteName, multipleMatches){
+  var resBox = document.getElementById('ssbResult');
+  if(!resBox) return;
+  resBox.hidden = false;
+
+  var s = SIDX[siteName];
+  if(!s){
+    resBox.innerHTML = '<div style="text-align:center;padding:16px 8px;color:#e2705c;font-size:13.5px">查無此工地資料</div>';
+    return;
+  }
+
+  var days = Object.keys(s.daySet).length;
+  var allDates = Object.keys(s.daySet).sort();
+  var dateRange = allDates.length ? (allDates[0].slice(5).replace('-','/') + ' ～ ' + allDates[allDates.length-1].slice(5).replace('-','/')) : '';
+  var ppl = Object.keys(s.people).sort(function(a,b){ return s.people[b] - s.people[a]; });
+  
+  var multiHtml = '';
+  if(multipleMatches && multipleMatches.length > 1){
+    multiHtml = '<div class="ssb-multi-matches">找到 <b>' + multipleMatches.length + '</b> 個相符工地：<div class="ssb-match-pills">'
+      + multipleMatches.map(function(sn){
+          var cnt = SIDX[sn] ? Object.keys(SIDX[sn].people).length : 0;
+          var isCur = (sn === siteName);
+          return '<button class="ssb-match-pill' + (isCur ? ' active' : '') + '" data-site="' + esc(sn) + '">'
+            + esc(sn) + ' (' + cnt + '人)</button>';
+        }).join('')
+      + '</div></div>';
+  }
+
+  var headerHtml = '<div class="ssb-site-header">'
+    + '<div class="ssb-site-title-row">'
+      + '<div class="ssb-site-name">🏢 ' + esc(siteName) + '</div>'
+      + '<div class="ssb-actions">'
+        + '<button class="ssb-act-btn" id="ssbCopyBtn" data-copy-site="' + esc(siteName) + '">📋 複製人員名單</button>'
+        + '<button class="ssb-act-btn" data-open-site="' + esc(siteName) + '">📖 陣地詳細檔案</button>'
+      + '</div>'
+    + '</div>'
+    + '<div class="ssb-site-stats">'
+      + '<span>去過人員 <b>' + ppl.length + '</b> 位</span>'
+      + '<span>進駐 <b>' + days + '</b> 天</span>'
+      + '<span>累計出工 <b>' + s.total + '</b> 人次</span>'
+      + (dateRange ? '<span>期間 <b>' + dateRange + '</b></span>' : '')
+    + '</div>'
+  + '</div>';
+
+  var workerCards = ppl.map(function(n){
+    var cnt = s.people[n];
+    var e = (DATA.employees && DATA.employees[n]) || {};
+    var p = PIDX[n] || {};
+    var isS7 = p.s7 || e.s7;
+    var st = e.status || '';
+    var dates = (s.personDates && s.personDates[n]) || [];
+    var lastDt = dates.length ? dates[dates.length-1].slice(5).replace('-','/') : '';
+    
+    var bb = e.basic || {};
+    var telHref = bb.phone ? 'tel:' + String(bb.phone).replace(/[^0-9+]/g,'') : '';
+    var lineHref = lineUrl(bb.line);
+    if(!lineHref && bb.phone){
+      var p10 = String(bb.phone).replace(/[^0-9]/g,'').replace(/^886/,'0');
+      if(/^09\d{8}$/.test(p10)){ lineHref = 'https://line.me/ti/p/' + p10; }
+    }
+
+    var stBadge = st ? ('<span class="statusb ' + (st==='在職'?'on':(st==='打工'?'pt':(st==='履歷未更新'?'warn':'no'))) + '" style="font-size:8.5px;padding:1px 4px;margin-left:4px">' + esc(st) + '</span>') : '';
+
+    return '<div class="ssb-worker-card" data-p="' + esc(n) + '">'
+      + '<div class="ssb-wc-left">'
+        + '<span class="ssb-wc-dot" style="background:' + capColor(isS7, false) + '"></span>'
+        + '<span class="ssb-wc-name">' + esc(n) + '</span>'
+        + (isS7 ? '<span class="ssb-wc-s7">S7</span>' : '')
+        + stBadge
+        + (lastDt ? '<span class="ssb-wc-meta">最近 ' + lastDt + '</span>' : '')
+      + '</div>'
+      + '<div class="ssb-wc-right">'
+        + '<span class="ssb-wc-count">' + cnt + ' 次</span>'
+        + (telHref ? '<a class="ssb-wc-act call" href="' + telHref + '" title="撥電話">📞</a>' : '')
+        + (lineHref ? '<a class="ssb-wc-act line" href="' + lineHref + '" target="_blank" rel="noopener" title="開 LINE">💬</a>' : '')
+      + '</div>'
+    + '</div>';
+  }).join('');
+
+  resBox.innerHTML = multiHtml + headerHtml + '<div class="ssb-worker-list">' + workerCards + '</div>';
+}
+
+function selectSiteCrew(siteName){
+  var inp = document.getElementById('siteSearchInput');
+  if(inp) inp.value = siteName;
+  var clr = document.getElementById('siteSearchClear');
+  if(clr) clr.hidden = false;
+  renderSiteCrewResults(siteName, null);
+}
+
+function copySiteCrew(siteName){
+  var s = SIDX[siteName];
+  if(!s) return;
+  var ppl = Object.keys(s.people).sort(function(a,b){ return s.people[b] - s.people[a]; });
+  var days = Object.keys(s.daySet).length;
+  var text = '【可樂工程行 · ' + siteName + ' 去過人員名單】\n'
+    + '進駐天數：' + days + ' 天 · 累計人次：' + s.total + ' 人次 · 去過師傅：' + ppl.length + ' 位\n'
+    + '-----------------------------------\n';
+  ppl.forEach(function(n, i){
+    var cnt = s.people[n];
+    var dates = (s.personDates && s.personDates[n]) || [];
+    var lastDt = dates.length ? dates[dates.length-1].slice(5).replace('-','/') : '';
+    var isS7 = (PIDX[n] && PIDX[n].s7) ? ' (S7)' : '';
+    text += (i+1) + '. ' + n + isS7 + ' — ' + cnt + '次' + (lastDt ? ' (最近 ' + lastDt + ')' : '') + '\n';
+  });
+
+  function ok(){
+    var btn = document.getElementById('ssbCopyBtn') || document.getElementById('shCopyBtn');
+    if(btn){
+      btn.classList.add('copied');
+      var old = btn.textContent;
+      btn.textContent = '✓ 已複製名單';
+      setTimeout(function(){ btn.classList.remove('copied'); btn.textContent = old; }, 2000);
+    }
+  }
+
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(ok).catch(function(){ prompt('請複製名單：', text); });
+  }else{
+    prompt('請複製名單：', text);
+  }
+}
+
+function handleSiteSearch(){
+  var inp = document.getElementById('siteSearchInput');
+  if(!inp) return;
+  var val = inp.value.trim();
+  var resBox = document.getElementById('ssbResult');
+  if(!resBox) return;
+
+  if(!val){
+    resBox.hidden = false;
+    resBox.innerHTML = '<div style="text-align:center;padding:12px;color:var(--dim2);font-size:12.5px">請輸入工地名稱進行查詢</div>';
+    return;
+  }
+
+  var siteNames = Object.keys(SIDX);
+  // 1. Exact match
+  if(SIDX[val]){
+    renderSiteCrewResults(val, null);
+    return;
+  }
+
+  // 2. Partial match
+  var matches = siteNames.filter(function(name){
+    return name.toLowerCase().indexOf(val.toLowerCase()) >= 0;
+  });
+
+  if(matches.length === 0){
+    var topSites = siteNames.slice().sort(function(a,b){
+      return Object.keys(SIDX[b].daySet).length - Object.keys(SIDX[a].daySet).length;
+    }).slice(0, 10);
+
+    resBox.hidden = false;
+    resBox.innerHTML = '<div style="text-align:center;padding:16px 8px;color:var(--dim)">'
+      + '<div style="font-size:14px;color:#e2705c;font-weight:700;margin-bottom:6px">查無符合「' + esc(val) + '」的工地</div>'
+      + '<div style="font-size:12px;color:var(--dim2);margin-bottom:10px">請檢查輸入，或直接點選歷史工地查看：</div>'
+      + '<div class="ssb-match-pills" style="justify-content:center">'
+      + topSites.map(function(sn){
+          return '<button class="ssb-match-pill" data-site="' + esc(sn) + '">' + esc(sn) + '</button>';
+        }).join('')
+      + '</div></div>';
+    return;
+  }
+
+  if(matches.length === 1){
+    renderSiteCrewResults(matches[0], null);
+  }else{
+    renderSiteCrewResults(matches[0], matches);
+  }
+}
+
 function siteSheet(siteName){
   var s=SIDX[siteName]; if(!s) return;
   var days=Object.keys(s.daySet).length;
@@ -1127,16 +1647,25 @@ function siteSheet(siteName){
     +'<div class="kvi"><div class="kv1 num">'+days+'</div><div class="kv2">進駐天數</div></div>'
     +'<div class="kvi"><div class="kv1 num">'+s.total+'</div><div class="kv2">累計人次</div></div></div>';
 
-  h+='<div class="sect">派駐過的師傅</div>';
+  h+='<div style="display:flex;justify-content:space-between;align-items:center;margin:14px 0 7px">'
+    +'<div class="sect" style="margin:0">派駐過的師傅（共 '+ppl.length+' 位）</div>'
+    +'<button class="ssb-act-btn" id="shCopyBtn" style="padding:2px 8px;font-size:11px" data-copy-site="'+esc(siteName)+'">📋 複製名單</button>'
+    +'</div>';
+
   ppl.forEach(function(n){
+    var dates = (s.personDates && s.personDates[n]) || [];
+    var lastDt = dates.length ? (' · 最近 ' + dates[dates.length-1].slice(5).replace('-','/')) : '';
+    var e = (DATA.employees && DATA.employees[n]) || {};
+    var st = e.status ? (' <span class="statusb '+(e.status==='在職'?'on':(e.status==='打工'?'pt':'no'))+'" style="font-size:8px;padding:1px 3px">'+esc(e.status)+'</span>') : '';
     h+='<div class="lrow" data-p="'+esc(n)+'" style="cursor:pointer"><div class="ld">'
-      +(PIDX[n]&&PIDX[n].s7?'S7 ':'')+esc(n)+'</div>'
-      +'<div class="ls2">出工 '+Object.keys(PIDX[n].daySet).length+' 天</div>'
+      +(PIDX[n]&&PIDX[n].s7?'S7 ':'')+esc(n)+st+'</div>'
+      +'<div class="ls2">出工 '+Object.keys(PIDX[n].daySet).length+' 天'+lastDt+'</div>'
       +'<span class="tagpill okp">'+s.people[n]+' 次</span></div>';
   });
   document.getElementById('shBody').innerHTML=h;
   showSheet();
 }
+
 
 /* ---------- 事件 ---------- */
 function bind(){
@@ -1194,6 +1723,85 @@ function bind(){
     var t=e.target.closest('[data-p]');
     if(t) personSheet(t.getAttribute('data-p'));
   });
+  /* 工地查詢事件 */
+  var sBtn = document.getElementById('siteSearchBtn');
+  if(sBtn) sBtn.onclick = handleSiteSearch;
+  var sInp = document.getElementById('siteSearchInput');
+  if(sInp){
+    sInp.addEventListener('keydown', function(e){
+      if(e.key === 'Enter') handleSiteSearch();
+    });
+    sInp.addEventListener('input', function(){
+      var clr = document.getElementById('siteSearchClear');
+      if(clr) clr.hidden = !sInp.value;
+      if(SIDX[sInp.value.trim()]){
+        renderSiteCrewResults(sInp.value.trim(), null);
+      }
+    });
+  }
+  var sClr = document.getElementById('siteSearchClear');
+  if(sClr){
+    sClr.onclick = function(){
+      sInp.value = '';
+      sClr.hidden = true;
+      var res = document.getElementById('ssbResult');
+      if(res) res.hidden = true;
+      sInp.focus();
+    };
+  }
+  var navSBtn = document.getElementById('navSiteSearchBtn');
+  if(navSBtn){
+    navSBtn.onclick = function(){
+      var b = document.getElementById('siteSearchBanner');
+      if(b){
+        b.scrollIntoView({behavior: 'smooth', block: 'center'});
+        if(sInp) setTimeout(function(){ sInp.focus(); }, 350);
+      }
+    };
+  }
+
+  var sTagsWrap = document.getElementById('ssbQuickTags');
+  if(sTagsWrap){
+    sTagsWrap.addEventListener('click', function(e){
+      var t = e.target.closest('[data-site]');
+      if(t) selectSiteCrew(t.getAttribute('data-site'));
+    });
+  }
+
+  var sResWrap = document.getElementById('ssbResult');
+  if(sResWrap){
+    sResWrap.addEventListener('click', function(e){
+      if(e.target.closest('a')) return;
+      var copyBtn = e.target.closest('[data-copy-site]');
+      if(copyBtn){
+        copySiteCrew(copyBtn.getAttribute('data-copy-site'));
+        return;
+      }
+      var openBtn = e.target.closest('[data-open-site]');
+      if(openBtn){
+        siteSheet(openBtn.getAttribute('data-open-site'));
+        return;
+      }
+      var sitePill = e.target.closest('.ssb-match-pill[data-site]');
+      if(sitePill){
+        selectSiteCrew(sitePill.getAttribute('data-site'));
+        return;
+      }
+      var pCard = e.target.closest('[data-p]');
+      if(pCard){
+        personSheet(pCard.getAttribute('data-p'));
+        return;
+      }
+    });
+  }
+
+  document.getElementById('sheet').addEventListener('click', function(e){
+    var copyBtn = e.target.closest('[data-copy-site]');
+    if(copyBtn){
+      copySiteCrew(copyBtn.getAttribute('data-copy-site'));
+    }
+  });
+
   document.getElementById('shClose').onclick=closeSheet;
   document.getElementById('mask').onclick=closeSheet;
   document.getElementById('logout').onclick=function(){
@@ -1225,6 +1833,25 @@ function boot(data){
   document.getElementById('fdays').textContent=data.day_count;
   document.getElementById('fppl').textContent=data.unique_people;
   document.getElementById('fsite').textContent=data.unique_sites;
+
+  /* 初始化工地查詢 */
+  var ssbTotal = document.getElementById('ssbTotalSites');
+  if(ssbTotal) ssbTotal.textContent = Object.keys(SIDX).length + ' 個歷史工地';
+  var sList = document.getElementById('siteSearchList');
+  if(sList){
+    sList.innerHTML = Object.keys(SIDX).sort().map(function(name){
+      return '<option value="' + esc(name) + '">';
+    }).join('');
+  }
+  var sTags = document.getElementById('ssbQuickTags');
+  if(sTags){
+    var topSites = Object.keys(SIDX).sort(function(a,b){
+      return Object.keys(SIDX[b].daySet).length - Object.keys(SIDX[a].daySet).length;
+    }).slice(0, 8);
+    sTags.innerHTML = topSites.map(function(name){
+      return '<span class="ssb-tag" data-site="' + esc(name) + '">' + esc(name) + '</span>';
+    }).join('');
+  }
 
   document.getElementById('lock').style.display='none';
   document.getElementById('app').hidden=false;
