@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="theme-color" content="#0c110c">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/logo_160.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="出工指揮">
 <title>可樂工程行 · 同仁存領薪存摺（手機檢視）</title>
 <style>
 :root{--panel:#111a12;--panel2:#16221a;--line:#2b3d2e;--line2:#3d5342;--gold:#c9a84c;--goldlit:#e3d48e;--steel:#93a396;--txt:#eef3ea;--dim:#8fa095;--alert:#c4472f;--warn:#d08a2e;--ok:#6fa96b;--blue:#5b9bff}
@@ -268,6 +275,13 @@ document.getElementById('pw').onkeydown = function(e){ if(e.key==='Enter') tryPw
   if(s){ try{ boot(await unlock(s)); }catch(e){} }
 })();
 })();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('sw.js').catch(function(e) { console.warn('SW:', e); });
+  });
+}
 </script>
 </body>
 </html>

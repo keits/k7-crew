@@ -1,0 +1,68 @@
+{
+  "name": "可樂工程行 · 出工指揮台",
+  "short_name": "出工指揮",
+  "description": "可樂工程行 每日出工指揮、派工連結控制台與存領薪存摺",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#0c110c",
+  "background_color": "#0c110c",
+  "lang": "zh-TW",
+  "id": "/k7-crew/",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "出工指揮",
+      "short_name": "指揮台",
+      "url": "./index.html",
+      "icons": [
+        {
+          "src": "assets/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "派工表",
+      "short_name": "派工表",
+      "url": "./sheets.html",
+      "icons": [
+        {
+          "src": "assets/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "同仁存領薪",
+      "short_name": "存領薪",
+      "url": "./passbook.html",
+      "icons": [
+        {
+          "src": "assets/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

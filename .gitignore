@@ -6,3 +6,5 @@ data.json
 *.sh
 *.cmd
 !data.enc.js
+!sw.js
+_print_preview.*
