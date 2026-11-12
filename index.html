@@ -723,7 +723,8 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
 
       <button class="printbtn" id="printDay" title="直接列印到 L6190 印表機" aria-label="直接列印到印表機">🖨</button>
       <button class="printbtn" id="previewDay" title="下載當日領款單 Excel 原檔" aria-label="下載領款單原檔">⬇</button>
-      <a class="staticlink" id="sheetsLink" href="sheets.html" target="_blank" rel="noopener" style="color:var(--goldlit);border-color:var(--golddim)">📝 派工表</a>
+      <a class="staticlink" id="daySheetLink" href="#" target="_blank" rel="noopener" style="color:var(--goldlit);border-color:var(--golddim);display:none;align-items:center;gap:3px">📋 派工單</a>
+      <a class="staticlink" id="sheetsLink" href="sheets.html" target="_blank" rel="noopener" style="color:var(--goldlit);border-color:var(--golddim)">📝 派工總表</a>
       <a class="staticlink" id="passbookLink" href="passbook.html" target="_blank" rel="noopener" style="color:var(--goldlit);border-color:var(--golddim)">📒 存領薪</a>
       <a class="staticlink" id="staticLink" href="/static" target="_blank" rel="noopener" hidden>📋 靜態版</a>
       <a class="staticlink" id="backLink" href="javascript:void(0)" hidden>← 返回</a>
@@ -780,6 +781,11 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
           <div class="fl">派出兵力</div>
         </div>
       </div>
+      <div class="hq-sheet-bar" id="hqSheetBar" style="display:none;margin-top:4px;padding:9px 12px;border-top:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.06);text-align:center">
+        <a id="hqSheetLink" href="#" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:9px 14px;background:linear-gradient(180deg,#213425,#152218);border:1px solid var(--gold);border-radius:6px;color:var(--goldlit);font-size:13px;font-weight:800;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,.4)">
+          <span>📋</span> <span id="hqSheetText">開啟當日手動派工單（Google Sheets）</span> <span style="font-size:11px;opacity:.7">›</span>
+        </a>
+      </div>
     </div>
 
     <div class="sect-h">陣地部署<span class="r" id="postCnt"></span></div>
@@ -823,7 +829,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   <div class="shbody" id="shBody"></div>
 </div>
 
-<script src="data.enc.js?v=fa65cfbb"></script>
+<script src="data.enc.js?v=644b62ce"></script>
 <script>
 (function(){
 "use strict";
@@ -1014,12 +1020,13 @@ function renderStandby(){
     d.sites.forEach(function(s){
       (s.people||[]).forEach(function(p){
         assignedSet[(p.n||'')+'|'+(p.s7?'1':'0')]=true;
+        assignedSet[p.n||'']=true;
       });
     });
   }
   var reported=sb.reported||[];
   var list=reported.filter(function(p){
-    return !assignedSet[(p.n||'')+'|'+(p.s7?'1':'0')];
+    return !assignedSet[(p.n||'')+'|'+(p.s7?'1':'0')] && !assignedSet[p.n||''];
   });
   var reported_count=reported.length;
   var assigned_count=reported.filter(function(p){
@@ -1147,6 +1154,35 @@ function renderQuickPassbook(){
 
 function renderDay(){
   renderQuickPassbook();
+
+  /* 當日手動派工單連結 (Google Sheets) */
+  var sheetObj = null;
+  if(DATA && Array.isArray(DATA.dispatch_sheets)){
+    sheetObj = DATA.dispatch_sheets.find(function(s){ return s.iso === curDate; });
+  }
+  var dayLink = document.getElementById('daySheetLink');
+  var hqBar = document.getElementById('hqSheetBar');
+  var hqLink = document.getElementById('hqSheetLink');
+  var hqText = document.getElementById('hqSheetText');
+  var dateLabel = curDate ? curDate.slice(5).replace('-','/') : '';
+
+  if(sheetObj && sheetObj.url){
+    var sheetTitle = '打開 ' + (sheetObj.label || dateLabel) + ' 手動派工單（Google Sheets）\n對應本機：手動派工\\' + (sheetObj.roc || '') + '.gsheet';
+    if(dayLink){
+      dayLink.href = sheetObj.url;
+      dayLink.title = sheetTitle;
+      dayLink.style.display = 'inline-flex';
+    }
+    if(hqBar && hqLink){
+      hqLink.href = sheetObj.url;
+      hqLink.title = sheetTitle;
+      hqBar.style.display = 'block';
+      if(hqText) hqText.textContent = '開啟 ' + (sheetObj.label || dateLabel) + ' 手動派工單 (' + (sheetObj.roc || '') + '.gsheet)';
+    }
+  } else {
+    if(dayLink) dayLink.style.display = 'none';
+    if(hqBar) hqBar.style.display = 'none';
+  }
 
   var d=BYDATE[curDate];
   var idx=DAYS.indexOf(curDate);
