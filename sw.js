@@ -58,13 +58,22 @@ self.addEventListener('fetch', (event) => {
           if (networkResponse && networkResponse.status === 200) {
             const resClone = networkResponse.clone();
             caches.open(CACHE_NAME).then((cache) => {
+              if (url.pathname.includes('data.enc.js')) {
+                cache.keys().then((keys) => {
+                  keys.forEach((k) => {
+                    if (k.url.includes('data.enc.js') && k.url !== req.url) {
+                      cache.delete(k);
+                    }
+                  });
+                });
+              }
               cache.put(req, resClone);
             });
           }
           return networkResponse;
         })
         .catch(async () => {
-          const cached = await caches.match(req);
+          const cached = await caches.match(req, { ignoreSearch: url.pathname.includes('data.enc.js') });
           if (cached) return cached;
           if (req.mode === 'navigate') {
             return caches.match('./index.html');

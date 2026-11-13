@@ -678,6 +678,160 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   color: #0c110c;
 }
 
+/* ---------- 進化升級：明日預覽條 / 收單動作 / 可調動名單 / 本月戰報 ---------- */
+.tmr-bar {
+  margin: 10px 12px 0;
+  padding: 9px 13px;
+  border-radius: 9px;
+  border: 1px solid var(--gold);
+  background: linear-gradient(90deg, rgba(201,168,76,.18) 0%, rgba(22,36,26,.92) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,.35);
+}
+.tmr-bar:active { transform: scale(.99); }
+.tmr-txt { font-size: 13px; font-weight: 800; color: var(--goldlit); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.tmr-btn { font-size: 11.5px; font-weight: 800; padding: 4px 10px; border-radius: 5px; background: var(--gold); color: #050805; white-space: nowrap; }
+
+.qpb-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 9px;
+  border-top: 1px dashed var(--line2);
+  flex-wrap: wrap;
+}
+.qpb-sum { font-size: 11.5px; color: var(--steel); font-weight: 700; }
+.qpb-btn-group { display: flex; gap: 6px; }
+.qpb-act-btn {
+  padding: 5px 10px;
+  font-size: 11.5px;
+  font-weight: 800;
+  border-radius: 6px;
+  border: 1px solid var(--line2);
+  background: #16221a;
+  color: var(--goldlit);
+  cursor: pointer;
+}
+.qpb-act-btn.primary {
+  border-color: var(--golddim);
+  background: rgba(201,168,76,.18);
+}
+.qpb-act-btn:active { transform: scale(.97); }
+
+.hq-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  padding: 8px 12px 10px;
+  border-top: 1px solid rgba(201,168,76,.2);
+  background: rgba(201,168,76,.05);
+}
+.hq-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 10px;
+  background: linear-gradient(180deg,#213425,#152218);
+  border: 1px solid var(--golddim);
+  border-radius: 6px;
+  color: var(--goldlit);
+  font-size: 12.5px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,.35);
+}
+.hq-btn:active { transform: scale(.98); }
+
+.pool-box {
+  margin: 0 12px;
+  background: var(--panel);
+  border: 1px solid var(--line2);
+  border-radius: 8px;
+  padding: 11px 12px;
+}
+.pool-hint { font-size: 11.5px; color: var(--dim); margin-bottom: 9px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.pool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 6px;
+}
+.pool-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: #0d140e;
+  border: 1px solid #243326;
+  cursor: pointer;
+}
+.pool-card:hover { border-color: var(--golddim); }
+.pool-left { min-width: 0; flex: 1; }
+.pool-name { font-size: 12.5px; font-weight: 800; color: var(--txt); display: flex; align-items: center; gap: 4px; }
+.pool-sub { font-size: 10px; color: var(--dim2); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pool-acts { display: flex; gap: 4px; flex: 0 0 auto; }
+.pool-act {
+  font-size: 11px;
+  padding: 3px 5px;
+  border-radius: 4px;
+  text-decoration: none;
+  background: rgba(111,169,107,.16);
+  border: 1px solid rgba(111,169,107,.35);
+  color: #8fc98a;
+  line-height: 1;
+}
+.pool-act.line {
+  background: rgba(6,199,85,.14);
+  border-color: rgba(6,199,85,.35);
+  color: #4fd88a;
+}
+
+.intel-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 9px;
+  padding: 0 12px;
+}
+@media(min-width: 680px){
+  .intel-grid { grid-template-columns: 1fr 1fr; }
+}
+.intel-card {
+  background: var(--panel);
+  border: 1px solid var(--line2);
+  border-radius: 8px;
+  padding: 11px 12px;
+}
+.intel-title {
+  font-size: 12.5px;
+  font-weight: 900;
+  color: var(--goldlit);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.intel-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid #1a261c;
+  font-size: 12px;
+  cursor: pointer;
+}
+.intel-row:last-child { border-bottom: 0; }
+.intel-bar-wrap { flex: 1; height: 5px; background: #0b110c; border-radius: 3px; overflow: hidden; max-width: 90px; }
+.intel-bar { height: 100%; background: linear-gradient(90deg, #8a7440, #c9a84c); border-radius: 3px; }
 </style>
 </head>
 <body>
@@ -724,24 +878,36 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
       <button class="printbtn" id="printDay" title="直接列印到 L6190 印表機" aria-label="直接列印到印表機">🖨</button>
       <button class="printbtn" id="previewDay" title="下載當日領款單 Excel 原檔" aria-label="下載領款單原檔">⬇</button>
       <a class="staticlink" id="daySheetLink" href="#" target="_blank" rel="noopener" style="color:var(--goldlit);border-color:var(--golddim);display:none;align-items:center;gap:3px">📋 派工單</a>
-      <a class="staticlink" id="sheetsLink" href="sheets.html" target="_blank" rel="noopener" style="color:var(--goldlit);border-color:var(--golddim)">📝 派工總表</a>
-      <a class="staticlink" id="passbookLink" href="passbook.html" target="_blank" rel="noopener" style="color:var(--goldlit);border-color:var(--golddim)">📒 存領薪</a>
       <a class="staticlink" id="staticLink" href="/static" target="_blank" rel="noopener" hidden>📋 靜態版</a>
       <a class="staticlink" id="backLink" href="javascript:void(0)" hidden>← 返回</a>
     </div>
   </header>
 
   <div class="board" id="board"></div>
+
+  <!-- 明日預排提醒橫幅（當今日檢視且明日已有預建派工單時自動浮現） -->
+  <div class="tmr-bar" id="tmrBar" style="display:none">
+    <div class="tmr-txt" id="tmrTxt">🚀 明日派工已建檔</div>
+    <span class="tmr-btn">切換預覽 ›</span>
+  </div>
+
     <!-- 首頁下班收單專區 -->
     <div class="quick-passbook-banner" id="quickPassbookBanner">
       <div class="qpb-head">
         <div class="qpb-title">
-          <span>💰</span> <span>下班收單：今日誰沒拿現金？</span>
+          <span>💰</span> <span id="qpbTitleTxt">下班收單：誰沒拿現金？</span>
         </div>
         <a href="passbook.html" class="qpb-open-btn">打開存領薪存摺 ›</a>
       </div>
-      <div class="qpb-hint">點一下人名可切換「✅領現 / 💰存薪 / 🚫缺單」；林真德預設存薪。</div>
+      <div class="qpb-hint">點人名切換「✅領現 / 💰存薪 / 🚫缺單」（每日獨立紀錄；林真德預設存薪）。</div>
       <div class="qpb-grid" id="qpbGrid"></div>
+      <div class="qpb-actions" id="qpbActions">
+        <div class="qpb-sum" id="qpbSum">—</div>
+        <div class="qpb-btn-group">
+          <button class="qpb-act-btn" id="qpbResetBtn" type="button">↺ 重置預設</button>
+          <button class="qpb-act-btn primary" id="qpbCopyBtn" type="button">📋 複製收單回報</button>
+        </div>
+      </div>
     </div>
 
     <!-- 工地去過人員查詢專區 -->
@@ -781,10 +947,13 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
           <div class="fl">派出兵力</div>
         </div>
       </div>
-      <div class="hq-sheet-bar" id="hqSheetBar" style="display:none;margin-top:4px;padding:9px 12px;border-top:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.06);text-align:center">
-        <a id="hqSheetLink" href="#" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:9px 14px;background:linear-gradient(180deg,#213425,#152218);border:1px solid var(--gold);border-radius:6px;color:var(--goldlit);font-size:13px;font-weight:800;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,.4)">
-          <span>📋</span> <span id="hqSheetText">開啟當日手動派工單（Google Sheets）</span> <span style="font-size:11px;opacity:.7">›</span>
+      <div class="hq-actions">
+        <a id="hqSheetLink" class="hq-btn" href="sheets.html" target="_blank" rel="noopener">
+          <span>📋</span> <span id="hqSheetText">手動派工單</span>
         </a>
+        <button id="hqCopyDailyBtn" class="hq-btn" type="button">
+          <span>📢</span> <span id="hqCopyDailyTxt">複製當日出工日報</span>
+        </button>
       </div>
     </div>
 
@@ -794,6 +963,18 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
     <div id="standbyWrap" style="display:none">
       <div class="sect-h" style="margin-top:16px">待命人員<span class="r" id="sbCnt"></span></div>
       <div class="sbBox" id="standby"></div>
+    </div>
+
+    <!-- 新增實用戰情 1：當日休假／可緊急調動熟手雷達 -->
+    <div id="availablePoolWrap">
+      <div class="sect-h" style="margin-top:16px">可調動熟手雷達（近 30 日活躍 · 當日未排班）<span class="r" id="poolCnt"></span></div>
+      <div class="pool-box" id="availablePool"></div>
+    </div>
+
+    <!-- 新增實用戰情 2：當月陣地與主力戰將排行 -->
+    <div id="monthIntelWrap">
+      <div class="sect-h" style="margin-top:16px">當月戰力與陣地情報<span class="r" id="intelSub"></span></div>
+      <div class="intel-grid" id="monthIntel"></div>
     </div>
 
     <div class="sect-h" style="margin-top:14px">出工紀錄<span class="r" id="calCnt"></span></div>
@@ -829,7 +1010,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   <div class="shbody" id="shBody"></div>
 </div>
 
-<script src="data.enc.js?v=7194dbf9"></script>
+<script src="data.enc.js?v=a9841607"></script>
 <script>
 (function(){
 "use strict";

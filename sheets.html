@@ -365,7 +365,7 @@ footer{text-align:center;font-size:12px;color:var(--dim2);margin-top:36px;line-h
   <span>✓</span><span id="toastMsg">已複製 LINE 格式文字！</span>
 </div>
 
-<script src="data.enc.js?v=7194dbf9"></script>
+<script src="data.enc.js?v=a9841607"></script>
 <script>
 (function(){
 "use strict";
@@ -592,7 +592,7 @@ function renderSheetGrid(){
 
 function boot(data){
   RAW_DATA = data;
-  SHEETS = data.dispatch_sheets || [];
+  SHEETS = (data.dispatch_sheets || []).slice().sort(function(a,b){ return String(b.iso||'').localeCompare(String(a.iso||'')); });
 
   document.getElementById('fTotal').textContent = SHEETS.length;
   document.getElementById('fGen').textContent = data.generated || '剛剛';
@@ -610,7 +610,7 @@ function boot(data){
   };
 
   document.getElementById('logoutBtn').onclick = function(){
-    try{localStorage.removeItem('cola_explorer_pw');sessionStorage.removeItem('cola_explorer_pw');}catch(e){}
+    try{localStorage.removeItem('cola_explorer_pw');localStorage.removeItem('k7_crew_pw');sessionStorage.removeItem('cola_explorer_pw');}catch(e){}
     location.reload();
   };
 }
@@ -619,7 +619,7 @@ function boot(data){
 async function tryPw(pw, remember){
   try{
     var data = await unlock(pw);
-    if(remember){try{localStorage.setItem('cola_explorer_pw',pw);}catch(e){}}
+    if(remember){try{localStorage.setItem('cola_explorer_pw',pw);localStorage.setItem('k7_crew_pw',pw);}catch(e){}}
     try{sessionStorage.setItem('cola_explorer_pw',pw);}catch(e){}
     boot(data);
     return true;
@@ -644,7 +644,7 @@ pwin.addEventListener('keydown',function(e){if(e.key==='Enter')gobtn.click();});
 
 (function(){
   var pw = null;
-  try{pw = sessionStorage.getItem('cola_explorer_pw') || localStorage.getItem('cola_explorer_pw');}catch(e){}
+  try{pw = sessionStorage.getItem('cola_explorer_pw') || localStorage.getItem('cola_explorer_pw') || localStorage.getItem('k7_crew_pw');}catch(e){}
   if(pw){
     gobtn.textContent='驗證中…';gobtn.disabled=true;
     tryPw(pw, true).then(function(ok){

@@ -134,7 +134,7 @@ main{padding:0 12px}
 </div>
 <div id="toast"></div>
 
-<script src="data.enc.js?v=7194dbf9"></script>
+<script src="data.enc.js?v=a9841607"></script>
 <script>
 (function(){
 "use strict";
@@ -264,14 +264,27 @@ async function tryPw(pw){
   err.textContent = ''; btn.disabled = true;
   try{
     var data = await unlock(pw);
-    if(document.getElementById('remember').checked){ try{ localStorage.setItem('k7_crew_pw', pw); }catch(e){} }
+    if(document.getElementById('remember').checked){
+      try{
+        localStorage.setItem('cola_explorer_pw', pw);
+        localStorage.setItem('k7_crew_pw', pw);
+        sessionStorage.setItem('cola_explorer_pw', pw);
+      }catch(e){}
+    }
     boot(data);
   }catch(e){ err.textContent = '通行密碼錯誤'; btn.disabled = false; }
 }
 document.getElementById('gobtn').onclick = function(){ tryPw(document.getElementById('pw').value.trim()); };
 document.getElementById('pw').onkeydown = function(e){ if(e.key==='Enter') tryPw(this.value.trim()); };
 (async function(){
-  var s=''; try{ s = localStorage.getItem('k7_crew_pw') || ''; }catch(e){}
+  var s='';
+  try{
+    s = sessionStorage.getItem('cola_explorer_pw') || localStorage.getItem('cola_explorer_pw') || localStorage.getItem('k7_crew_pw') || '';
+    if(s){
+      localStorage.setItem('cola_explorer_pw', s);
+      sessionStorage.setItem('cola_explorer_pw', s);
+    }
+  }catch(e){}
   if(s){ try{ boot(await unlock(s)); }catch(e){} }
 })();
 })();
