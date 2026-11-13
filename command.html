@@ -678,6 +678,160 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   color: #0c110c;
 }
 
+/* ---------- 進化升級：明日預覽條 / 收單動作 / 可調動名單 / 本月戰報 ---------- */
+.tmr-bar {
+  margin: 10px 12px 0;
+  padding: 9px 13px;
+  border-radius: 9px;
+  border: 1px solid var(--gold);
+  background: linear-gradient(90deg, rgba(201,168,76,.18) 0%, rgba(22,36,26,.92) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,.35);
+}
+.tmr-bar:active { transform: scale(.99); }
+.tmr-txt { font-size: 13px; font-weight: 800; color: var(--goldlit); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.tmr-btn { font-size: 11.5px; font-weight: 800; padding: 4px 10px; border-radius: 5px; background: var(--gold); color: #050805; white-space: nowrap; }
+
+.qpb-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 9px;
+  border-top: 1px dashed var(--line2);
+  flex-wrap: wrap;
+}
+.qpb-sum { font-size: 11.5px; color: var(--steel); font-weight: 700; }
+.qpb-btn-group { display: flex; gap: 6px; }
+.qpb-act-btn {
+  padding: 5px 10px;
+  font-size: 11.5px;
+  font-weight: 800;
+  border-radius: 6px;
+  border: 1px solid var(--line2);
+  background: #16221a;
+  color: var(--goldlit);
+  cursor: pointer;
+}
+.qpb-act-btn.primary {
+  border-color: var(--golddim);
+  background: rgba(201,168,76,.18);
+}
+.qpb-act-btn:active { transform: scale(.97); }
+
+.hq-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  padding: 8px 12px 10px;
+  border-top: 1px solid rgba(201,168,76,.2);
+  background: rgba(201,168,76,.05);
+}
+.hq-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 10px;
+  background: linear-gradient(180deg,#213425,#152218);
+  border: 1px solid var(--golddim);
+  border-radius: 6px;
+  color: var(--goldlit);
+  font-size: 12.5px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,.35);
+}
+.hq-btn:active { transform: scale(.98); }
+
+.pool-box {
+  margin: 0 12px;
+  background: var(--panel);
+  border: 1px solid var(--line2);
+  border-radius: 8px;
+  padding: 11px 12px;
+}
+.pool-hint { font-size: 11.5px; color: var(--dim); margin-bottom: 9px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.pool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 6px;
+}
+.pool-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: #0d140e;
+  border: 1px solid #243326;
+  cursor: pointer;
+}
+.pool-card:hover { border-color: var(--golddim); }
+.pool-left { min-width: 0; flex: 1; }
+.pool-name { font-size: 12.5px; font-weight: 800; color: var(--txt); display: flex; align-items: center; gap: 4px; }
+.pool-sub { font-size: 10px; color: var(--dim2); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pool-acts { display: flex; gap: 4px; flex: 0 0 auto; }
+.pool-act {
+  font-size: 11px;
+  padding: 3px 5px;
+  border-radius: 4px;
+  text-decoration: none;
+  background: rgba(111,169,107,.16);
+  border: 1px solid rgba(111,169,107,.35);
+  color: #8fc98a;
+  line-height: 1;
+}
+.pool-act.line {
+  background: rgba(6,199,85,.14);
+  border-color: rgba(6,199,85,.35);
+  color: #4fd88a;
+}
+
+.intel-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 9px;
+  padding: 0 12px;
+}
+@media(min-width: 680px){
+  .intel-grid { grid-template-columns: 1fr 1fr; }
+}
+.intel-card {
+  background: var(--panel);
+  border: 1px solid var(--line2);
+  border-radius: 8px;
+  padding: 11px 12px;
+}
+.intel-title {
+  font-size: 12.5px;
+  font-weight: 900;
+  color: var(--goldlit);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.intel-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid #1a261c;
+  font-size: 12px;
+  cursor: pointer;
+}
+.intel-row:last-child { border-bottom: 0; }
+.intel-bar-wrap { flex: 1; height: 5px; background: #0b110c; border-radius: 3px; overflow: hidden; max-width: 90px; }
+.intel-bar { height: 100%; background: linear-gradient(90deg, #8a7440, #c9a84c); border-radius: 3px; }
 </style>
 </head>
 <body>
@@ -724,24 +878,36 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
       <button class="printbtn" id="printDay" title="直接列印到 L6190 印表機" aria-label="直接列印到印表機">🖨</button>
       <button class="printbtn" id="previewDay" title="下載當日領款單 Excel 原檔" aria-label="下載領款單原檔">⬇</button>
       <a class="staticlink" id="daySheetLink" href="#" target="_blank" rel="noopener" style="color:var(--goldlit);border-color:var(--golddim);display:none;align-items:center;gap:3px">📋 派工單</a>
-      <a class="staticlink" id="sheetsLink" href="sheets.html" target="_blank" rel="noopener" style="color:var(--goldlit);border-color:var(--golddim)">📝 派工總表</a>
-      <a class="staticlink" id="passbookLink" href="passbook.html" target="_blank" rel="noopener" style="color:var(--goldlit);border-color:var(--golddim)">📒 存領薪</a>
       <a class="staticlink" id="staticLink" href="/static" target="_blank" rel="noopener" hidden>📋 靜態版</a>
       <a class="staticlink" id="backLink" href="javascript:void(0)" hidden>← 返回</a>
     </div>
   </header>
 
   <div class="board" id="board"></div>
+
+  <!-- 明日預排提醒橫幅（當今日檢視且明日已有預建派工單時自動浮現） -->
+  <div class="tmr-bar" id="tmrBar" style="display:none">
+    <div class="tmr-txt" id="tmrTxt">🚀 明日派工已建檔</div>
+    <span class="tmr-btn">切換預覽 ›</span>
+  </div>
+
     <!-- 首頁下班收單專區 -->
     <div class="quick-passbook-banner" id="quickPassbookBanner">
       <div class="qpb-head">
         <div class="qpb-title">
-          <span>💰</span> <span>下班收單：今日誰沒拿現金？</span>
+          <span>💰</span> <span id="qpbTitleTxt">下班收單：誰沒拿現金？</span>
         </div>
         <a href="passbook.html" class="qpb-open-btn">打開存領薪存摺 ›</a>
       </div>
-      <div class="qpb-hint">點一下人名可切換「✅領現 / 💰存薪 / 🚫缺單」；林真德預設存薪。</div>
+      <div class="qpb-hint">點人名切換「✅領現 / 💰存薪 / 🚫缺單」（每日獨立紀錄；林真德預設存薪）。</div>
       <div class="qpb-grid" id="qpbGrid"></div>
+      <div class="qpb-actions" id="qpbActions">
+        <div class="qpb-sum" id="qpbSum">—</div>
+        <div class="qpb-btn-group">
+          <button class="qpb-act-btn" id="qpbResetBtn" type="button">↺ 重置預設</button>
+          <button class="qpb-act-btn primary" id="qpbCopyBtn" type="button">📋 複製收單回報</button>
+        </div>
+      </div>
     </div>
 
     <!-- 工地去過人員查詢專區 -->
@@ -781,10 +947,13 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
           <div class="fl">派出兵力</div>
         </div>
       </div>
-      <div class="hq-sheet-bar" id="hqSheetBar" style="display:none;margin-top:4px;padding:9px 12px;border-top:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.06);text-align:center">
-        <a id="hqSheetLink" href="#" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:9px 14px;background:linear-gradient(180deg,#213425,#152218);border:1px solid var(--gold);border-radius:6px;color:var(--goldlit);font-size:13px;font-weight:800;text-decoration:none;box-shadow:0 2px 6px rgba(0,0,0,.4)">
-          <span>📋</span> <span id="hqSheetText">開啟當日手動派工單（Google Sheets）</span> <span style="font-size:11px;opacity:.7">›</span>
+      <div class="hq-actions">
+        <a id="hqSheetLink" class="hq-btn" href="sheets.html" target="_blank" rel="noopener">
+          <span>📋</span> <span id="hqSheetText">手動派工單</span>
         </a>
+        <button id="hqCopyDailyBtn" class="hq-btn" type="button">
+          <span>📢</span> <span id="hqCopyDailyTxt">複製當日出工日報</span>
+        </button>
       </div>
     </div>
 
@@ -794,6 +963,18 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
     <div id="standbyWrap" style="display:none">
       <div class="sect-h" style="margin-top:16px">待命人員<span class="r" id="sbCnt"></span></div>
       <div class="sbBox" id="standby"></div>
+    </div>
+
+    <!-- 新增實用戰情 1：當日休假／可緊急調動熟手雷達 -->
+    <div id="availablePoolWrap">
+      <div class="sect-h" style="margin-top:16px">可調動熟手雷達（近 30 日活躍 · 當日未排班）<span class="r" id="poolCnt"></span></div>
+      <div class="pool-box" id="availablePool"></div>
+    </div>
+
+    <!-- 新增實用戰情 2：當月陣地與主力戰將排行 -->
+    <div id="monthIntelWrap">
+      <div class="sect-h" style="margin-top:16px">當月戰力與陣地情報<span class="r" id="intelSub"></span></div>
+      <div class="intel-grid" id="monthIntel"></div>
     </div>
 
     <div class="sect-h" style="margin-top:14px">出工紀錄<span class="r" id="calCnt"></span></div>
@@ -829,7 +1010,7 @@ footer{text-align:center;color:var(--dim2);font-size:10px;padding:18px 12px 8px;
   <div class="shbody" id="shBody"></div>
 </div>
 
-<script src="data.enc.js?v=1"></script>
+<script src="data.enc.js?v=a9841607"></script>
 <script>
 (function(){
 "use strict";
@@ -1105,55 +1286,260 @@ function downloadSheet(){
 
 
 
-var QPB_STATE_KEY = "COLA_PASSBOOK_STATE_V1";
+var QPB_STATE_KEY = "COLA_PASSBOOK_STATE_V2";
 function getQpbState(){
   try{
     var s = localStorage.getItem(QPB_STATE_KEY);
     if(s) return JSON.parse(s);
   }catch(e){}
-  return { todayStatus: {}, linUnpaid: [] };
+  return { byDate: {} };
+}
+function getDayQpbMap(dt){
+  var s = getQpbState();
+  return (s.byDate && s.byDate[dt]) ? s.byDate[dt] : {};
 }
 function setQpbWorkerStatus(name, nextSt){
   var s = getQpbState();
-  if(!s.todayStatus) s.todayStatus = {};
-  s.todayStatus[name] = nextSt;
+  if(!s.byDate) s.byDate = {};
+  if(!s.byDate[curDate]) s.byDate[curDate] = {};
+  s.byDate[curDate][name] = nextSt;
   try{ localStorage.setItem(QPB_STATE_KEY, JSON.stringify(s)); }catch(e){}
   renderQuickPassbook();
 }
+function resetQpbDay(){
+  var s = getQpbState();
+  if(s.byDate && s.byDate[curDate]){
+    delete s.byDate[curDate];
+    try{ localStorage.setItem(QPB_STATE_KEY, JSON.stringify(s)); }catch(e){}
+  }
+  renderQuickPassbook();
+}
+function copyQpbSummary(){
+  var d = BYDATE[curDate];
+  if(!d || !d.sites || !d.sites.length) return;
+  var map = getDayQpbMap(curDate);
+  var paid=[], saved=[], noslip=[], seen={};
+  d.sites.forEach(function(st){
+    st.people.forEach(function(p){
+      if(p.tag==='沒出來' || seen[p.n]) return;
+      seen[p.n]=true;
+      var status = map[p.n] || (p.n==='林真德'?'saved':'paid');
+      var label = p.n + ' (' + st.name + ')';
+      if(status==='saved') saved.push(label);
+      else if(status==='noslip') noslip.push(label);
+      else paid.push(label);
+    });
+  });
+  var dtLbl = curDate.slice(5).replace('-','/') + ' (' + wdOf(curDate) + ')';
+  var lines = [
+    '【可樂工程行 下班收單回報】',
+    '日期：' + dtLbl,
+    '1. 存薪 (' + saved.length + '人)：' + (saved.length ? saved.join('、') : '無'),
+    '2. 缺簽單 (' + noslip.length + '人)：' + (noslip.length ? noslip.join('、') : '無'),
+    '3. 領現 (' + paid.length + '人)：' + (paid.length ? paid.join('、') : '無')
+  ];
+  var txt = lines.join('\n');
+  var btn = document.getElementById('qpbCopyBtn');
+  function ok(){
+    if(btn){
+      var old = btn.textContent;
+      btn.textContent = '✓ 已複製收單';
+      setTimeout(function(){ btn.textContent = old; }, 1800);
+    }
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(ok).catch(function(){ prompt('請複製收單回報：', txt); });
+  } else { prompt('請複製收單回報：', txt); }
+}
 function renderQuickPassbook(){
   var box = document.getElementById('qpbGrid');
+  var sumEl = document.getElementById('qpbSum');
+  var titleEl = document.getElementById('qpbTitleTxt');
   if(!box) return;
+  var dtLbl = curDate ? curDate.slice(5).replace('-','/') : '今日';
+  if(titleEl) titleEl.textContent = dtLbl + ' 下班收單：誰沒拿現金？';
   var d = BYDATE[curDate];
   if(!d || !d.sites || !d.sites.length){
-    box.innerHTML = '<div style="grid-column:1/-1;font-size:12px;color:#8fa095;text-align:center">今日無出工名單</div>';
+    box.innerHTML = '<div style="grid-column:1/-1;font-size:12px;color:#8fa095;text-align:center">當日無出工名單</div>';
+    if(sumEl) sumEl.textContent = '當日無出工紀錄';
     return;
   }
-  var s = getQpbState();
+  var map = getDayQpbMap(curDate);
   var seen = {};
   var list = [];
   d.sites.forEach(function(st){
     st.people.forEach(function(p){
-      if(!seen[p.n]){
+      if(p.tag !== '沒出來' && !seen[p.n]){
         seen[p.n] = true;
         list.push(p.n);
       }
     });
   });
+  var cPaid=0, cSaved=0, cNo=0;
   box.innerHTML = list.map(function(n){
-    var st = (s.todayStatus && s.todayStatus[n]) ? s.todayStatus[n] : (n === '林真德' ? 'saved' : 'paid');
+    var st = map[n] ? map[n] : (n === '林真德' ? 'saved' : 'paid');
+    if(st==='saved') cSaved++; else if(st==='noslip') cNo++; else cPaid++;
     var badgeHtml = st === 'saved' ? '<span class="qpb-badge badge-saved">💰 存薪</span>' :
                     (st === 'noslip' ? '<span class="qpb-badge badge-noslip">🚫 缺單</span>' :
                     '<span class="qpb-badge badge-paid">✅ 領現</span>');
     var nextSt = st === 'paid' ? 'saved' : (st === 'saved' ? 'noslip' : 'paid');
-    return '<div class="qpb-card ' + st + '" onclick="setQpbWorkerStatus(\'' + n + '\', \'' + nextSt + '\')">' +
-             '<div class="qpb-cname">' + n + '</div>' +
+    return '<div class="qpb-card ' + st + '" data-qpb-name="' + esc(n) + '" data-qpb-next="' + nextSt + '">' +
+             '<div class="qpb-cname">' + esc(n) + '</div>' +
              badgeHtml +
            '</div>';
   }).join('');
+  if(sumEl){
+    sumEl.innerHTML = '領現 <b>'+cPaid+'</b> · 存薪 <b style="color:#d08a2e">'+cSaved+'</b> · 缺單 <b style="color:#e2705c">'+cNo+'</b>';
+  }
+}
+
+function copyDailyReport(){
+  var d = BYDATE[curDate];
+  if(!d || !d.sites || !d.sites.length){ alert('當日無出工紀錄可複製'); return; }
+  var dtLbl = curDate.slice(5).replace('-','/') + ' (' + wdOf(curDate) + ')';
+  var lines = [
+    '【可樂工程行 出工部署日報】',
+    '日期：' + dtLbl + '｜總兵力：' + d.head + ' 人｜陣地：' + d.sites.length + ' 處'
+  ];
+  var order = d.sites.slice().sort(function(a,b){return b.people.length-a.people.length;});
+  order.forEach(function(s, idx){
+    var names = s.people.map(function(p){
+      return (p.s7?'S7':'') + p.n + (p.tag?'('+p.tag+')':'');
+    }).join('、');
+    lines.push((idx+1) + '. ' + s.name + ' (' + s.people.length + '人)：' + names);
+  });
+  var sb = DATA.standby;
+  if(sb && sb.ok && sb.date === curDate && sb.standby && sb.standby.length){
+    var sbNames = sb.standby.map(function(x){ return (x.s7?'S7':'') + x.n; }).join('、');
+    lines.push('待命可調派 (' + sb.standby.length + '人)：' + sbNames);
+  }
+  var txt = lines.join('\n');
+  var btnTxt = document.getElementById('hqCopyDailyTxt');
+  function ok(){
+    if(btnTxt){
+      var old = btnTxt.textContent;
+      btnTxt.textContent = '✓ 已複製日報';
+      setTimeout(function(){ btnTxt.textContent = old; }, 1800);
+    }
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(ok).catch(function(){ prompt('請複製當日出工日報：', txt); });
+  } else { prompt('請複製當日出工日報：', txt); }
+}
+
+function renderAvailablePool(){
+  var wrap = document.getElementById('availablePoolWrap');
+  var box = document.getElementById('availablePool');
+  var cntEl = document.getElementById('poolCnt');
+  if(!wrap || !box || !DATA || !DATA.employees) return;
+  var d = BYDATE[curDate];
+  var onDuty = {};
+  if(d && Array.isArray(d.sites)){
+    d.sites.forEach(function(s){
+      (s.people||[]).forEach(function(p){ onDuty[p.n] = s.name; });
+    });
+  }
+  var dropped = (DATA.employee_meta && DATA.employee_meta.dropped) || [];
+  var candidates = [];
+  Object.keys(DATA.employees).forEach(function(n){
+    if(onDuty[n] || dropped.indexOf(n)>=0) return;
+    var e = DATA.employees[n];
+    if(!e || e.excluded || (e.last30||0) <= 0) return;
+    candidates.push({ name: n, emp: e });
+  });
+  candidates.sort(function(a,b){
+    return (b.emp.last30 - a.emp.last30) || (b.emp.days - a.emp.days);
+  });
+  if(cntEl) cntEl.textContent = '共 ' + candidates.length + ' 位休假熟手可調動';
+  if(!candidates.length){
+    box.innerHTML = '<div class="sbEmpty">近 30 日活躍熟手今日全員皆已排班。</div>';
+    return;
+  }
+  var shown = candidates.slice(0, 14);
+  var cardsHtml = shown.map(function(c){
+    var n = c.name, e = c.emp, bb = e.basic || {};
+    var topSite = (e.sites && e.sites.length) ? e.sites[0].n : '機動';
+    var telHref = bb.phone ? 'tel:' + String(bb.phone).replace(/[^0-9+]/g,'') : '';
+    var lineHref = lineUrl(bb.line);
+    if(!lineHref && bb.phone){
+      var p10 = String(bb.phone).replace(/[^0-9]/g,'').replace(/^886/,'0');
+      if(/^09\d{8}$/.test(p10)) lineHref = 'https://line.me/ti/p/' + p10;
+    }
+    return '<div class="pool-card" data-p="' + esc(n) + '">'
+      + '<div class="pool-left">'
+        + '<div class="pool-name">' + (e.s7?'<span style="color:#c9762f;font-size:9px">S7</span>':'') + esc(n) + '</div>'
+        + '<div class="pool-sub">近30日 ' + e.last30 + '工 · 常駐 ' + esc(topSite) + '</div>'
+      + '</div>'
+      + '<div class="pool-acts">'
+        + (telHref ? '<a class="pool-act" href="' + telHref + '" title="撥電話">📞</a>' : '')
+        + (lineHref ? '<a class="pool-act line" href="' + lineHref + '" target="_blank" rel="noopener" title="開 LINE">💬</a>' : '')
+      + '</div>'
+      + '</div>';
+  }).join('');
+  box.innerHTML = '<div class="pool-hint"><span>💡 臨時缺人或業主追加人力時，以下為當日未排班之近期主力熟手（點姓名看完整檔案）：</span></div>'
+    + '<div class="pool-grid">' + cardsHtml + '</div>';
+}
+
+function renderMonthIntel(){
+  var box = document.getElementById('monthIntel');
+  var subEl = document.getElementById('intelSub');
+  if(!box || !curDate) return;
+  var mNow = curDate.slice(0,7);
+  var siteCounts = {}, workerCounts = {}, s7Total = 0, totalManDays = 0, workDays = 0;
+  var dropped = (DATA.employee_meta && DATA.employee_meta.dropped) || [];
+  DAYS.forEach(function(iso){
+    if(iso.slice(0,7) !== mNow) return;
+    var d = BYDATE[iso];
+    if(!d || !d.sites || !d.sites.length) return;
+    workDays++;
+    d.sites.forEach(function(s){
+      var presentPpl = (s.people||[]).filter(function(p){ return p.tag !== '沒出來'; });
+      siteCounts[s.name] = (siteCounts[s.name]||0) + presentPpl.length;
+      presentPpl.forEach(function(p){
+        totalManDays++;
+        if(p.s7) s7Total++;
+        if(dropped.indexOf(p.n)<0){
+          workerCounts[p.n] = (workerCounts[p.n]||0) + (p.tag==='半天'?0.5:1);
+        }
+      });
+    });
+  });
+  var topSites = Object.keys(siteCounts).sort(function(a,b){ return siteCounts[b]-siteCounts[a]; }).slice(0, 6);
+  var topWorkers = Object.keys(workerCounts).sort(function(a,b){ return workerCounts[b]-workerCounts[a]; }).slice(0, 6);
+  var maxS = topSites.length ? siteCounts[topSites[0]] : 1;
+  var maxW = topWorkers.length ? workerCounts[topWorkers[0]] : 1;
+  var s7Pct = totalManDays > 0 ? Math.round((s7Total / totalManDays)*100) : 0;
+  if(subEl) subEl.textContent = mNow.replace('-','/') + ' · 營業 ' + workDays + ' 天 · S7 支援佔比 ' + s7Pct + '% (' + s7Total + '人次)';
+
+  var siteRows = topSites.map(function(sn, idx){
+    var c = siteCounts[sn];
+    var pct = Math.max(8, Math.round((c/maxS)*100));
+    return '<div class="intel-row" data-intel-site="' + esc(sn) + '">'
+      + '<span style="font-weight:700;color:#eef3ea">' + (idx+1) + '. ' + esc(sn) + '</span>'
+      + '<div class="intel-bar-wrap"><div class="intel-bar" style="width:' + pct + '%"></div></div>'
+      + '<span class="num" style="color:var(--goldlit);font-weight:800;min-width:44px;text-align:right">' + c + ' 人次</span>'
+      + '</div>';
+  }).join('') || '<div class="sbEmpty">本月尚無陣地紀錄</div>';
+
+  var workerRows = topWorkers.map(function(wn, idx){
+    var c = workerCounts[wn];
+    var pct = Math.max(8, Math.round((c/maxW)*100));
+    return '<div class="intel-row" data-p="' + esc(wn) + '">'
+      + '<span style="font-weight:700;color:#eef3ea">' + (idx+1) + '. ' + esc(wn) + '</span>'
+      + '<div class="intel-bar-wrap"><div class="intel-bar" style="width:' + pct + '%"></div></div>'
+      + '<span class="num" style="color:#8fc98a;font-weight:800;min-width:44px;text-align:right">' + c + ' 工</span>'
+      + '</div>';
+  }).join('') || '<div class="sbEmpty">本月尚無師傅出工紀錄</div>';
+
+  box.innerHTML =
+    '<div class="intel-card"><div class="intel-title"><span>🏗️ 當月主力陣地 TOP 6</span><span style="font-size:10.5px;color:var(--dim)">點工地看明細</span></div>' + siteRows + '</div>'
+    + '<div class="intel-card"><div class="intel-title"><span>👷 當月全勤戰將 TOP 6</span><span style="font-size:10.5px;color:var(--dim)">點姓名看檔案</span></div>' + workerRows + '</div>';
 }
 
 function renderDay(){
   renderQuickPassbook();
+  renderAvailablePool();
+  renderMonthIntel();
 
   /* 當日手動派工單連結 (Google Sheets) */
   var sheetObj = null;
@@ -1161,7 +1547,6 @@ function renderDay(){
     sheetObj = DATA.dispatch_sheets.find(function(s){ return s.iso === curDate; });
   }
   var dayLink = document.getElementById('daySheetLink');
-  var hqBar = document.getElementById('hqSheetBar');
   var hqLink = document.getElementById('hqSheetLink');
   var hqText = document.getElementById('hqSheetText');
   var dateLabel = curDate ? curDate.slice(5).replace('-','/') : '';
@@ -1173,15 +1558,39 @@ function renderDay(){
       dayLink.title = sheetTitle;
       dayLink.style.display = 'inline-flex';
     }
-    if(hqBar && hqLink){
+    if(hqLink){
       hqLink.href = sheetObj.url;
       hqLink.title = sheetTitle;
-      hqBar.style.display = 'block';
-      if(hqText) hqText.textContent = '開啟 ' + (sheetObj.label || dateLabel) + ' 手動派工單 (' + (sheetObj.roc || '') + '.gsheet)';
+      if(hqText) hqText.textContent = '📋 ' + (sheetObj.label || dateLabel) + ' 派工單';
     }
   } else {
     if(dayLink) dayLink.style.display = 'none';
-    if(hqBar) hqBar.style.display = 'none';
+    if(hqLink){
+      hqLink.href = 'sheets.html';
+      hqLink.title = '查看所有手動派工單';
+      if(hqText) hqText.textContent = '📋 派工總表';
+    }
+  }
+
+  /* 明日預覽橫幅 (#tmrBar) */
+  var tmrBar = document.getElementById('tmrBar');
+  var tmrText = document.getElementById('tmrText');
+  if(tmrBar && tmrText){
+    var futureDays = DAYS.filter(function(x){ return x > curDate && BYDATE[x] && BYDATE[x].head > 0; });
+    if(futureDays.length > 0){
+      var nextIso = futureDays[0];
+      var nextObj = BYDATE[nextIso];
+      tmrText.textContent = '🚀 明日 (' + nextIso.slice(5).replace('-','/') + ' ' + wdOf(nextIso).slice(1) + ') 派工已建檔：' + nextObj.head + ' 人 · ' + nextObj.sites.length + ' 處陣地';
+      tmrBar.style.display = 'flex';
+      tmrBar.onclick = function(){
+        curDate = nextIso;
+        curMonth = curDate.slice(0,7);
+        renderDay();
+        window.scrollTo({top:0,behavior:'smooth'});
+      };
+    } else {
+      tmrBar.style.display = 'none';
+    }
   }
 
   var d=BYDATE[curDate];
@@ -1229,7 +1638,8 @@ function renderDay(){
      '<div class="bcell"><div class="bv num">'+d.head
        +(delta!=null?' <span class="delta '+(delta>0?'up':delta<0?'down':'flat')+'">'+(delta>0?'▲'+delta:delta<0?'▼'+Math.abs(delta):'—')+'</span>':'')
        +'</div><div class="bl">總兵力'+(delta!=null?' · 較前日':'')+'</div></div>'
-    +'<div class="bcell"><div class="bv num">'+d.sites.length+'</div><div class="bl">陣地（處）</div></div>'
+    +'<div class="bcell"><div class="bv num">'+d.sites.length+'</div><div class="bl">陣地（處）</div>'
+       +'<div class="delta flat" style="color:#d88b45">'+(s7n>0?'S7 支援 '+s7n+' 人':'全自有人力')+'</div></div>'
     +'<div class="bcell '+(absent>0?'alert':'ok')+'"><div class="bv num">'+absent+'</div><div class="bl">未到</div>'
        +'<div class="delta flat">'+(half>0?'半日勤 '+half:'—')+'</div></div>'
     +'<div class="bcell"><div class="bv num">'+mTotal+'</div><div class="bl">本月累計（工）</div></div>';
@@ -1334,8 +1744,9 @@ function lineUrl(v){
   if(!v) return null;
   var s=String(v).trim().replace(/^電話號碼[:：]\s*/,'').replace(/\s/g,'');
   if(!s||s==='沒有設'||s==='無'||s==='none') return null;
-  if(/^09\d{8}$/.test(s)) return 'https://line.me/ti/p/'+s;
-  if(/^\+?8869\d{8}$/.test(s)) return 'https://line.me/ti/p/0'+s.replace(/^\+?886/,'');
+  var digits=s.replace(/-/g,'');
+  if(/^09\d{8}$/.test(digits)) return 'https://line.me/ti/p/'+digits;
+  if(/^\+?8869\d{8}$/.test(digits)) return 'https://line.me/ti/p/0'+digits.replace(/^\+?886/,'');
   return 'https://line.me/ti/p/~'+encodeURIComponent(s);
 }
 
@@ -1766,6 +2177,42 @@ function bind(){
     var t=e.target.closest('[data-p]');
     if(t) personSheet(t.getAttribute('data-p'));
   });
+
+  /* 存領薪狀態切換與工具列事件 */
+  var qpbGridEl = document.getElementById('qpbGrid');
+  if(qpbGridEl){
+    qpbGridEl.addEventListener('click', function(e){
+      var card = e.target.closest('.qpb-card[data-qpb-name]');
+      if(!card) return;
+      setQpbWorkerStatus(card.getAttribute('data-qpb-name'), card.getAttribute('data-qpb-next'));
+    });
+  }
+  var qpbResetBtn = document.getElementById('qpbResetBtn');
+  if(qpbResetBtn) qpbResetBtn.onclick = resetQpbDay;
+  var qpbCopyBtn = document.getElementById('qpbCopyBtn');
+  if(qpbCopyBtn) qpbCopyBtn.onclick = copyQpbSummary;
+  var hqCopyDailyBtn = document.getElementById('hqCopyDailyBtn');
+  if(hqCopyDailyBtn) hqCopyDailyBtn.onclick = copyDailyReport;
+
+  /* 可調動熟手雷達與當月情報點擊事件 */
+  var poolEl = document.getElementById('availablePool');
+  if(poolEl){
+    poolEl.addEventListener('click', function(e){
+      if(e.target.closest('a')) return;
+      var t = e.target.closest('[data-p]');
+      if(t) personSheet(t.getAttribute('data-p'));
+    });
+  }
+  var intelEl = document.getElementById('monthIntel');
+  if(intelEl){
+    intelEl.addEventListener('click', function(e){
+      var p = e.target.closest('[data-p]');
+      if(p){ personSheet(p.getAttribute('data-p')); return; }
+      var s = e.target.closest('[data-intel-site]');
+      if(s){ siteSheet(s.getAttribute('data-intel-site')); return; }
+    });
+  }
+
   /* 工地查詢事件 */
   var sBtn = document.getElementById('siteSearchBtn');
   if(sBtn) sBtn.onclick = handleSiteSearch;
@@ -1777,8 +2224,11 @@ function bind(){
     sInp.addEventListener('input', function(){
       var clr = document.getElementById('siteSearchClear');
       if(clr) clr.hidden = !sInp.value;
-      if(SIDX[sInp.value.trim()]){
-        renderSiteCrewResults(sInp.value.trim(), null);
+      var q = sInp.value.trim().toLowerCase();
+      if(!q) return;
+      var exactKey = Object.keys(SIDX).find(function(k){ return k.toLowerCase() === q; });
+      if(exactKey){
+        renderSiteCrewResults(exactKey, null);
       }
     });
   }
@@ -1848,7 +2298,12 @@ function bind(){
   document.getElementById('shClose').onclick=closeSheet;
   document.getElementById('mask').onclick=closeSheet;
   document.getElementById('logout').onclick=function(){
-    try{localStorage.removeItem('cola_explorer_pw');sessionStorage.removeItem('cola_explorer_pw');}catch(e){}
+    try{
+      localStorage.removeItem('cola_explorer_pw');
+      localStorage.removeItem('k7_crew_pw');
+      sessionStorage.removeItem('cola_explorer_pw');
+      sessionStorage.removeItem('k7_crew_pw');
+    }catch(e){}
     location.reload();
   };
   document.addEventListener('keydown',function(e){
@@ -1868,7 +2323,16 @@ function boot(data){
   DATA=data; DAYS=data.days.map(function(d){return d.date;});
   data.days.forEach(function(d){BYDATE[d.date]=d;});
   buildIndex(data.days);
-  curDate=DAYS[DAYS.length-1]; curMonth=curDate.slice(0,7);
+
+  /* 預設定位至今日，避免預先建好明日派工單時跳到明日而隱藏今日待命 */
+  var t=new Date();
+  var todayIso=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
+  if(BYDATE[todayIso]) curDate=todayIso;
+  else{
+    var past=DAYS.filter(function(x){return x<=todayIso;});
+    curDate=past.length?past[past.length-1]:DAYS[DAYS.length-1];
+  }
+  curMonth=curDate.slice(0,7);
 
   document.getElementById('hrange').textContent=DAYS[0].slice(0,7)+' – '+DAYS[DAYS.length-1].slice(0,7);
   document.getElementById('fgen').textContent='更新 '+data.generated;
@@ -1905,8 +2369,16 @@ function boot(data){
 async function tryPw(pw,remember){
   try{
     var data=await unlock(pw);
-    if(remember){try{localStorage.setItem('cola_explorer_pw',pw);}catch(e){}}
-    try{sessionStorage.setItem('cola_explorer_pw',pw);}catch(e){}
+    if(remember){
+      try{
+        localStorage.setItem('cola_explorer_pw',pw);
+        localStorage.setItem('k7_crew_pw',pw);
+      }catch(e){}
+    }
+    try{
+      sessionStorage.setItem('cola_explorer_pw',pw);
+      sessionStorage.setItem('k7_crew_pw',pw);
+    }catch(e){}
     boot(data); return true;
   }catch(e){ return false; }
 }
@@ -1923,7 +2395,7 @@ pwin.addEventListener('keydown',function(e){if(e.key==='Enter')gobtn.click();});
 
 (function(){
   var pw=null;
-  try{pw=sessionStorage.getItem('cola_explorer_pw')||localStorage.getItem('cola_explorer_pw');}catch(e){}
+  try{pw=sessionStorage.getItem('cola_explorer_pw')||localStorage.getItem('cola_explorer_pw')||sessionStorage.getItem('k7_crew_pw')||localStorage.getItem('k7_crew_pw');}catch(e){}
   if(pw){
     gobtn.textContent='驗證中…';gobtn.disabled=true;
     tryPw(pw,true).then(function(ok){if(!ok){gobtn.textContent='進 入';gobtn.disabled=false;}});
